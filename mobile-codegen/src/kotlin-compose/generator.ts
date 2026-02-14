@@ -1,85 +1,16 @@
-import { A2UIComponent, CodeGenerator } from "../types";
+import {
+  A2UIComponent,
+  A2UIDocument,
+  CodeGenerator,
+  DesignToken,
+  buildComponentMap,
+  resolveDataBinding,
+  resolveStyleValue,
+  toPascalCase,
+} from "../types";
 
-function toPascalCase(name: string): string {
-  return name
-    .replace(/[^a-zA-Z0-9]/g, " ")
-    .split(" ")
-    .filter(Boolean)
-    .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
-    .join("");
-}
-
-function indent(level: number): string {
+function ind(level: number): string {
   return "    ".repeat(level);
-}
-
-function generateModifiers(component: A2UIComponent): string[] {
-  const mods: string[] = [];
-
-  if (component.style.width && component.style.height) {
-    mods.push(`.size(${component.style.width}.dp, ${component.style.height}.dp)`);
-  } else if (component.style.width) {
-    mods.push(`.width(${component.style.width}.dp)`);
-  } else if (component.style.height) {
-    mods.push(`.height(${component.style.height}.dp)`);
-  }
-
-  if (component.style.backgroundColor) {
-    mods.push(`.background(Color(android.graphics.Color.parseColor("${component.style.backgroundColor}")))`);
-  }
-
-  if (component.style.cornerRadius) {
-    mods.push(`.clip(RoundedCornerShape(${component.style.cornerRadius}.dp))`);
-  }
-
-  if (component.layout.padding) {
-    const p = component.layout.padding;
-    mods.push(`.padding(start = ${p.left}.dp, top = ${p.top}.dp, end = ${p.right}.dp, bottom = ${p.bottom}.dp)`);
-  }
-
-  if (component.style.opacity !== undefined && component.style.opacity < 1) {
-    mods.push(`.alpha(${component.style.opacity}f)`);
-  }
-
-  if (component.style.borderColor && component.style.borderWidth) {
-    mods.push(
-      `.border(${component.style.borderWidth}.dp, Color(android.graphics.Color.parseColor("${component.style.borderColor}")), RoundedCornerShape(${component.style.cornerRadius || 0}.dp))`
-    );
-  }
-
-  return mods;
-}
-
-function generateComposable(component: A2UIComponent, depth: number): string {
-  const i = indent(depth);
-
-  if (component.type === "text" && component.text) {
-    let args: string[] = [`text = "${component.text.content}"`];
-    if (component.text.fontSize) args.push(`fontSize = ${component.text.fontSize}.sp`);
-    if (component.text.fontWeight) args.push(`fontWeight = FontWeight.${mapWeight(component.text.fontWeight)}`);
-    if (component.text.color) args.push(`color = Color(android.graphics.Color.parseColor("${component.text.color}"))`);
-    return `${i}Text(\n${args.map((a) => `${indent(depth + 1)}${a}`).join(",\n")}\n${i})`;
-  }
-
-  if (component.type === "button" && component.text) {
-    const mods = generateModifiers(component);
-    const modStr = mods.length ? `\n${indent(depth + 2)}${mods.join("\n" + indent(depth + 2))}` : "";
-    return `${i}Button(\n${indent(depth + 1)}onClick = {},\n${indent(depth + 1)}modifier = Modifier${modStr}\n${i}) {\n${indent(depth + 1)}Text("${component.text.content}")\n${i}}`;
-  }
-
-  const container = component.layout.mode === "row" ? "Row" : "Column";
-  const mods = generateModifiers(component);
-  const modStr = mods.length ? `\n${indent(depth + 1)}modifier = Modifier\n${indent(depth + 2)}${mods.join("\n" + indent(depth + 2))},` : "";
-  const spacingArg = component.layout.spacing
-    ? `\n${indent(depth + 1)}${component.layout.mode === "row" ? "horizontalArrangement" : "verticalArrangement"} = Arrangement.spacedBy(${component.layout.spacing}.dp),`
-    : "";
-
-  let code = `${i}${container}(${modStr}${spacingArg}\n${i}) {\n`;
-  for (const child of component.children) {
-    code += generateComposable(child, depth + 1) + "\n";
-  }
-  code += `${i}}`;
-  return code;
 }
 
 function mapWeight(weight: string): string {
@@ -91,13 +22,114 @@ function mapWeight(weight: string): string {
   return "Normal";
 }
 
+function generateModifiers(
+  style: Record<string, unknown>,
+  tokens: Record<string, DesignToken>
+): string[] {
+  const mods: string[] = [];
+  const r = (key: string) => resolveStyleValue(style, key, tokens);
+
+  const width = r("width");
+  const height = r("height");
+  const bg = r("backgroundColor");
+  const radius = r("cornerRadius");
+  const opacity = r("opacity");
+  const borderColor = r("borderColor");
+  const borderWidth = r("borderWidth");
+  const pt = r("paddingTop");
+  const pr = r("paddingRight");
+  const pb = r("paddingBottom");
+  const pl = r("paddingLeft");
+
+  if (width && height) {
+    mods.push(`.size(${width}.dp, ${height}.dp)`);
+  } else if (width) {
+    mods.push(`.width(${width}.dp)`);
+  } else if (height) {
+    mods.push(`.height(${height}.dp)`);
+  }
+  if (bg) mods.push(`.background(Color(android.graphics.Color.parseColor("${bg}")))`);
+  if (radius) mods.push(`.clip(RoundedCornerShape(${radius}.dp))`);
+  if (pt || pr || pb || pl) {
+    mods.push(`.padding(start = ${pl || 0}.dp, top = ${pt || 0}.dp, end = ${pr || 0}.dp, bottom = ${pb || 0}.dp)`);
+  }
+  if (opacity !== undefined && opacity !== 1) mods.push(`.alpha(${opacity}f)`);
+  if (borderColor && borderWidth) {
+    mods.push(`.border(${borderWidth}.dp, Color(android.graphics.Color.parseColor("${borderColor}")), RoundedCornerShape(${radius || 0}.dp))`);
+  }
+
+  return mods;
+}
+
+function generateComposable(
+  comp: A2UIComponent,
+  compMap: Map<string, A2UIComponent>,
+  tokens: Record<string, DesignToken>,
+  dataModel: Record<string, unknown>,
+  depth: number
+): string {
+  const i = ind(depth);
+  const style = comp.style || {};
+
+  if (comp.component === "Text") {
+    const text = resolveDataBinding(comp.text, dataModel);
+    const r = (key: string) => resolveStyleValue(style, key, tokens);
+    const args: string[] = [`text = "${text}"`];
+    const fontSize = r("fontSize");
+    const fontWeight = r("fontWeight");
+    const color = r("color");
+    if (fontSize) args.push(`fontSize = ${fontSize}.sp`);
+    if (fontWeight) args.push(`fontWeight = FontWeight.${mapWeight(String(fontWeight))}`);
+    if (color) args.push(`color = Color(android.graphics.Color.parseColor("${color}"))`);
+    return `${i}Text(\n${args.map((a) => `${ind(depth + 1)}${a}`).join(",\n")}\n${i})`;
+  }
+
+  if (comp.component === "Button") {
+    const label = resolveDataBinding(comp.label, dataModel);
+    const mods = generateModifiers(style, tokens);
+    const modStr = mods.length ? `\n${ind(depth + 2)}${mods.join("\n" + ind(depth + 2))}` : "";
+    let btnText = `${ind(depth + 1)}Text("${label}")`;
+    if (comp.labelStyle) {
+      const lr = (key: string) => resolveStyleValue(comp.labelStyle!, key, tokens);
+      const fc = lr("color");
+      if (fc) btnText += `,\n${ind(depth + 2)}color = Color(android.graphics.Color.parseColor("${fc}"))`;
+    }
+    return `${i}Button(\n${ind(depth + 1)}onClick = {},\n${ind(depth + 1)}modifier = Modifier${modStr}\n${i}) {\n${btnText}\n${i}}`;
+  }
+
+  // Container
+  const container = comp.component === "Row" ? "Row" : "Column";
+  const mods = generateModifiers(style, tokens);
+  const modStr = mods.length ? `\n${ind(depth + 1)}modifier = Modifier\n${ind(depth + 2)}${mods.join("\n" + ind(depth + 2))},` : "";
+  const r = (key: string) => resolveStyleValue(style, key, tokens);
+  const gap = r("gap");
+  const spacingArg = gap
+    ? `\n${ind(depth + 1)}${comp.component === "Row" ? "horizontalArrangement" : "verticalArrangement"} = Arrangement.spacedBy(${gap}.dp),`
+    : "";
+
+  let code = `${i}${container}(${modStr}${spacingArg}\n${i}) {\n`;
+  const childIds = comp.children?.explicitList || [];
+  for (const childId of childIds) {
+    const child = compMap.get(childId);
+    if (child) {
+      code += generateComposable(child, compMap, tokens, dataModel, depth + 1) + "\n";
+    }
+  }
+  code += `${i}}`;
+  return code;
+}
+
 export class KotlinComposeGenerator implements CodeGenerator {
   platform = "kotlin-compose";
   fileExtension = ".kt";
 
-  generate(component: A2UIComponent): string {
-    const name = toPascalCase(component.name);
-    const body = generateComposable(component, 1);
+  generate(doc: A2UIDocument): string {
+    const compMap = buildComponentMap(doc.components);
+    const root = compMap.get("root");
+    if (!root) throw new Error("No root component found");
+
+    const name = toPascalCase(doc.surface.surfaceId);
+    const body = generateComposable(root, compMap, doc.designTokens, doc.dataModel, 1);
 
     return `package com.interfaceai.generated
 

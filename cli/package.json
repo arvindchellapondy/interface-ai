@@ -1,0 +1,16 @@
+{
+  "name": "@interface-ai/cli",
+  "version": "0.1.0",
+  "description": "CLI tool to convert A2UI JSON to native mobile code",
+  "bin": {
+    "interface-ai": "./dist/cli.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/cli.js"
+  },
+  "devDependencies": {
+    "typescript": "^5.4.0",
+    "@types/node": "^20.11.0"
+  }
+}

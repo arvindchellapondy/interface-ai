@@ -1,11 +1,4 @@
-import { A2UIComponent, A2UIDocument, A2UIComponentType } from "./schema";
-
-const VALID_TYPES: A2UIComponentType[] = [
-  "container", "card", "text", "button", "image",
-  "input", "box", "circle", "icon", "list", "scroll",
-];
-
-const VALID_LAYOUT_MODES = ["row", "column", "stack"];
+import { A2UIComponent, A2UIMessage, A2UIDocument } from "./schema";
 
 export interface ValidationError {
   path: string;
@@ -13,67 +6,136 @@ export interface ValidationError {
 }
 
 function validateComponent(
-  component: A2UIComponent,
-  path: string,
+  comp: A2UIComponent,
+  index: number,
+  allIds: Set<string>,
   errors: ValidationError[]
 ): void {
-  if (!component.version) {
-    errors.push({ path, message: "Missing version field" });
+  const path = `components[${index}]`;
+
+  if (!comp.id || typeof comp.id !== "string") {
+    errors.push({ path, message: "Missing or invalid id" });
   }
 
-  if (!component.name || typeof component.name !== "string") {
-    errors.push({ path, message: "Missing or invalid name" });
+  if (!comp.component || typeof comp.component !== "string") {
+    errors.push({ path, message: "Missing or invalid component type" });
   }
 
-  if (!VALID_TYPES.includes(component.type)) {
-    errors.push({ path, message: `Invalid type: "${component.type}"` });
-  }
-
-  if (!component.layout || !VALID_LAYOUT_MODES.includes(component.layout.mode)) {
-    errors.push({ path, message: "Missing or invalid layout.mode" });
-  }
-
-  if (!component.style) {
-    errors.push({ path, message: "Missing style object" });
-  }
-
-  if (component.text) {
-    if (typeof component.text.content !== "string") {
-      errors.push({ path: `${path}.text`, message: "text.content must be a string" });
+  if (comp.children) {
+    if (comp.children.explicitList) {
+      if (!Array.isArray(comp.children.explicitList)) {
+        errors.push({ path: `${path}.children`, message: "explicitList must be an array" });
+      }
     }
   }
 
-  if (component.children) {
-    if (!Array.isArray(component.children)) {
-      errors.push({ path, message: "children must be an array" });
-    } else {
-      component.children.forEach((child, i) => {
-        validateComponent(child, `${path}.children[${i}]`, errors);
+  if (comp.action) {
+    if (!comp.action.event || !comp.action.event.name) {
+      errors.push({ path: `${path}.action`, message: "action.event.name is required" });
+    }
+  }
+
+  allIds.add(comp.id);
+}
+
+function validateChildReferences(
+  components: A2UIComponent[],
+  errors: ValidationError[]
+): void {
+  const ids = new Set(components.map((c) => c.id));
+
+  components.forEach((comp, i) => {
+    if (comp.children?.explicitList) {
+      comp.children.explicitList.forEach((childId) => {
+        if (!ids.has(childId)) {
+          errors.push({
+            path: `components[${i}].children`,
+            message: `References unknown component id: "${childId}"`,
+          });
+        }
       });
     }
+  });
+
+  if (!ids.has("root")) {
+    errors.push({ path: "components", message: 'No component with id "root" found' });
   }
 }
 
-export function validate(doc: A2UIDocument): ValidationError[] {
+export function validateMessages(messages: A2UIMessage[]): ValidationError[] {
   const errors: ValidationError[] = [];
 
-  if (!doc.version) {
-    errors.push({ path: "root", message: "Missing document version" });
+  if (!Array.isArray(messages) || messages.length === 0) {
+    errors.push({ path: "root", message: "Expected a non-empty array of messages" });
+    return errors;
   }
 
-  if (!doc.source) {
-    errors.push({ path: "root", message: "Missing source field" });
-  }
+  let hasCreateSurface = false;
+  let hasUpdateComponents = false;
 
-  if (!doc.root) {
-    errors.push({ path: "root", message: "Missing root component" });
-  } else {
-    validateComponent(doc.root, "root", errors);
+  messages.forEach((msg, i) => {
+    const path = `messages[${i}]`;
+
+    if ("createSurface" in msg) {
+      hasCreateSurface = true;
+      if (!msg.createSurface.surfaceId) {
+        errors.push({ path: `${path}.createSurface`, message: "Missing surfaceId" });
+      }
+    } else if ("updateComponents" in msg) {
+      hasUpdateComponents = true;
+      if (!msg.updateComponents.surfaceId) {
+        errors.push({ path: `${path}.updateComponents`, message: "Missing surfaceId" });
+      }
+      if (!Array.isArray(msg.updateComponents.components)) {
+        errors.push({ path: `${path}.updateComponents`, message: "components must be an array" });
+      } else {
+        const allIds = new Set<string>();
+        msg.updateComponents.components.forEach((comp, j) => {
+          validateComponent(comp, j, allIds, errors);
+        });
+        validateChildReferences(msg.updateComponents.components, errors);
+      }
+    } else if ("updateDataModel" in msg) {
+      if (!msg.updateDataModel.surfaceId) {
+        errors.push({ path: `${path}.updateDataModel`, message: "Missing surfaceId" });
+      }
+    } else if ("deleteSurface" in msg) {
+      // valid
+    } else {
+      errors.push({ path, message: "Unknown message type" });
+    }
+  });
+
+  if (!hasCreateSurface) {
+    errors.push({ path: "root", message: "Missing createSurface message" });
+  }
+  if (!hasUpdateComponents) {
+    errors.push({ path: "root", message: "Missing updateComponents message" });
   }
 
   return errors;
 }
 
-export function isValid(doc: A2UIDocument): boolean {
-  return validate(doc).length === 0;
+export function validateDocument(doc: A2UIDocument): ValidationError[] {
+  const errors: ValidationError[] = [];
+
+  if (!doc.surface || !doc.surface.surfaceId) {
+    errors.push({ path: "surface", message: "Missing surface or surfaceId" });
+  }
+
+  if (!Array.isArray(doc.components) || doc.components.length === 0) {
+    errors.push({ path: "components", message: "components must be a non-empty array" });
+  } else {
+    const allIds = new Set<string>();
+    doc.components.forEach((comp, i) => {
+      validateComponent(comp, i, allIds, errors);
+    });
+    validateChildReferences(doc.components, errors);
+  }
+
+  return errors;
+}
+
+export function isValid(messages: A2UIMessage[]): boolean {
+  return validateMessages(messages).length === 0;
 }

@@ -1,4 +1,4 @@
-import { A2UIComponent, CodeGenerator } from "./types";
+import { A2UIDocument, CodeGenerator } from "./types";
 import { ReactNativeGenerator } from "./react-native/generator";
 import { SwiftUIGenerator } from "./swiftui/generator";
 import { KotlinComposeGenerator } from "./kotlin-compose/generator";
@@ -6,7 +6,8 @@ import { KotlinComposeGenerator } from "./kotlin-compose/generator";
 export { ReactNativeGenerator } from "./react-native/generator";
 export { SwiftUIGenerator } from "./swiftui/generator";
 export { KotlinComposeGenerator } from "./kotlin-compose/generator";
-export type { A2UIComponent, CodeGenerator } from "./types";
+export type { A2UIDocument, A2UIComponent, CodeGenerator, DesignToken } from "./types";
+export { resolveToken, resolveDataBinding } from "./types";
 
 const generators: Record<string, CodeGenerator> = {
   "react-native": new ReactNativeGenerator(),
@@ -14,17 +15,14 @@ const generators: Record<string, CodeGenerator> = {
   "kotlin-compose": new KotlinComposeGenerator(),
 };
 
-export function generateCode(
-  component: A2UIComponent,
-  platform: string
-): string {
+export function generateCode(doc: A2UIDocument, platform: string): string {
   const generator = generators[platform];
   if (!generator) {
     throw new Error(
       `Unknown platform: "${platform}". Available: ${Object.keys(generators).join(", ")}`
     );
   }
-  return generator.generate(component);
+  return generator.generate(doc);
 }
 
 export function getSupportedPlatforms(): string[] {

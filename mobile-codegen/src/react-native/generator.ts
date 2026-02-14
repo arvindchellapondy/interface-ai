@@ -1,107 +1,130 @@
-import { A2UIComponent, CodeGenerator } from "../types";
+import {
+  A2UIComponent,
+  A2UIDocument,
+  CodeGenerator,
+  DesignToken,
+  buildComponentMap,
+  resolveToken,
+  resolveDataBinding,
+  resolveStyleValue,
+  toPascalCase,
+  camelCase,
+} from "../types";
 
-function indent(code: string, level: number): string {
-  const spaces = "  ".repeat(level);
-  return code
-    .split("\n")
-    .map((line) => (line.trim() ? spaces + line : line))
-    .join("\n");
-}
-
-function toPascalCase(name: string): string {
-  return name
-    .replace(/[^a-zA-Z0-9]/g, " ")
-    .split(" ")
-    .filter(Boolean)
-    .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
-    .join("");
-}
-
-function generateStyles(component: A2UIComponent): string {
-  const styles: string[] = [];
-
-  if (component.layout.mode === "row") styles.push("flexDirection: 'row'");
-  if (component.layout.spacing) styles.push(`gap: ${component.layout.spacing}`);
-  if (component.layout.padding) {
-    const p = component.layout.padding;
-    styles.push(`paddingTop: ${p.top}`);
-    styles.push(`paddingRight: ${p.right}`);
-    styles.push(`paddingBottom: ${p.bottom}`);
-    styles.push(`paddingLeft: ${p.left}`);
-  }
-  if (component.style.width) styles.push(`width: ${component.style.width}`);
-  if (component.style.height) styles.push(`height: ${component.style.height}`);
-  if (component.style.backgroundColor)
-    styles.push(`backgroundColor: '${component.style.backgroundColor}'`);
-  if (component.style.cornerRadius)
-    styles.push(`borderRadius: ${component.style.cornerRadius}`);
-  if (component.style.opacity !== undefined && component.style.opacity < 1)
-    styles.push(`opacity: ${component.style.opacity}`);
-  if (component.style.borderColor)
-    styles.push(`borderColor: '${component.style.borderColor}'`);
-  if (component.style.borderWidth)
-    styles.push(`borderWidth: ${component.style.borderWidth}`);
-
-  return styles.join(",\n    ");
-}
-
-function generateTextStyles(component: A2UIComponent): string {
-  if (!component.text) return "";
-  const styles: string[] = [];
-  if (component.text.fontSize) styles.push(`fontSize: ${component.text.fontSize}`);
-  if (component.text.fontFamily)
-    styles.push(`fontFamily: '${component.text.fontFamily}'`);
-  if (component.text.fontWeight)
-    styles.push(`fontWeight: '${component.text.fontWeight}'`);
-  if (component.text.color) styles.push(`color: '${component.text.color}'`);
-  if (component.text.align) styles.push(`textAlign: '${component.text.align}'`);
-  return styles.join(",\n    ");
-}
-
-function generateJSX(component: A2UIComponent, depth: number): string {
-  if (component.type === "text" && component.text) {
-    return `${indent("", depth)}<Text style={styles.${camelCase(component.name)}}>${component.text.content}</Text>`;
-  }
-
-  if (component.type === "button" && component.text) {
-    return `${indent("", depth)}<TouchableOpacity style={styles.${camelCase(component.name)}}>\n${indent("", depth + 1)}<Text style={styles.${camelCase(component.name)}Text}>${component.text.content}</Text>\n${indent("", depth)}</TouchableOpacity>`;
-  }
-
-  const children = component.children.map((c) => generateJSX(c, depth + 1)).join("\n");
-  return `${indent("", depth)}<View style={styles.${camelCase(component.name)}}>\n${children}\n${indent("", depth)}</View>`;
-}
-
-function camelCase(name: string): string {
-  const pascal = toPascalCase(name);
-  return pascal.charAt(0).toLowerCase() + pascal.slice(1);
-}
-
-function collectStyles(component: A2UIComponent): string[] {
+function generateStyleObject(
+  style: Record<string, unknown>,
+  tokens: Record<string, DesignToken>
+): string {
   const entries: string[] = [];
-  entries.push(`  ${camelCase(component.name)}: {\n    ${generateStyles(component)}\n  }`);
+  const r = (key: string) => resolveStyleValue(style, key, tokens);
 
-  if (component.text) {
-    const suffix = component.type === "button" ? "Text" : "";
-    const textStyleStr = generateTextStyles(component);
-    if (textStyleStr) {
-      entries.push(`  ${camelCase(component.name)}${suffix}: {\n    ${textStyleStr}\n  }`);
-    }
+  const width = r("width");
+  const height = r("height");
+  const bg = r("backgroundColor");
+  const radius = r("cornerRadius");
+  const opacity = r("opacity");
+  const borderColor = r("borderColor");
+  const borderWidth = r("borderWidth");
+  const color = r("color");
+  const fontSize = r("fontSize");
+  const fontFamily = r("fontFamily");
+  const fontWeight = r("fontWeight");
+  const textAlign = r("textAlign");
+  const gap = r("gap");
+  const pt = r("paddingTop");
+  const pr = r("paddingRight");
+  const pb = r("paddingBottom");
+  const pl = r("paddingLeft");
+
+  if (width) entries.push(`width: ${width}`);
+  if (height) entries.push(`height: ${height}`);
+  if (bg) entries.push(`backgroundColor: '${bg}'`);
+  if (radius) entries.push(`borderRadius: ${radius}`);
+  if (opacity !== undefined && opacity !== 1) entries.push(`opacity: ${opacity}`);
+  if (borderColor) entries.push(`borderColor: '${borderColor}'`);
+  if (borderWidth) entries.push(`borderWidth: ${borderWidth}`);
+  if (color) entries.push(`color: '${color}'`);
+  if (fontSize) entries.push(`fontSize: ${fontSize}`);
+  if (fontFamily) entries.push(`fontFamily: '${fontFamily}'`);
+  if (fontWeight) entries.push(`fontWeight: '${fontWeight}'`);
+  if (textAlign) entries.push(`textAlign: '${textAlign}'`);
+  if (gap) entries.push(`gap: ${gap}`);
+  if (pt) entries.push(`paddingTop: ${pt}`);
+  if (pr) entries.push(`paddingRight: ${pr}`);
+  if (pb) entries.push(`paddingBottom: ${pb}`);
+  if (pl) entries.push(`paddingLeft: ${pl}`);
+
+  return entries.join(",\n    ");
+}
+
+function generateJSX(
+  comp: A2UIComponent,
+  compMap: Map<string, A2UIComponent>,
+  tokens: Record<string, DesignToken>,
+  dataModel: Record<string, unknown>,
+  depth: number
+): string {
+  const indent = "  ".repeat(depth);
+  const styleRef = `styles.${camelCase(comp.id)}`;
+
+  if (comp.component === "Text") {
+    const text = resolveDataBinding(comp.text, dataModel);
+    return `${indent}<Text style={${styleRef}}>${text}</Text>`;
   }
 
-  for (const child of component.children) {
-    entries.push(...collectStyles(child));
+  if (comp.component === "Button") {
+    const label = resolveDataBinding(comp.label, dataModel);
+    return `${indent}<TouchableOpacity style={${styleRef}} onPress={() => {}}>\n${indent}  <Text style={styles.${camelCase(comp.id)}Label}>${label}</Text>\n${indent}</TouchableOpacity>`;
   }
-  return entries;
+
+  // Container: Row, Column, Card
+  const isRow = comp.component === "Row";
+  const childIds = comp.children?.explicitList || [];
+  const childrenJSX = childIds
+    .map((id) => {
+      const child = compMap.get(id);
+      if (!child) return "";
+      return generateJSX(child, compMap, tokens, dataModel, depth + 1);
+    })
+    .filter(Boolean)
+    .join("\n");
+
+  return `${indent}<View style={${styleRef}}>\n${childrenJSX}\n${indent}</View>`;
 }
 
 export class ReactNativeGenerator implements CodeGenerator {
   platform = "react-native";
   fileExtension = ".tsx";
 
-  generate(component: A2UIComponent): string {
-    const componentName = toPascalCase(component.name);
-    const jsx = generateJSX(component, 2);
-    const styleEntries = collectStyles(component).join(",\n");
+  generate(doc: A2UIDocument): string {
+    const compMap = buildComponentMap(doc.components);
+    const root = compMap.get("root");
+    if (!root) throw new Error("No root component found");
+
+    const componentName = toPascalCase(doc.surface.surfaceId);
+    const jsx = generateJSX(root, compMap, doc.designTokens, doc.dataModel, 2);
+
+    // Collect styles
+    const styleEntries: string[] = [];
+    for (const comp of doc.components) {
+      const style = comp.style || {};
+      // Add flexDirection for Row components
+      if (comp.component === "Row") {
+        style["flexDirection"] = "row";
+      }
+      const styleStr = generateStyleObject(style, doc.designTokens);
+      if (styleStr) {
+        styleEntries.push(`  ${camelCase(comp.id)}: {\n    ${styleStr},\n  }`);
+      }
+
+      // Button label style
+      if (comp.component === "Button" && comp.labelStyle) {
+        const labelStr = generateStyleObject(comp.labelStyle, doc.designTokens);
+        if (labelStr) {
+          styleEntries.push(`  ${camelCase(comp.id)}Label: {\n    ${labelStr},\n  }`);
+        }
+      }
+    }
 
     return `import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
@@ -113,7 +136,7 @@ ${jsx}
 };
 
 const styles = StyleSheet.create({
-${styleEntries}
+${styleEntries.join(",\n")}
 });
 `;
   }

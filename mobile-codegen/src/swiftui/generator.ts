@@ -1,84 +1,16 @@
-import { A2UIComponent, CodeGenerator } from "../types";
+import {
+  A2UIComponent,
+  A2UIDocument,
+  CodeGenerator,
+  DesignToken,
+  buildComponentMap,
+  resolveDataBinding,
+  resolveStyleValue,
+  toPascalCase,
+} from "../types";
 
-function toPascalCase(name: string): string {
-  return name
-    .replace(/[^a-zA-Z0-9]/g, " ")
-    .split(" ")
-    .filter(Boolean)
-    .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
-    .join("");
-}
-
-function indent(level: number): string {
+function ind(level: number): string {
   return "    ".repeat(level);
-}
-
-function generateModifiers(component: A2UIComponent, depth: number): string {
-  const lines: string[] = [];
-  const i = indent(depth);
-
-  if (component.style.backgroundColor) {
-    lines.push(`${i}.background(Color(hex: "${component.style.backgroundColor}"))`);
-  }
-  if (component.style.cornerRadius) {
-    lines.push(`${i}.cornerRadius(${component.style.cornerRadius})`);
-  }
-  if (component.layout.padding) {
-    const p = component.layout.padding;
-    lines.push(`${i}.padding(.top, ${p.top})`);
-    lines.push(`${i}.padding(.trailing, ${p.right})`);
-    lines.push(`${i}.padding(.bottom, ${p.bottom})`);
-    lines.push(`${i}.padding(.leading, ${p.left})`);
-  }
-  if (component.style.width) {
-    lines.push(`${i}.frame(width: ${component.style.width})`);
-  }
-  if (component.style.opacity !== undefined && component.style.opacity < 1) {
-    lines.push(`${i}.opacity(${component.style.opacity})`);
-  }
-  if (component.style.borderColor && component.style.borderWidth) {
-    lines.push(
-      `${i}.overlay(RoundedRectangle(cornerRadius: ${component.style.cornerRadius || 0}).stroke(Color(hex: "${component.style.borderColor}"), lineWidth: ${component.style.borderWidth}))`
-    );
-  }
-
-  return lines.join("\n");
-}
-
-function generateView(component: A2UIComponent, depth: number): string {
-  const i = indent(depth);
-
-  if (component.type === "text" && component.text) {
-    let view = `${i}Text("${component.text.content}")`;
-    if (component.text.fontSize) view += `\n${indent(depth + 1)}.font(.system(size: ${component.text.fontSize}))`;
-    if (component.text.fontWeight) view += `\n${indent(depth + 1)}.fontWeight(.${mapWeight(component.text.fontWeight)})`;
-    if (component.text.color) view += `\n${indent(depth + 1)}.foregroundColor(Color(hex: "${component.text.color}"))`;
-    return view;
-  }
-
-  if (component.type === "button" && component.text) {
-    let view = `${i}Button(action: {}) {\n`;
-    view += `${indent(depth + 1)}Text("${component.text.content}")\n`;
-    if (component.text.fontSize) view += `${indent(depth + 2)}.font(.system(size: ${component.text.fontSize}))\n`;
-    view += `${i}}`;
-    const modifiers = generateModifiers(component, depth);
-    if (modifiers) view += "\n" + modifiers;
-    return view;
-  }
-
-  const container = component.layout.mode === "row" ? "HStack" : "VStack";
-  const spacingArg = component.layout.spacing ? `spacing: ${component.layout.spacing}` : "";
-
-  let view = `${i}${container}(${spacingArg}) {\n`;
-  for (const child of component.children) {
-    view += generateView(child, depth + 1) + "\n";
-  }
-  view += `${i}}`;
-
-  const modifiers = generateModifiers(component, depth);
-  if (modifiers) view += "\n" + modifiers;
-
-  return view;
 }
 
 function mapWeight(weight: string): string {
@@ -90,13 +22,121 @@ function mapWeight(weight: string): string {
   return "regular";
 }
 
+function generateModifiers(
+  style: Record<string, unknown>,
+  tokens: Record<string, DesignToken>,
+  depth: number
+): string {
+  const lines: string[] = [];
+  const i = ind(depth);
+  const r = (key: string) => resolveStyleValue(style, key, tokens);
+
+  const bg = r("backgroundColor");
+  const radius = r("cornerRadius");
+  const width = r("width");
+  const height = r("height");
+  const opacity = r("opacity");
+  const borderColor = r("borderColor");
+  const borderWidth = r("borderWidth");
+  const pt = r("paddingTop");
+  const pr = r("paddingRight");
+  const pb = r("paddingBottom");
+  const pl = r("paddingLeft");
+
+  if (bg) lines.push(`${i}.background(Color(hex: "${bg}"))`);
+  if (radius) lines.push(`${i}.cornerRadius(${radius})`);
+  if (width && height) {
+    lines.push(`${i}.frame(width: ${width}, height: ${height})`);
+  } else if (width) {
+    lines.push(`${i}.frame(width: ${width})`);
+  } else if (height) {
+    lines.push(`${i}.frame(height: ${height})`);
+  }
+  if (pt || pr || pb || pl) {
+    lines.push(`${i}.padding(.top, ${pt || 0})`);
+    lines.push(`${i}.padding(.trailing, ${pr || 0})`);
+    lines.push(`${i}.padding(.bottom, ${pb || 0})`);
+    lines.push(`${i}.padding(.leading, ${pl || 0})`);
+  }
+  if (opacity !== undefined && opacity !== 1) lines.push(`${i}.opacity(${opacity})`);
+  if (borderColor && borderWidth) {
+    lines.push(`${i}.overlay(RoundedRectangle(cornerRadius: ${radius || 0}).stroke(Color(hex: "${borderColor}"), lineWidth: ${borderWidth}))`);
+  }
+
+  return lines.join("\n");
+}
+
+function generateView(
+  comp: A2UIComponent,
+  compMap: Map<string, A2UIComponent>,
+  tokens: Record<string, DesignToken>,
+  dataModel: Record<string, unknown>,
+  depth: number
+): string {
+  const i = ind(depth);
+  const style = comp.style || {};
+
+  if (comp.component === "Text") {
+    const text = resolveDataBinding(comp.text, dataModel);
+    const r = (key: string) => resolveStyleValue(style, key, tokens);
+    let view = `${i}Text("${text}")`;
+    const fontSize = r("fontSize");
+    const fontWeight = r("fontWeight");
+    const color = r("color");
+    if (fontSize) view += `\n${ind(depth + 1)}.font(.system(size: ${fontSize}))`;
+    if (fontWeight) view += `\n${ind(depth + 1)}.fontWeight(.${mapWeight(String(fontWeight))})`;
+    if (color) view += `\n${ind(depth + 1)}.foregroundColor(Color(hex: "${color}"))`;
+    return view;
+  }
+
+  if (comp.component === "Button") {
+    const label = resolveDataBinding(comp.label, dataModel);
+    let view = `${i}Button(action: {}) {\n`;
+    view += `${ind(depth + 1)}Text("${label}")\n`;
+    if (comp.labelStyle) {
+      const lr = (key: string) => resolveStyleValue(comp.labelStyle!, key, tokens);
+      const fc = lr("color");
+      const fs = lr("fontSize");
+      if (fs) view += `${ind(depth + 2)}.font(.system(size: ${fs}))\n`;
+      if (fc) view += `${ind(depth + 2)}.foregroundColor(Color(hex: "${fc}"))\n`;
+    }
+    view += `${i}}`;
+    const mods = generateModifiers(style, tokens, depth);
+    if (mods) view += "\n" + mods;
+    return view;
+  }
+
+  // Container
+  const container = comp.component === "Row" ? "HStack" : "VStack";
+  const r = (key: string) => resolveStyleValue(style, key, tokens);
+  const gap = r("gap");
+  const spacingArg = gap ? `spacing: ${gap}` : "";
+
+  let view = `${i}${container}(${spacingArg}) {\n`;
+  const childIds = comp.children?.explicitList || [];
+  for (const childId of childIds) {
+    const child = compMap.get(childId);
+    if (child) {
+      view += generateView(child, compMap, tokens, dataModel, depth + 1) + "\n";
+    }
+  }
+  view += `${i}}`;
+  const mods = generateModifiers(style, tokens, depth);
+  if (mods) view += "\n" + mods;
+  return view;
+}
+
 export class SwiftUIGenerator implements CodeGenerator {
   platform = "swiftui";
   fileExtension = ".swift";
 
-  generate(component: A2UIComponent): string {
-    const name = toPascalCase(component.name);
-    const body = generateView(component, 2);
+  generate(doc: A2UIDocument): string {
+    const compMap = buildComponentMap(doc.components);
+    const root = compMap.get("root");
+    if (!root) throw new Error("No root component found");
+
+    const name = toPascalCase(doc.surface.surfaceId);
+    const body = generateView(root, compMap, doc.designTokens, doc.dataModel, 2);
 
     return `import SwiftUI
 

@@ -1,81 +1,122 @@
-{
-  "version": "0.1.0",
-  "source": "figma://khgNy2HimWcay4KSSxa6jr/32616-12",
-  "exportedAt": "2026-02-14T00:00:00.000Z",
-  "root": {
-    "version": "0.1.0",
-    "name": "tile_hello",
-    "type": "card",
-    "layout": {
-      "mode": "column",
-      "spacing": 12,
-      "padding": { "top": 24, "right": 24, "bottom": 24, "left": 24 }
-    },
-    "style": {
-      "width": 320,
-      "backgroundColor": "#ffffff",
-      "cornerRadius": 12
-    },
-    "children": [
-      {
-        "version": "0.1.0",
-        "name": "title",
-        "type": "text",
-        "layout": { "mode": "stack" },
-        "style": {},
-        "text": {
-          "content": "Hello",
-          "fontSize": 20,
-          "fontFamily": "Inter",
-          "fontWeight": "Bold",
-          "color": "#1a1a2e"
+[
+  {
+    "createSurface": {
+      "surfaceId": "tile_hello",
+      "catalogId": "standard_catalog_v0.9",
+      "sendDataModel": true,
+      "designTokens": {
+        "Accents.Red": {
+          "value": "#ff4245",
+          "collection": "Colors"
         },
-        "children": []
-      },
-      {
-        "version": "0.1.0",
-        "name": "subtitle",
-        "type": "text",
-        "layout": { "mode": "stack" },
-        "style": {},
-        "text": {
-          "content": "Welcome to Interface.ai",
-          "fontSize": 14,
-          "fontFamily": "Inter",
-          "fontWeight": "Regular",
-          "color": "#6b7280"
+        "Interactive border radius.--radius-i-xs": {
+          "value": "4",
+          "collection": "Colors"
         },
-        "children": []
-      },
-      {
-        "version": "0.1.0",
-        "name": "action_button",
-        "type": "button",
-        "layout": {
-          "mode": "stack",
-          "padding": { "top": 12, "right": 24, "bottom": 12, "left": 24 }
+        "Paddings & Gaps.p-1": {
+          "value": "4",
+          "collection": "Colors"
         },
-        "style": {
-          "backgroundColor": "#6366f1",
-          "cornerRadius": 8
+        "Paddings & Gaps.p-2": {
+          "value": "8",
+          "collection": "Colors"
         },
-        "text": {
-          "content": "Get Started",
-          "fontSize": 14,
-          "fontFamily": "Inter",
-          "fontWeight": "Medium",
-          "color": "#ffffff",
-          "align": "center"
+        "gap.0": {
+          "value": "0",
+          "collection": "Primitives"
         },
-        "interactions": [
-          {
-            "type": "tap",
-            "action": "navigate",
-            "payload": { "screen": "onboarding" }
-          }
-        ],
-        "children": []
+        "Main.goten": {
+          "value": "#ffffff",
+          "collection": "Colors"
+        }
       }
-    ]
+    }
+  },
+  {
+    "updateComponents": {
+      "surfaceId": "tile_hello",
+      "components": [
+        {
+          "id": "hello_world_our_1st_tile",
+          "component": "Text",
+          "text": "${/hello_world_our_1st_tile/text}",
+          "style": {
+            "width": 136,
+            "height": 16,
+            "color": "#000000",
+            "fontSize": 12,
+            "fontFamily": "DM Sans",
+            "fontWeight": "Bold",
+            "textAlign": "center"
+          }
+        },
+        {
+          "id": "mdsbutton",
+          "component": "Button",
+          "label": "${/mdsbutton/label}",
+          "action": {
+            "event": {
+              "name": "mdsbutton_click"
+            }
+          },
+          "style": {
+            "width": 84,
+            "height": 24,
+            "backgroundColor": "{Accents.Red}",
+            "cornerRadius": "{Interactive border radius.--radius-i-xs}",
+            "paddingTop": "{Paddings & Gaps.p-1}",
+            "paddingRight": "{Paddings & Gaps.p-2}",
+            "paddingBottom": "{Paddings & Gaps.p-1}",
+            "paddingLeft": "{Paddings & Gaps.p-2}",
+            "gap": "{gap.0}"
+          },
+          "labelStyle": {
+            "width": 68,
+            "height": 16,
+            "color": "{Main.goten}",
+            "fontSize": 12,
+            "fontFamily": "DM Sans",
+            "fontWeight": "Bold",
+            "textAlign": "center"
+          }
+        },
+        {
+          "id": "root",
+          "component": "Card",
+          "children": {
+            "explicitList": [
+              "hello_world_our_1st_tile",
+              "mdsbutton"
+            ]
+          },
+          "style": {
+            "width": 168,
+            "height": 82,
+            "cornerRadius": 16,
+            "borderColor": "#c8c8c8",
+            "borderWidth": 1,
+            "paddingTop": 16,
+            "paddingRight": 16,
+            "paddingBottom": 16,
+            "paddingLeft": 16,
+            "gap": 10
+          }
+        }
+      ]
+    }
+  },
+  {
+    "updateDataModel": {
+      "surfaceId": "tile_hello",
+      "path": "/",
+      "value": {
+        "hello_world_our_1st_tile": {
+          "text": "Hello world, our 1st tile!"
+        },
+        "mdsbutton": {
+          "label": "Button text"
+        }
+      }
+    }
   }
-}
+]

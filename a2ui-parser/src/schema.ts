@@ -1,85 +1,90 @@
 /**
- * A2UI Schema — the intermediate format between Figma designs and native code.
+ * A2UI v0.9 Schema — per https://a2ui.org/specification/v0.9-a2ui/
  *
- * Every UI component extracted from Figma is represented as an A2UIComponent tree.
+ * Messages are streamed as JSONL. Each message contains exactly one of:
+ * createSurface, updateComponents, updateDataModel, deleteSurface
  */
 
-export interface A2UIPadding {
-  top: number;
-  right: number;
-  bottom: number;
-  left: number;
+// --- Design Tokens ---
+
+export interface DesignToken {
+  value: string;
+  collection: string;
 }
 
-export interface A2UILayout {
-  mode: "row" | "column" | "stack";
-  spacing?: number;
-  padding?: A2UIPadding;
-  mainAxisAlignment?: "start" | "center" | "end" | "spaceBetween" | "spaceAround";
-  crossAxisAlignment?: "start" | "center" | "end" | "stretch";
-}
+// --- Component Definition ---
 
-export interface A2UIStyle {
-  width?: number;
-  height?: number;
-  backgroundColor?: string;
-  cornerRadius?: number;
-  opacity?: number;
-  borderColor?: string;
-  borderWidth?: number;
-  shadow?: {
-    color: string;
-    offsetX: number;
-    offsetY: number;
-    blur: number;
-    spread: number;
+export interface ChildList {
+  explicitList?: string[];
+  template?: {
+    dataPath: string;
+    componentId: string;
   };
 }
 
-export interface A2UIText {
-  content: string;
-  fontSize?: number;
-  fontFamily?: string;
-  fontWeight?: string;
-  color?: string;
-  align?: "left" | "center" | "right";
-  lineHeight?: number;
-  letterSpacing?: number;
+export interface ActionEvent {
+  name: string;
+  context?: Record<string, unknown>;
 }
 
-export interface A2UIInteraction {
-  type: "tap" | "longPress" | "swipe";
-  action: string;
-  payload?: Record<string, unknown>;
+export interface ComponentAction {
+  event: ActionEvent;
 }
-
-export type A2UIComponentType =
-  | "container"
-  | "card"
-  | "text"
-  | "button"
-  | "image"
-  | "input"
-  | "box"
-  | "circle"
-  | "icon"
-  | "list"
-  | "scroll";
 
 export interface A2UIComponent {
-  version: "0.1.0";
-  name: string;
-  type: A2UIComponentType;
-  layout: A2UILayout;
-  style: A2UIStyle;
-  text?: A2UIText;
-  interactions?: A2UIInteraction[];
-  children: A2UIComponent[];
+  id: string;
+  component: string;
+  children?: ChildList;
+  text?: string;
+  label?: string;
+  action?: ComponentAction;
+  style?: Record<string, unknown>;
+  labelStyle?: Record<string, unknown>;
+  [key: string]: unknown;
 }
 
+// --- Messages ---
+
+export interface CreateSurface {
+  surfaceId: string;
+  catalogId?: string;
+  theme?: {
+    primaryColor?: string;
+    agentDisplayName?: string;
+    iconUrl?: string;
+  };
+  sendDataModel?: boolean;
+  designTokens?: Record<string, DesignToken>;
+}
+
+export interface UpdateComponents {
+  surfaceId: string;
+  components: A2UIComponent[];
+}
+
+export interface UpdateDataModel {
+  surfaceId: string;
+  path?: string;
+  value: unknown;
+}
+
+export interface DeleteSurface {
+  surfaceId: string;
+}
+
+// --- Message Envelope ---
+
+export type A2UIMessage =
+  | { createSurface: CreateSurface }
+  | { updateComponents: UpdateComponents }
+  | { updateDataModel: UpdateDataModel }
+  | { deleteSurface: DeleteSurface };
+
+// --- Parsed Document (convenience wrapper for a full extraction) ---
+
 export interface A2UIDocument {
-  version: "0.1.0";
-  source: string;
-  exportedAt: string;
-  root: A2UIComponent;
+  surface: CreateSurface;
+  components: A2UIComponent[];
+  dataModel: Record<string, unknown>;
+  designTokens: Record<string, DesignToken>;
 }
