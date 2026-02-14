@@ -283,8 +283,16 @@ function ktComp(comp: A2UIComponent, map: Map<string, A2UIComponent>, tokens: Re
   if (comp.component === "Button") {
     const lbl = resolveData(comp.label, data), ms = ktMods(s, tokens);
     const mStr = ms.length ? `\n${"    ".repeat(d+2)}${ms.join("\n"+"    ".repeat(d+2))}` : "";
-    let bt = `${"    ".repeat(d+1)}Text("${lbl}")`;
-    if (comp.labelStyle) { const fc = rv(comp.labelStyle, "color", tokens); if (fc) bt += `,\n${"    ".repeat(d+2)}color = Color(android.graphics.Color.parseColor("${fc}"))`; }
+    const textArgs: string[] = [`"${lbl}"`];
+    if (comp.labelStyle) {
+      const fc = rv(comp.labelStyle, "color", tokens);
+      const fs = rv(comp.labelStyle, "fontSize", tokens);
+      if (fc) textArgs.push(`color = Color(android.graphics.Color.parseColor("${fc}"))`);
+      if (fs) textArgs.push(`fontSize = ${fs}.sp`);
+    }
+    const bt = textArgs.length === 1
+      ? `${"    ".repeat(d+1)}Text(${textArgs[0]})`
+      : `${"    ".repeat(d+1)}Text(\n${textArgs.map(a => `${"    ".repeat(d+2)}${a}`).join(",\n")}\n${"    ".repeat(d+1)})`;
     return `${i}Button(\n${"    ".repeat(d+1)}onClick = {},\n${"    ".repeat(d+1)}modifier = Modifier${mStr}\n${i}) {\n${bt}\n${i}}`;
   }
   const ct = comp.component === "Row" ? "Row" : "Column", ms = ktMods(s, tokens);

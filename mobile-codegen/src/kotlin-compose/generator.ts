@@ -88,12 +88,17 @@ function generateComposable(
     const label = resolveDataBinding(comp.label, dataModel);
     const mods = generateModifiers(style, tokens);
     const modStr = mods.length ? `\n${ind(depth + 2)}${mods.join("\n" + ind(depth + 2))}` : "";
-    let btnText = `${ind(depth + 1)}Text("${label}")`;
+    const textArgs: string[] = [`"${label}"`];
     if (comp.labelStyle) {
       const lr = (key: string) => resolveStyleValue(comp.labelStyle!, key, tokens);
       const fc = lr("color");
-      if (fc) btnText += `,\n${ind(depth + 2)}color = Color(android.graphics.Color.parseColor("${fc}"))`;
+      const fs = lr("fontSize");
+      if (fc) textArgs.push(`color = Color(android.graphics.Color.parseColor("${fc}"))`);
+      if (fs) textArgs.push(`fontSize = ${fs}.sp`);
     }
+    const btnText = textArgs.length === 1
+      ? `${ind(depth + 1)}Text(${textArgs[0]})`
+      : `${ind(depth + 1)}Text(\n${textArgs.map(a => `${ind(depth + 2)}${a}`).join(",\n")}\n${ind(depth + 1)})`;
     return `${i}Button(\n${ind(depth + 1)}onClick = {},\n${ind(depth + 1)}modifier = Modifier${modStr}\n${i}) {\n${btnText}\n${i}}`;
   }
 
