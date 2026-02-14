@@ -1,5 +1,13 @@
 node_modules/
 dist/
-*.js.map
 .DS_Store
-*.log
+.build/
+.swiftpm/
+.gradle/
+**/build/
+*.apk
+*.aab
+local.properties
+.idea/
+*.xcodeproj/
+*.xcworkspace/
