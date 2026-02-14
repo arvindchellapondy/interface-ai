@@ -1,0 +1,10 @@
+{
+  "name": "Interface.ai - Design to Code",
+  "id": "interface-ai-figma-plugin",
+  "api": "1.0.0",
+  "main": "dist/code.js",
+  "ui": "ui/index.html",
+  "capabilities": [],
+  "enableProposedApi": false,
+  "editorType": ["figma"]
+}

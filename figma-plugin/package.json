@@ -1,0 +1,14 @@
+{
+  "name": "@interface-ai/figma-plugin",
+  "version": "0.1.0",
+  "description": "Figma plugin to extract design components into A2UI format",
+  "scripts": {
+    "build": "esbuild src/code.ts --bundle --outfile=dist/code.js --target=es6",
+    "watch": "esbuild src/code.ts --bundle --outfile=dist/code.js --target=es6 --watch"
+  },
+  "devDependencies": {
+    "@figma/plugin-typings": "^1.123.0",
+    "esbuild": "^0.27.3",
+    "typescript": "^5.9.3"
+  }
+}

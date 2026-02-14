@@ -1,0 +1,21 @@
+{
+  "name": "interface-ai",
+  "version": "0.1.0",
+  "description": "Figma design to native mobile code conversion pipeline",
+  "private": true,
+  "workspaces": [
+    "figma-plugin",
+    "a2ui-parser",
+    "mobile-codegen"
+  ],
+  "scripts": {
+    "build": "npm run build --workspaces",
+    "build:plugin": "npm run build -w figma-plugin",
+    "build:parser": "npm run build -w a2ui-parser",
+    "build:codegen": "npm run build -w mobile-codegen"
+  },
+  "devDependencies": {
+    "typescript": "^5.4.0",
+    "@types/node": "^20.11.0"
+  }
+}

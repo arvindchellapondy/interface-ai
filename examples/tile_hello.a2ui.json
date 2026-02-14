@@ -1,0 +1,81 @@
+{
+  "version": "0.1.0",
+  "source": "figma://khgNy2HimWcay4KSSxa6jr/32616-12",
+  "exportedAt": "2026-02-14T00:00:00.000Z",
+  "root": {
+    "version": "0.1.0",
+    "name": "tile_hello",
+    "type": "card",
+    "layout": {
+      "mode": "column",
+      "spacing": 12,
+      "padding": { "top": 24, "right": 24, "bottom": 24, "left": 24 }
+    },
+    "style": {
+      "width": 320,
+      "backgroundColor": "#ffffff",
+      "cornerRadius": 12
+    },
+    "children": [
+      {
+        "version": "0.1.0",
+        "name": "title",
+        "type": "text",
+        "layout": { "mode": "stack" },
+        "style": {},
+        "text": {
+          "content": "Hello",
+          "fontSize": 20,
+          "fontFamily": "Inter",
+          "fontWeight": "Bold",
+          "color": "#1a1a2e"
+        },
+        "children": []
+      },
+      {
+        "version": "0.1.0",
+        "name": "subtitle",
+        "type": "text",
+        "layout": { "mode": "stack" },
+        "style": {},
+        "text": {
+          "content": "Welcome to Interface.ai",
+          "fontSize": 14,
+          "fontFamily": "Inter",
+          "fontWeight": "Regular",
+          "color": "#6b7280"
+        },
+        "children": []
+      },
+      {
+        "version": "0.1.0",
+        "name": "action_button",
+        "type": "button",
+        "layout": {
+          "mode": "stack",
+          "padding": { "top": 12, "right": 24, "bottom": 12, "left": 24 }
+        },
+        "style": {
+          "backgroundColor": "#6366f1",
+          "cornerRadius": 8
+        },
+        "text": {
+          "content": "Get Started",
+          "fontSize": 14,
+          "fontFamily": "Inter",
+          "fontWeight": "Medium",
+          "color": "#ffffff",
+          "align": "center"
+        },
+        "interactions": [
+          {
+            "type": "tap",
+            "action": "navigate",
+            "payload": { "screen": "onboarding" }
+          }
+        ],
+        "children": []
+      }
+    ]
+  }
+}
