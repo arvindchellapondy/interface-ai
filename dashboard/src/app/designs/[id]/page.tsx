@@ -6,12 +6,15 @@ import A2UIPreviewRenderer from "@/components/A2UIPreviewRenderer";
 import TreeView from "@/components/TreeView";
 import DataModelEditor from "@/components/DataModelEditor";
 import TokenInspector from "@/components/TokenInspector";
+import ConnectedDevices from "@/components/ConnectedDevices";
+import AIAgentPanel from "@/components/AIAgentPanel";
 import { useParams } from "next/navigation";
 
 export default function DesignDetailPage() {
   const params = useParams();
   const id = params.id as string;
   const [doc, setDoc] = useState<A2UIDocument | null>(null);
+  const [rawMessages, setRawMessages] = useState<unknown[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -21,6 +24,7 @@ export default function DesignDetailPage() {
         const design = designs.find((d: { id: string }) => d.id === id);
         if (design) {
           setDoc(parseA2UIMessages(design.messages as A2UIMessage[]));
+          setRawMessages(design.messages);
         }
         setLoading(false);
       })
@@ -73,6 +77,21 @@ export default function DesignDetailPage() {
         <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
           <TreeView doc={doc} />
           <TokenInspector tokens={doc.designTokens} />
+
+          <ConnectedDevices designId={id} messages={rawMessages} />
+
+          <AIAgentPanel
+            designId={id}
+            messages={rawMessages}
+            onApplyUpdate={(updateMsg) => {
+              // Apply AI-generated updateDataModel to the preview
+              const updated = parseA2UIMessages([
+                ...rawMessages,
+                updateMsg,
+              ] as A2UIMessage[]);
+              setDoc(updated);
+            }}
+          />
 
           {/* Raw JSON */}
           <div style={{ padding: 12, background: "#fafafa", borderRadius: 8, border: "1px solid #e0e0e0" }}>
