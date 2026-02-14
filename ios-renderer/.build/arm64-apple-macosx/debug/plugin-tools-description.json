@@ -1,0 +1,923 @@
+{
+  "builtTestProducts" : [
+    {
+      "binaryPath" : "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRendererPackageTests.xctest/Contents/MacOS/A2UIRendererPackageTests",
+      "packagePath" : "/Users/arvindchellapondy/Workspace/interface/ios-renderer",
+      "productName" : "A2UIRendererPackageTests"
+    }
+  ],
+  "copyCommands" : {
+
+  },
+  "explicitTargetDependencyImportCheckingMode" : {
+    "none" : {
+
+    }
+  },
+  "generatedSourceTargetSet" : [
+
+  ],
+  "pluginDescriptions" : [
+
+  ],
+  "swiftCommands" : {
+    "C.A2UIRenderer-arm64-apple-macosx15.0-debug.module" : {
+      "executable" : "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc",
+      "fileList" : "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRenderer.build/sources",
+      "importPath" : "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/Modules",
+      "inputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/arvindchellapondy/Workspace/interface/ios-renderer/Sources/A2UIRenderer/Models/A2UISchema.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/arvindchellapondy/Workspace/interface/ios-renderer/Sources/A2UIRenderer/Models/AnyCodable.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/arvindchellapondy/Workspace/interface/ios-renderer/Sources/A2UIRenderer/Models/Surface.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/arvindchellapondy/Workspace/interface/ios-renderer/Sources/A2UIRenderer/Processing/DataBindingResolver.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/arvindchellapondy/Workspace/interface/ios-renderer/Sources/A2UIRenderer/Processing/MessageProcessor.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/arvindchellapondy/Workspace/interface/ios-renderer/Sources/A2UIRenderer/Processing/TokenResolver.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/arvindchellapondy/Workspace/interface/ios-renderer/Sources/A2UIRenderer/Rendering/A2UIRendererView.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/arvindchellapondy/Workspace/interface/ios-renderer/Sources/A2UIRenderer/Rendering/ComponentNodeView.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/arvindchellapondy/Workspace/interface/ios-renderer/Sources/A2UIRenderer/Rendering/Components/A2UIButton.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/arvindchellapondy/Workspace/interface/ios-renderer/Sources/A2UIRenderer/Rendering/Components/A2UICard.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/arvindchellapondy/Workspace/interface/ios-renderer/Sources/A2UIRenderer/Rendering/Components/A2UIColumn.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/arvindchellapondy/Workspace/interface/ios-renderer/Sources/A2UIRenderer/Rendering/Components/A2UIImage.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/arvindchellapondy/Workspace/interface/ios-renderer/Sources/A2UIRenderer/Rendering/Components/A2UIRow.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/arvindchellapondy/Workspace/interface/ios-renderer/Sources/A2UIRenderer/Rendering/Components/A2UIText.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/arvindchellapondy/Workspace/interface/ios-renderer/Sources/A2UIRenderer/Rendering/StyleModifiers.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/arvindchellapondy/Workspace/interface/ios-renderer/Sources/A2UIRenderer/Transport/A2UIWebSocketClient.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/swift-version--58304C5D6DBC2206.txt"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRenderer.build/sources"
+        }
+      ],
+      "isLibrary" : true,
+      "moduleName" : "A2UIRenderer",
+      "moduleOutputPath" : "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/Modules/A2UIRenderer.swiftmodule",
+      "objects" : [
+        "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRenderer.build/A2UISchema.swift.o",
+        "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRenderer.build/AnyCodable.swift.o",
+        "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRenderer.build/Surface.swift.o",
+        "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRenderer.build/DataBindingResolver.swift.o",
+        "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRenderer.build/MessageProcessor.swift.o",
+        "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRenderer.build/TokenResolver.swift.o",
+        "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRenderer.build/A2UIRendererView.swift.o",
+        "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRenderer.build/ComponentNodeView.swift.o",
+        "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRenderer.build/A2UIButton.swift.o",
+        "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRenderer.build/A2UICard.swift.o",
+        "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRenderer.build/A2UIColumn.swift.o",
+        "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRenderer.build/A2UIImage.swift.o",
+        "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRenderer.build/A2UIRow.swift.o",
+        "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRenderer.build/A2UIText.swift.o",
+        "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRenderer.build/StyleModifiers.swift.o",
+        "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRenderer.build/A2UIWebSocketClient.swift.o"
+      ],
+      "otherArguments" : [
+        "-target",
+        "arm64-apple-macosx14.0",
+        "-incremental",
+        "-enable-batch-mode",
+        "-serialize-diagnostics",
+        "-index-store-path",
+        "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/index/store",
+        "-Onone",
+        "-enable-testing",
+        "-j8",
+        "-DSWIFT_PACKAGE",
+        "-DDEBUG",
+        "-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE",
+        "-module-cache-path",
+        "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/ModuleCache",
+        "-parseable-output",
+        "-parse-as-library",
+        "-emit-objc-header",
+        "-emit-objc-header-path",
+        "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRenderer.build/include/A2UIRenderer-Swift.h",
+        "-swift-version",
+        "5",
+        "-plugin-path",
+        "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing",
+        "-sdk",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk",
+        "-F",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+        "-F",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+        "-I",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+        "-L",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+        "-g",
+        "-Xcc",
+        "-isysroot",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk",
+        "-Xcc",
+        "-F",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+        "-Xcc",
+        "-F",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+        "-Xcc",
+        "-fPIC",
+        "-Xcc",
+        "-g",
+        "-package-name",
+        "ios_renderer"
+      ],
+      "outputFileMapPath" : "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRenderer.build/output-file-map.json",
+      "outputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRenderer.build/A2UISchema.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRenderer.build/AnyCodable.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRenderer.build/Surface.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRenderer.build/DataBindingResolver.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRenderer.build/MessageProcessor.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRenderer.build/TokenResolver.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRenderer.build/A2UIRendererView.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRenderer.build/ComponentNodeView.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRenderer.build/A2UIButton.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRenderer.build/A2UICard.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRenderer.build/A2UIColumn.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRenderer.build/A2UIImage.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRenderer.build/A2UIRow.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRenderer.build/A2UIText.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRenderer.build/StyleModifiers.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRenderer.build/A2UIWebSocketClient.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/Modules/A2UIRenderer.swiftmodule"
+        }
+      ],
+      "prepareForIndexing" : false,
+      "sources" : [
+        "/Users/arvindchellapondy/Workspace/interface/ios-renderer/Sources/A2UIRenderer/Models/A2UISchema.swift",
+        "/Users/arvindchellapondy/Workspace/interface/ios-renderer/Sources/A2UIRenderer/Models/AnyCodable.swift",
+        "/Users/arvindchellapondy/Workspace/interface/ios-renderer/Sources/A2UIRenderer/Models/Surface.swift",
+        "/Users/arvindchellapondy/Workspace/interface/ios-renderer/Sources/A2UIRenderer/Processing/DataBindingResolver.swift",
+        "/Users/arvindchellapondy/Workspace/interface/ios-renderer/Sources/A2UIRenderer/Processing/MessageProcessor.swift",
+        "/Users/arvindchellapondy/Workspace/interface/ios-renderer/Sources/A2UIRenderer/Processing/TokenResolver.swift",
+        "/Users/arvindchellapondy/Workspace/interface/ios-renderer/Sources/A2UIRenderer/Rendering/A2UIRendererView.swift",
+        "/Users/arvindchellapondy/Workspace/interface/ios-renderer/Sources/A2UIRenderer/Rendering/ComponentNodeView.swift",
+        "/Users/arvindchellapondy/Workspace/interface/ios-renderer/Sources/A2UIRenderer/Rendering/Components/A2UIButton.swift",
+        "/Users/arvindchellapondy/Workspace/interface/ios-renderer/Sources/A2UIRenderer/Rendering/Components/A2UICard.swift",
+        "/Users/arvindchellapondy/Workspace/interface/ios-renderer/Sources/A2UIRenderer/Rendering/Components/A2UIColumn.swift",
+        "/Users/arvindchellapondy/Workspace/interface/ios-renderer/Sources/A2UIRenderer/Rendering/Components/A2UIImage.swift",
+        "/Users/arvindchellapondy/Workspace/interface/ios-renderer/Sources/A2UIRenderer/Rendering/Components/A2UIRow.swift",
+        "/Users/arvindchellapondy/Workspace/interface/ios-renderer/Sources/A2UIRenderer/Rendering/Components/A2UIText.swift",
+        "/Users/arvindchellapondy/Workspace/interface/ios-renderer/Sources/A2UIRenderer/Rendering/StyleModifiers.swift",
+        "/Users/arvindchellapondy/Workspace/interface/ios-renderer/Sources/A2UIRenderer/Transport/A2UIWebSocketClient.swift"
+      ],
+      "tempsPath" : "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRenderer.build",
+      "wholeModuleOptimization" : false
+    },
+    "C.A2UIRendererPackageTests-arm64-apple-macosx15.0-debug.module" : {
+      "executable" : "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc",
+      "fileList" : "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRendererPackageTests.build/sources",
+      "importPath" : "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/Modules",
+      "inputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRendererPackageTests.derived/runner.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/swift-version--58304C5D6DBC2206.txt"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/Modules/A2UIRendererTests.swiftmodule"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRendererPackageTests.build/sources"
+        }
+      ],
+      "isLibrary" : true,
+      "moduleName" : "A2UIRendererPackageTests",
+      "moduleOutputPath" : "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/Modules/A2UIRendererPackageTests.swiftmodule",
+      "objects" : [
+        "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRendererPackageTests.build/runner.swift.o"
+      ],
+      "otherArguments" : [
+        "-target",
+        "arm64-apple-macosx14.0",
+        "-incremental",
+        "-enable-batch-mode",
+        "-serialize-diagnostics",
+        "-index-store-path",
+        "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/index/store",
+        "-Onone",
+        "-enable-testing",
+        "-Xfrontend",
+        "-enable-cross-import-overlays",
+        "-j8",
+        "-DSWIFT_PACKAGE",
+        "-DDEBUG",
+        "-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE",
+        "-module-cache-path",
+        "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/ModuleCache",
+        "-parseable-output",
+        "-parse-as-library",
+        "-emit-objc-header",
+        "-emit-objc-header-path",
+        "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRendererPackageTests.build/include/A2UIRendererPackageTests-Swift.h",
+        "-plugin-path",
+        "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing",
+        "-sdk",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk",
+        "-F",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+        "-F",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+        "-I",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+        "-L",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+        "-g",
+        "-Xcc",
+        "-isysroot",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk",
+        "-Xcc",
+        "-F",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+        "-Xcc",
+        "-F",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+        "-Xcc",
+        "-fPIC",
+        "-Xcc",
+        "-g",
+        "-package-name",
+        "ios_renderer"
+      ],
+      "outputFileMapPath" : "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRendererPackageTests.build/output-file-map.json",
+      "outputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRendererPackageTests.build/runner.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/Modules/A2UIRendererPackageTests.swiftmodule"
+        }
+      ],
+      "prepareForIndexing" : false,
+      "sources" : [
+        "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRendererPackageTests.derived/runner.swift"
+      ],
+      "tempsPath" : "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRendererPackageTests.build",
+      "wholeModuleOptimization" : false
+    },
+    "C.A2UIRendererTests-arm64-apple-macosx15.0-debug.module" : {
+      "executable" : "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc",
+      "fileList" : "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRendererTests.build/sources",
+      "importPath" : "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/Modules",
+      "inputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/arvindchellapondy/Workspace/interface/ios-renderer/Tests/A2UIRendererTests/MessageProcessorTests.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/swift-version--58304C5D6DBC2206.txt"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/Modules/A2UIRenderer.swiftmodule"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRendererTests.build/sources"
+        }
+      ],
+      "isLibrary" : true,
+      "moduleName" : "A2UIRendererTests",
+      "moduleOutputPath" : "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/Modules/A2UIRendererTests.swiftmodule",
+      "objects" : [
+        "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRendererTests.build/MessageProcessorTests.swift.o"
+      ],
+      "otherArguments" : [
+        "-target",
+        "arm64-apple-macosx14.0",
+        "-incremental",
+        "-enable-batch-mode",
+        "-serialize-diagnostics",
+        "-index-store-path",
+        "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/index/store",
+        "-Onone",
+        "-enable-testing",
+        "-Xfrontend",
+        "-enable-cross-import-overlays",
+        "-j8",
+        "-DSWIFT_PACKAGE",
+        "-DDEBUG",
+        "-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE",
+        "-module-cache-path",
+        "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/ModuleCache",
+        "-parseable-output",
+        "-parse-as-library",
+        "-swift-version",
+        "5",
+        "-plugin-path",
+        "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing",
+        "-sdk",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk",
+        "-F",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+        "-F",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+        "-I",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+        "-L",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+        "-g",
+        "-Xcc",
+        "-isysroot",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk",
+        "-Xcc",
+        "-F",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+        "-Xcc",
+        "-F",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+        "-Xcc",
+        "-fPIC",
+        "-Xcc",
+        "-g",
+        "-package-name",
+        "ios_renderer"
+      ],
+      "outputFileMapPath" : "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRendererTests.build/output-file-map.json",
+      "outputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRendererTests.build/MessageProcessorTests.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/Modules/A2UIRendererTests.swiftmodule"
+        }
+      ],
+      "prepareForIndexing" : false,
+      "sources" : [
+        "/Users/arvindchellapondy/Workspace/interface/ios-renderer/Tests/A2UIRendererTests/MessageProcessorTests.swift"
+      ],
+      "tempsPath" : "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRendererTests.build",
+      "wholeModuleOptimization" : false
+    }
+  },
+  "swiftFrontendCommands" : {
+
+  },
+  "swiftTargetScanArgs" : {
+    "A2UIRenderer" : [
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc",
+      "-module-name",
+      "A2UIRenderer",
+      "-package-name",
+      "ios_renderer",
+      "-c",
+      "/Users/arvindchellapondy/Workspace/interface/ios-renderer/Sources/A2UIRenderer/Models/A2UISchema.swift",
+      "/Users/arvindchellapondy/Workspace/interface/ios-renderer/Sources/A2UIRenderer/Models/AnyCodable.swift",
+      "/Users/arvindchellapondy/Workspace/interface/ios-renderer/Sources/A2UIRenderer/Models/Surface.swift",
+      "/Users/arvindchellapondy/Workspace/interface/ios-renderer/Sources/A2UIRenderer/Processing/DataBindingResolver.swift",
+      "/Users/arvindchellapondy/Workspace/interface/ios-renderer/Sources/A2UIRenderer/Processing/MessageProcessor.swift",
+      "/Users/arvindchellapondy/Workspace/interface/ios-renderer/Sources/A2UIRenderer/Processing/TokenResolver.swift",
+      "/Users/arvindchellapondy/Workspace/interface/ios-renderer/Sources/A2UIRenderer/Rendering/A2UIRendererView.swift",
+      "/Users/arvindchellapondy/Workspace/interface/ios-renderer/Sources/A2UIRenderer/Rendering/ComponentNodeView.swift",
+      "/Users/arvindchellapondy/Workspace/interface/ios-renderer/Sources/A2UIRenderer/Rendering/Components/A2UIButton.swift",
+      "/Users/arvindchellapondy/Workspace/interface/ios-renderer/Sources/A2UIRenderer/Rendering/Components/A2UICard.swift",
+      "/Users/arvindchellapondy/Workspace/interface/ios-renderer/Sources/A2UIRenderer/Rendering/Components/A2UIColumn.swift",
+      "/Users/arvindchellapondy/Workspace/interface/ios-renderer/Sources/A2UIRenderer/Rendering/Components/A2UIImage.swift",
+      "/Users/arvindchellapondy/Workspace/interface/ios-renderer/Sources/A2UIRenderer/Rendering/Components/A2UIRow.swift",
+      "/Users/arvindchellapondy/Workspace/interface/ios-renderer/Sources/A2UIRenderer/Rendering/Components/A2UIText.swift",
+      "/Users/arvindchellapondy/Workspace/interface/ios-renderer/Sources/A2UIRenderer/Rendering/StyleModifiers.swift",
+      "/Users/arvindchellapondy/Workspace/interface/ios-renderer/Sources/A2UIRenderer/Transport/A2UIWebSocketClient.swift",
+      "-I",
+      "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/Modules",
+      "-target",
+      "arm64-apple-macosx14.0",
+      "-incremental",
+      "-enable-batch-mode",
+      "-serialize-diagnostics",
+      "-index-store-path",
+      "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/index/store",
+      "-Onone",
+      "-enable-testing",
+      "-j8",
+      "-DSWIFT_PACKAGE",
+      "-DDEBUG",
+      "-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE",
+      "-module-cache-path",
+      "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/ModuleCache",
+      "-parseable-output",
+      "-parse-as-library",
+      "-emit-objc-header",
+      "-emit-objc-header-path",
+      "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRenderer.build/include/A2UIRenderer-Swift.h",
+      "-swift-version",
+      "5",
+      "-plugin-path",
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing",
+      "-sdk",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk",
+      "-F",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+      "-F",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+      "-I",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+      "-L",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+      "-g",
+      "-Xcc",
+      "-isysroot",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk",
+      "-Xcc",
+      "-F",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+      "-Xcc",
+      "-F",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+      "-Xcc",
+      "-fPIC",
+      "-Xcc",
+      "-g",
+      "-package-name",
+      "ios_renderer",
+      "-driver-use-frontend-path",
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc"
+    ],
+    "A2UIRendererPackageTests" : [
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc",
+      "-module-name",
+      "A2UIRendererPackageTests",
+      "-package-name",
+      "ios_renderer",
+      "-c",
+      "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRendererPackageTests.derived/runner.swift",
+      "-I",
+      "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/Modules",
+      "-target",
+      "arm64-apple-macosx14.0",
+      "-incremental",
+      "-enable-batch-mode",
+      "-serialize-diagnostics",
+      "-index-store-path",
+      "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/index/store",
+      "-Onone",
+      "-enable-testing",
+      "-Xfrontend",
+      "-enable-cross-import-overlays",
+      "-j8",
+      "-DSWIFT_PACKAGE",
+      "-DDEBUG",
+      "-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE",
+      "-module-cache-path",
+      "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/ModuleCache",
+      "-parseable-output",
+      "-parse-as-library",
+      "-emit-objc-header",
+      "-emit-objc-header-path",
+      "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRendererPackageTests.build/include/A2UIRendererPackageTests-Swift.h",
+      "-plugin-path",
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing",
+      "-sdk",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk",
+      "-F",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+      "-F",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+      "-I",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+      "-L",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+      "-g",
+      "-Xcc",
+      "-isysroot",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk",
+      "-Xcc",
+      "-F",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+      "-Xcc",
+      "-F",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+      "-Xcc",
+      "-fPIC",
+      "-Xcc",
+      "-g",
+      "-package-name",
+      "ios_renderer",
+      "-driver-use-frontend-path",
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc"
+    ],
+    "A2UIRendererTests" : [
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc",
+      "-module-name",
+      "A2UIRendererTests",
+      "-package-name",
+      "ios_renderer",
+      "-c",
+      "/Users/arvindchellapondy/Workspace/interface/ios-renderer/Tests/A2UIRendererTests/MessageProcessorTests.swift",
+      "-I",
+      "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/Modules",
+      "-target",
+      "arm64-apple-macosx14.0",
+      "-incremental",
+      "-enable-batch-mode",
+      "-serialize-diagnostics",
+      "-index-store-path",
+      "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/index/store",
+      "-Onone",
+      "-enable-testing",
+      "-Xfrontend",
+      "-enable-cross-import-overlays",
+      "-j8",
+      "-DSWIFT_PACKAGE",
+      "-DDEBUG",
+      "-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE",
+      "-module-cache-path",
+      "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/ModuleCache",
+      "-parseable-output",
+      "-parse-as-library",
+      "-swift-version",
+      "5",
+      "-plugin-path",
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing",
+      "-sdk",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk",
+      "-F",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+      "-F",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+      "-I",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+      "-L",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+      "-g",
+      "-Xcc",
+      "-isysroot",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk",
+      "-Xcc",
+      "-F",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+      "-Xcc",
+      "-F",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+      "-Xcc",
+      "-fPIC",
+      "-Xcc",
+      "-g",
+      "-package-name",
+      "ios_renderer",
+      "-driver-use-frontend-path",
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc"
+    ]
+  },
+  "targetDependencyMap" : {
+    "A2UIRenderer" : [
+
+    ],
+    "A2UIRendererPackageTests" : [
+      "A2UIRendererTests",
+      "A2UIRenderer"
+    ],
+    "A2UIRendererTests" : [
+      "A2UIRenderer"
+    ]
+  },
+  "testDiscoveryCommands" : {
+
+  },
+  "testEntryPointCommands" : {
+    "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRendererPackageTests.derived/runner.swift" : {
+      "inputs" : [
+
+      ],
+      "outputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRendererPackageTests.derived/runner.swift"
+        }
+      ]
+    }
+  },
+  "traitConfiguration" : {
+    "default" : {
+
+    }
+  },
+  "writeCommands" : {
+    "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRenderer.build/sources" : {
+      "alwaysOutOfDate" : false,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<sources-file-list>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/arvindchellapondy/Workspace/interface/ios-renderer/Sources/A2UIRenderer/Models/A2UISchema.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/arvindchellapondy/Workspace/interface/ios-renderer/Sources/A2UIRenderer/Models/AnyCodable.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/arvindchellapondy/Workspace/interface/ios-renderer/Sources/A2UIRenderer/Models/Surface.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/arvindchellapondy/Workspace/interface/ios-renderer/Sources/A2UIRenderer/Processing/DataBindingResolver.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/arvindchellapondy/Workspace/interface/ios-renderer/Sources/A2UIRenderer/Processing/MessageProcessor.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/arvindchellapondy/Workspace/interface/ios-renderer/Sources/A2UIRenderer/Processing/TokenResolver.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/arvindchellapondy/Workspace/interface/ios-renderer/Sources/A2UIRenderer/Rendering/A2UIRendererView.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/arvindchellapondy/Workspace/interface/ios-renderer/Sources/A2UIRenderer/Rendering/ComponentNodeView.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/arvindchellapondy/Workspace/interface/ios-renderer/Sources/A2UIRenderer/Rendering/Components/A2UIButton.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/arvindchellapondy/Workspace/interface/ios-renderer/Sources/A2UIRenderer/Rendering/Components/A2UICard.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/arvindchellapondy/Workspace/interface/ios-renderer/Sources/A2UIRenderer/Rendering/Components/A2UIColumn.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/arvindchellapondy/Workspace/interface/ios-renderer/Sources/A2UIRenderer/Rendering/Components/A2UIImage.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/arvindchellapondy/Workspace/interface/ios-renderer/Sources/A2UIRenderer/Rendering/Components/A2UIRow.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/arvindchellapondy/Workspace/interface/ios-renderer/Sources/A2UIRenderer/Rendering/Components/A2UIText.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/arvindchellapondy/Workspace/interface/ios-renderer/Sources/A2UIRenderer/Rendering/StyleModifiers.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/arvindchellapondy/Workspace/interface/ios-renderer/Sources/A2UIRenderer/Transport/A2UIWebSocketClient.swift"
+        }
+      ],
+      "outputFilePath" : "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRenderer.build/sources"
+    },
+    "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRendererPackageTests.build/sources" : {
+      "alwaysOutOfDate" : false,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<sources-file-list>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRendererPackageTests.derived/runner.swift"
+        }
+      ],
+      "outputFilePath" : "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRendererPackageTests.build/sources"
+    },
+    "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRendererPackageTests.product/Objects.LinkFileList" : {
+      "alwaysOutOfDate" : false,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<link-file-list>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRenderer.build/A2UIButton.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRenderer.build/A2UICard.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRenderer.build/A2UIColumn.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRenderer.build/A2UIImage.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRenderer.build/A2UIRendererView.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRenderer.build/A2UIRow.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRenderer.build/A2UISchema.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRenderer.build/A2UIText.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRenderer.build/A2UIWebSocketClient.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRenderer.build/AnyCodable.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRenderer.build/ComponentNodeView.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRenderer.build/DataBindingResolver.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRenderer.build/MessageProcessor.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRenderer.build/StyleModifiers.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRenderer.build/Surface.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRenderer.build/TokenResolver.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRendererPackageTests.build/runner.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRendererTests.build/MessageProcessorTests.swift.o"
+        }
+      ],
+      "outputFilePath" : "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRendererPackageTests.product/Objects.LinkFileList"
+    },
+    "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRendererTests.build/sources" : {
+      "alwaysOutOfDate" : false,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<sources-file-list>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/arvindchellapondy/Workspace/interface/ios-renderer/Tests/A2UIRendererTests/MessageProcessorTests.swift"
+        }
+      ],
+      "outputFilePath" : "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRendererTests.build/sources"
+    },
+    "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/swift-version--58304C5D6DBC2206.txt" : {
+      "alwaysOutOfDate" : true,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<swift-get-version>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc"
+        }
+      ],
+      "outputFilePath" : "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/swift-version--58304C5D6DBC2206.txt"
+    }
+  }
+}

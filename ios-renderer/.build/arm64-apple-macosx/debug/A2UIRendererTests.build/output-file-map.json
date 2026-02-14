@@ -1,0 +1,12 @@
+{
+  "": {
+    "swift-dependencies": "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRendererTests.build/master.swiftdeps"
+  },
+  "/Users/arvindchellapondy/Workspace/interface/ios-renderer/Tests/A2UIRendererTests/MessageProcessorTests.swift": {
+    "dependencies": "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRendererTests.build/MessageProcessorTests.d",
+    "object": "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRendererTests.build/MessageProcessorTests.swift.o",
+    "swiftmodule": "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRendererTests.build/MessageProcessorTests~partial.swiftmodule",
+    "swift-dependencies": "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRendererTests.build/MessageProcessorTests.swiftdeps",
+    "diagnostics": "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRendererTests.build/MessageProcessorTests.dia"
+  }
+}

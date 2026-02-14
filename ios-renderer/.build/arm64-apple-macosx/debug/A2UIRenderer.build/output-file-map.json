@@ -1,0 +1,117 @@
+{
+  "": {
+    "swift-dependencies": "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRenderer.build/master.swiftdeps"
+  },
+  "/Users/arvindchellapondy/Workspace/interface/ios-renderer/Sources/A2UIRenderer/Models/A2UISchema.swift": {
+    "dependencies": "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRenderer.build/A2UISchema.d",
+    "object": "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRenderer.build/A2UISchema.swift.o",
+    "swiftmodule": "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRenderer.build/A2UISchema~partial.swiftmodule",
+    "swift-dependencies": "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRenderer.build/A2UISchema.swiftdeps",
+    "diagnostics": "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRenderer.build/A2UISchema.dia"
+  },
+  "/Users/arvindchellapondy/Workspace/interface/ios-renderer/Sources/A2UIRenderer/Models/AnyCodable.swift": {
+    "dependencies": "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRenderer.build/AnyCodable.d",
+    "object": "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRenderer.build/AnyCodable.swift.o",
+    "swiftmodule": "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRenderer.build/AnyCodable~partial.swiftmodule",
+    "swift-dependencies": "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRenderer.build/AnyCodable.swiftdeps",
+    "diagnostics": "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRenderer.build/AnyCodable.dia"
+  },
+  "/Users/arvindchellapondy/Workspace/interface/ios-renderer/Sources/A2UIRenderer/Models/Surface.swift": {
+    "dependencies": "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRenderer.build/Surface.d",
+    "object": "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRenderer.build/Surface.swift.o",
+    "swiftmodule": "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRenderer.build/Surface~partial.swiftmodule",
+    "swift-dependencies": "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRenderer.build/Surface.swiftdeps",
+    "diagnostics": "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRenderer.build/Surface.dia"
+  },
+  "/Users/arvindchellapondy/Workspace/interface/ios-renderer/Sources/A2UIRenderer/Processing/DataBindingResolver.swift": {
+    "dependencies": "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRenderer.build/DataBindingResolver.d",
+    "object": "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRenderer.build/DataBindingResolver.swift.o",
+    "swiftmodule": "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRenderer.build/DataBindingResolver~partial.swiftmodule",
+    "swift-dependencies": "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRenderer.build/DataBindingResolver.swiftdeps",
+    "diagnostics": "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRenderer.build/DataBindingResolver.dia"
+  },
+  "/Users/arvindchellapondy/Workspace/interface/ios-renderer/Sources/A2UIRenderer/Processing/MessageProcessor.swift": {
+    "dependencies": "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRenderer.build/MessageProcessor.d",
+    "object": "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRenderer.build/MessageProcessor.swift.o",
+    "swiftmodule": "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRenderer.build/MessageProcessor~partial.swiftmodule",
+    "swift-dependencies": "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRenderer.build/MessageProcessor.swiftdeps",
+    "diagnostics": "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRenderer.build/MessageProcessor.dia"
+  },
+  "/Users/arvindchellapondy/Workspace/interface/ios-renderer/Sources/A2UIRenderer/Processing/TokenResolver.swift": {
+    "dependencies": "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRenderer.build/TokenResolver.d",
+    "object": "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRenderer.build/TokenResolver.swift.o",
+    "swiftmodule": "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRenderer.build/TokenResolver~partial.swiftmodule",
+    "swift-dependencies": "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRenderer.build/TokenResolver.swiftdeps",
+    "diagnostics": "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRenderer.build/TokenResolver.dia"
+  },
+  "/Users/arvindchellapondy/Workspace/interface/ios-renderer/Sources/A2UIRenderer/Rendering/A2UIRendererView.swift": {
+    "dependencies": "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRenderer.build/A2UIRendererView.d",
+    "object": "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRenderer.build/A2UIRendererView.swift.o",
+    "swiftmodule": "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRenderer.build/A2UIRendererView~partial.swiftmodule",
+    "swift-dependencies": "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRenderer.build/A2UIRendererView.swiftdeps",
+    "diagnostics": "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRenderer.build/A2UIRendererView.dia"
+  },
+  "/Users/arvindchellapondy/Workspace/interface/ios-renderer/Sources/A2UIRenderer/Rendering/ComponentNodeView.swift": {
+    "dependencies": "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRenderer.build/ComponentNodeView.d",
+    "object": "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRenderer.build/ComponentNodeView.swift.o",
+    "swiftmodule": "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRenderer.build/ComponentNodeView~partial.swiftmodule",
+    "swift-dependencies": "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRenderer.build/ComponentNodeView.swiftdeps",
+    "diagnostics": "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRenderer.build/ComponentNodeView.dia"
+  },
+  "/Users/arvindchellapondy/Workspace/interface/ios-renderer/Sources/A2UIRenderer/Rendering/Components/A2UIButton.swift": {
+    "dependencies": "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRenderer.build/A2UIButton.d",
+    "object": "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRenderer.build/A2UIButton.swift.o",
+    "swiftmodule": "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRenderer.build/A2UIButton~partial.swiftmodule",
+    "swift-dependencies": "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRenderer.build/A2UIButton.swiftdeps",
+    "diagnostics": "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRenderer.build/A2UIButton.dia"
+  },
+  "/Users/arvindchellapondy/Workspace/interface/ios-renderer/Sources/A2UIRenderer/Rendering/Components/A2UICard.swift": {
+    "dependencies": "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRenderer.build/A2UICard.d",
+    "object": "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRenderer.build/A2UICard.swift.o",
+    "swiftmodule": "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRenderer.build/A2UICard~partial.swiftmodule",
+    "swift-dependencies": "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRenderer.build/A2UICard.swiftdeps",
+    "diagnostics": "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRenderer.build/A2UICard.dia"
+  },
+  "/Users/arvindchellapondy/Workspace/interface/ios-renderer/Sources/A2UIRenderer/Rendering/Components/A2UIColumn.swift": {
+    "dependencies": "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRenderer.build/A2UIColumn.d",
+    "object": "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRenderer.build/A2UIColumn.swift.o",
+    "swiftmodule": "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRenderer.build/A2UIColumn~partial.swiftmodule",
+    "swift-dependencies": "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRenderer.build/A2UIColumn.swiftdeps",
+    "diagnostics": "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRenderer.build/A2UIColumn.dia"
+  },
+  "/Users/arvindchellapondy/Workspace/interface/ios-renderer/Sources/A2UIRenderer/Rendering/Components/A2UIImage.swift": {
+    "dependencies": "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRenderer.build/A2UIImage.d",
+    "object": "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRenderer.build/A2UIImage.swift.o",
+    "swiftmodule": "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRenderer.build/A2UIImage~partial.swiftmodule",
+    "swift-dependencies": "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRenderer.build/A2UIImage.swiftdeps",
+    "diagnostics": "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRenderer.build/A2UIImage.dia"
+  },
+  "/Users/arvindchellapondy/Workspace/interface/ios-renderer/Sources/A2UIRenderer/Rendering/Components/A2UIRow.swift": {
+    "dependencies": "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRenderer.build/A2UIRow.d",
+    "object": "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRenderer.build/A2UIRow.swift.o",
+    "swiftmodule": "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRenderer.build/A2UIRow~partial.swiftmodule",
+    "swift-dependencies": "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRenderer.build/A2UIRow.swiftdeps",
+    "diagnostics": "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRenderer.build/A2UIRow.dia"
+  },
+  "/Users/arvindchellapondy/Workspace/interface/ios-renderer/Sources/A2UIRenderer/Rendering/Components/A2UIText.swift": {
+    "dependencies": "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRenderer.build/A2UIText.d",
+    "object": "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRenderer.build/A2UIText.swift.o",
+    "swiftmodule": "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRenderer.build/A2UIText~partial.swiftmodule",
+    "swift-dependencies": "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRenderer.build/A2UIText.swiftdeps",
+    "diagnostics": "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRenderer.build/A2UIText.dia"
+  },
+  "/Users/arvindchellapondy/Workspace/interface/ios-renderer/Sources/A2UIRenderer/Rendering/StyleModifiers.swift": {
+    "dependencies": "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRenderer.build/StyleModifiers.d",
+    "object": "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRenderer.build/StyleModifiers.swift.o",
+    "swiftmodule": "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRenderer.build/StyleModifiers~partial.swiftmodule",
+    "swift-dependencies": "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRenderer.build/StyleModifiers.swiftdeps",
+    "diagnostics": "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRenderer.build/StyleModifiers.dia"
+  },
+  "/Users/arvindchellapondy/Workspace/interface/ios-renderer/Sources/A2UIRenderer/Transport/A2UIWebSocketClient.swift": {
+    "dependencies": "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRenderer.build/A2UIWebSocketClient.d",
+    "object": "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRenderer.build/A2UIWebSocketClient.swift.o",
+    "swiftmodule": "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRenderer.build/A2UIWebSocketClient~partial.swiftmodule",
+    "swift-dependencies": "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRenderer.build/A2UIWebSocketClient.swiftdeps",
+    "diagnostics": "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRenderer.build/A2UIWebSocketClient.dia"
+  }
+}

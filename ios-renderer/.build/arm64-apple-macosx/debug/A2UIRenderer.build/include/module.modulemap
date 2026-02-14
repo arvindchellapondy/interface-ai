@@ -1,0 +1,3 @@
+module A2UIRenderer {
+    header "/Users/arvindchellapondy/Workspace/interface/ios-renderer/.build/arm64-apple-macosx/debug/A2UIRenderer.build/include/A2UIRenderer-Swift.h"
+}
