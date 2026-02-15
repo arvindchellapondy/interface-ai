@@ -11,7 +11,7 @@ Figma plugin that extracts selected design components and converts them into the
  │                   Figma Canvas                     │
  │                                                    │
  │   ┌──────────────────────────────────────────┐     │
- │   │  Selected Component (e.g. tile_hello)    │     │
+ │   │  Selected Component (e.g. widget_hello)    │     │
  │   │  ┌─────────────────┐                     │     │
  │   │  │  Title (TEXT)    │                     │     │
  │   │  │  Subtitle (TEXT) │                     │     │

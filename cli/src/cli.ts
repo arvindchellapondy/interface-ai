@@ -358,9 +358,9 @@ Usage:
 Platforms: ${Object.keys(PLATFORMS).join(", ")}
 
 Examples:
-  interface-ai generate tile_hello.a2ui.json --platform react-native
-  interface-ai generate tile_hello.a2ui.json --platform swiftui --output TileHello.swift
-  cat tile_hello.a2ui.json | interface-ai generate - --platform react-native
+  interface-ai generate widget_hello.a2ui.json --platform react-native
+  interface-ai generate widget_hello.a2ui.json --platform swiftui --output WidgetHello.swift
+  cat widget_hello.a2ui.json | interface-ai generate - --platform react-native
   `);
 }
 

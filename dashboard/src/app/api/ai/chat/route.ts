@@ -12,7 +12,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Missing messages array" }, { status: 400 });
   }
 
-  // Build tile catalog context from stored designs
+  // Build widget catalog context from stored designs
   const designs = listDesigns();
   const catalog = designs.map((d) => {
     const components = extractComponentSummary(d.messages);
@@ -25,32 +25,32 @@ export async function POST(req: NextRequest) {
     };
   });
 
-  const systemPrompt = `You are an AI assistant for Interface AI, a platform that manages mobile app UI tiles using the A2UI protocol.
+  const systemPrompt = `You are an AI assistant for Interface AI, a platform that manages mobile app UI widgets using the A2UI protocol.
 
-You have access to a catalog of tile designs. Each tile is a pre-designed UI component that can be shown on mobile devices. You can select which tile to show and personalize its content.
+You have access to a catalog of widget designs. Each widget is a pre-designed UI component that can be shown on mobile devices. You can select which widget to show and personalize its content.
 
-AVAILABLE TILE DESIGNS:
+AVAILABLE WIDGET DESIGNS:
 ${catalog.map((t) => `- "${t.id}" (${t.name}): Components: ${t.components.join(", ")}. Data bindings: ${t.dataBindings.map((b) => `${b.path} = "${b.currentValue}"`).join(", ")}`).join("\n")}
 
-When the user asks you to show a tile or asks about content/weather/greetings/etc., respond with a JSON block that selects and personalizes a tile.
+When the user asks you to show a widget or asks about content/weather/greetings/etc., respond with a JSON block that selects and personalizes a widget.
 
-CRITICAL: The dataModel must use NESTED object format matching the tile's data binding structure.
-For example, if a tile has binding "\${/aubrey_tx/text}", the dataModel must be: {"aubrey_tx": {"text": "new value"}}
+CRITICAL: The dataModel must use NESTED object format matching the widget's data binding structure.
+For example, if a widget has binding "\${/aubrey_tx/text}", the dataModel must be: {"aubrey_tx": {"text": "new value"}}
 Do NOT use flat path keys like "/aubrey_tx/text".
 
 Use this exact format:
 
 \`\`\`json
-{"action": "show_tile", "tileId": "the_tile_id", "dataModel": {"binding_key": {"field": "personalized value"}}, "reasoning": "why you chose this"}
+{"action": "show_widget", "widgetId": "the_widget_id", "dataModel": {"binding_key": {"field": "personalized value"}}, "reasoning": "why you chose this"}
 \`\`\`
 
 Rules:
-- Always include the JSON block when selecting/personalizing a tile
+- Always include the JSON block when selecting/personalizing a widget
 - The dataModel MUST use nested objects (e.g. {"aubrey_tx": {"text": "value"}}) not flat paths
-- You MUST include ALL data bindings for the selected tile in the dataModel — do not skip any
+- You MUST include ALL data bindings for the selected widget in the dataModel — do not skip any
 - Personalize text values to be contextual and engaging for the user's request
 - Respond conversationally before the JSON block
-- If the user just wants to chat without showing a tile, respond normally without JSON`;
+- If the user just wants to chat without showing a widget, respond normally without JSON`;
 
   try {
     const response = await client.messages.create({
@@ -67,10 +67,10 @@ Rules:
 
     // Extract JSON action block if present
     const jsonMatch = text.match(/```json\s*\n?([\s\S]*?)\n?\s*```/);
-    let tileAction = null;
+    let widgetAction = null;
     if (jsonMatch) {
       try {
-        tileAction = JSON.parse(jsonMatch[1]);
+        widgetAction = JSON.parse(jsonMatch[1]);
       } catch {
         // ignore parse errors
       }
@@ -78,7 +78,7 @@ Rules:
 
     return NextResponse.json({
       message: text,
-      tileAction,
+      widgetAction,
     });
   } catch (err) {
     console.error("AI chat error:", err);

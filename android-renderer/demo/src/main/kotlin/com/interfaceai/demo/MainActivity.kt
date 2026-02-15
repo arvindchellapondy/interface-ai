@@ -29,7 +29,7 @@ fun A2UIDemoScreen() {
     var surfaceId by remember { mutableStateOf<String?>(null) }
 
     LaunchedEffect(Unit) {
-        val surface = processor.processJSON(TILE_HELLO_JSON)
+        val surface = processor.processJSON(WIDGET_HELLO_JSON)
         surfaceId = surface?.surfaceId
     }
 
@@ -68,11 +68,11 @@ fun A2UIDemoScreen() {
     }
 }
 
-private const val TILE_HELLO_JSON = """
+private const val WIDGET_HELLO_JSON = """
 [
   {
     "createSurface": {
-      "surfaceId": "tile_hello",
+      "surfaceId": "widget_hello",
       "catalogId": "standard_catalog_v0.9",
       "sendDataModel": true,
       "designTokens": {
@@ -87,7 +87,7 @@ private const val TILE_HELLO_JSON = """
   },
   {
     "updateComponents": {
-      "surfaceId": "tile_hello",
+      "surfaceId": "widget_hello",
       "components": [
         {
           "id": "hello_world_our_1st_tile",
@@ -139,7 +139,7 @@ private const val TILE_HELLO_JSON = """
   },
   {
     "updateDataModel": {
-      "surfaceId": "tile_hello",
+      "surfaceId": "widget_hello",
       "path": "/",
       "value": {
         "hello_world_our_1st_tile": { "text": "Hello world, our 1st tile!" },

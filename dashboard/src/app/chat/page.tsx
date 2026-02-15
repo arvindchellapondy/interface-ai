@@ -7,9 +7,9 @@ import A2UIPreviewRenderer from "@/components/A2UIPreviewRenderer";
 interface ChatMessage {
   role: "user" | "assistant";
   content: string;
-  tileAction?: {
+  widgetAction?: {
     action: string;
-    tileId: string;
+    widgetId: string;
     dataModel: Record<string, unknown>;
     reasoning: string;
   };
@@ -76,22 +76,22 @@ export default function ChatPage() {
     []
   );
 
-  const applyTileAction = useCallback(
-    (tileAction: ChatMessage["tileAction"]) => {
-      if (!tileAction || tileAction.action !== "show_tile") return;
+  const applyWidgetAction = useCallback(
+    (widgetAction: ChatMessage["widgetAction"]) => {
+      if (!widgetAction || widgetAction.action !== "show_widget") return;
 
-      const design = designs.find((d) => d.id === tileAction.tileId);
+      const design = designs.find((d) => d.id === widgetAction.widgetId);
       if (!design) return;
 
       const doc = parseA2UIMessages(design.messages as A2UIMessage[]);
-      const nestedOverlay = pathsToNestedDataModel(tileAction.dataModel);
+      const nestedOverlay = pathsToNestedDataModel(widgetAction.dataModel);
       const mergedDataModel = mergeDataModel(doc.dataModel, nestedOverlay);
       const updatedDoc = { ...doc, dataModel: mergedDataModel };
 
       setSelectedDoc(updatedDoc);
-      setSelectedDesignId(tileAction.tileId);
+      setSelectedDesignId(widgetAction.widgetId);
 
-      pushDesignToDevices(tileAction.tileId, mergedDataModel);
+      pushDesignToDevices(widgetAction.widgetId, mergedDataModel);
     },
     [designs, pushDesignToDevices]
   );
@@ -125,12 +125,12 @@ export default function ChatPage() {
         const assistantMessage: ChatMessage = {
           role: "assistant",
           content: displayText || data.message,
-          tileAction: data.tileAction,
+          widgetAction: data.widgetAction,
         };
         setMessages([...updatedMessages, assistantMessage]);
 
-        if (data.tileAction) {
-          applyTileAction(data.tileAction);
+        if (data.widgetAction) {
+          applyWidgetAction(data.widgetAction);
         }
       }
     } catch {
@@ -147,16 +147,16 @@ export default function ChatPage() {
     <div className="grid grid-cols-1 lg:grid-cols-[1fr_440px] gap-8 h-[calc(100vh-120px)]">
       {/* Left: Chat */}
       <div className="flex flex-col min-h-0">
-        <h1 className="font-heading text-2xl font-bold text-slate-900 mb-5">AI Tile Assistant</h1>
+        <h1 className="font-heading text-2xl font-bold text-slate-900 mb-5">AI Widget Assistant</h1>
 
         {/* Messages */}
         <div className="flex-1 overflow-y-auto bg-white rounded-xl shadow-card p-5 flex flex-col gap-4">
           {messages.length === 0 && (
             <div className="text-slate-400 text-center py-14">
               <div className="text-4xl mb-4 opacity-50">?</div>
-              <div className="text-base">Ask me to show a tile or personalize content</div>
+              <div className="text-base">Ask me to show a widget or personalize content</div>
               <div className="text-sm text-slate-300 mt-2">
-                Try: &quot;Show me a weather tile for NYC&quot; or &quot;Show a greeting for the morning&quot;
+                Try: &quot;Show me a weather widget for NYC&quot; or &quot;Show a greeting for the morning&quot;
               </div>
             </div>
           )}
@@ -174,9 +174,9 @@ export default function ChatPage() {
               >
                 {msg.content}
               </div>
-              {msg.tileAction && (
+              {msg.widgetAction && (
                 <div className="mt-2 px-4 py-2 bg-emerald-50 rounded-lg text-xs text-emerald-700 border border-emerald-100">
-                  Selected: <strong>{msg.tileAction.tileId}</strong> &mdash; {msg.tileAction.reasoning}
+                  Selected: <strong>{msg.widgetAction.widgetId}</strong> &mdash; {msg.widgetAction.reasoning}
                 </div>
               )}
             </div>
@@ -196,7 +196,7 @@ export default function ChatPage() {
             value={input}
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={(e) => e.key === "Enter" && sendMessage()}
-            placeholder="Ask about tiles..."
+            placeholder="Ask about widgets..."
             disabled={loading}
             className="flex-1 px-6 py-3.5 rounded-full border border-slate-200 text-base outline-none
                        focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100
@@ -216,9 +216,9 @@ export default function ChatPage() {
 
       {/* Right: Preview Panel */}
       <div className="flex flex-col gap-5">
-        {/* Tile Preview */}
+        {/* Widget Preview */}
         <div className="panel flex flex-col items-center min-h-[220px]">
-          <div className="section-label self-start">Tile Preview</div>
+          <div className="section-label self-start">Widget Preview</div>
           {selectedDoc ? (
             <>
               <A2UIPreviewRenderer doc={selectedDoc} />
@@ -226,8 +226,8 @@ export default function ChatPage() {
             </>
           ) : (
             <div className="text-slate-300 py-12 text-center">
-              <div className="text-3xl mb-2 opacity-50">No tile selected</div>
-              <div className="text-sm">Chat with the AI to select a tile</div>
+              <div className="text-3xl mb-2 opacity-50">No widget selected</div>
+              <div className="text-sm">Chat with the AI to select a widget</div>
             </div>
           )}
         </div>
@@ -242,7 +242,7 @@ export default function ChatPage() {
           </div>
           {deviceCount > 0 && (
             <div className="text-xs text-slate-400 mt-1.5">
-              Tiles auto-push to devices when AI selects them
+              Widgets auto-push to devices when AI selects them
             </div>
           )}
           {pushStatus && (
@@ -250,9 +250,9 @@ export default function ChatPage() {
           )}
         </div>
 
-        {/* Available Tiles */}
+        {/* Available Widgets */}
         <div className="panel">
-          <div className="section-label">Tile Catalog ({designs.length})</div>
+          <div className="section-label">Widget Catalog ({designs.length})</div>
           <div className="flex flex-col gap-2">
             {designs.map((d) => (
               <div

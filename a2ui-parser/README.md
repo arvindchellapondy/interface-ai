@@ -36,14 +36,14 @@ An A2UI design is described as a sequence of three JSON messages:
 
  1. createSurface         Initialize a rendering surface
     ┌─────────────────────────────────────────────┐
-    │  surfaceId:     "tile_hello"                │
+    │  surfaceId:     "widget_hello"                │
     │  catalogId:     "standard_catalog_v0.9"     │
     │  designTokens:  { "Accents.Indigo": ... }   │
     └─────────────────────────────────────────────┘
 
  2. updateComponents      Define the component tree
     ┌─────────────────────────────────────────────┐
-    │  surfaceId:     "tile_hello"                │
+    │  surfaceId:     "widget_hello"                │
     │  components: [                              │
     │    { id: "title", component: "Text", ... }, │
     │    { id: "btn", component: "Button", ... }, │
@@ -54,7 +54,7 @@ An A2UI design is described as a sequence of three JSON messages:
 
  3. updateDataModel       Bind dynamic data
     ┌─────────────────────────────────────────────┐
-    │  surfaceId:  "tile_hello"                   │
+    │  surfaceId:  "widget_hello"                   │
     │  path:       "/"                            │
     │  value: {                                   │
     │    "title": { "text": "Hello!" },           │

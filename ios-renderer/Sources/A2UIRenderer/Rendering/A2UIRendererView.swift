@@ -6,7 +6,7 @@ import SwiftUI
 /// ```swift
 /// let processor = MessageProcessor()
 /// try processor.processJSON(jsonString)
-/// if let surface = processor.surfaces["tile_hello"] {
+/// if let surface = processor.surfaces["widget_hello"] {
 ///     A2UIRendererView(surface: surface)
 /// }
 /// ```

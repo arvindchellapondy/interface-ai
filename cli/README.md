@@ -10,7 +10,7 @@ Command-line tool for converting A2UI JSON files to native mobile code (SwiftUI,
  ┌─────────────────────────────────────────────────┐
  │  interface-ai CLI                                │
  │                                                  │
- │  Input:  tile_hello.a2ui.json                    │
+ │  Input:  widget_hello.a2ui.json                    │
  │                                                  │
  │  ┌───────────────┐                               │
  │  │  Parse A2UI   │  Read JSON, build document    │
@@ -40,16 +40,16 @@ npm run build
 
 ```bash
 # Generate SwiftUI code
-npx interface-ai examples/tile_hello.a2ui.json --target swiftui
+npx interface-ai examples/widget_hello.a2ui.json --target swiftui
 
 # Generate Kotlin Compose code
-npx interface-ai examples/tile_hello.a2ui.json --target kotlin
+npx interface-ai examples/widget_hello.a2ui.json --target kotlin
 
 # Generate React Native code
-npx interface-ai examples/tile_hello.a2ui.json --target react-native
+npx interface-ai examples/widget_hello.a2ui.json --target react-native
 
 # Output to file
-npx interface-ai examples/tile_hello.a2ui.json --target swiftui -o output/TileHello.swift
+npx interface-ai examples/widget_hello.a2ui.json --target swiftui -o output/WidgetHello.swift
 ```
 
 ## How It Works
@@ -66,7 +66,7 @@ The CLI produces **static** native code with design tokens and default data valu
 ### SwiftUI Output Example
 
 ```swift
-struct TileHello: View {
+struct WidgetHello: View {
     var body: some View {
         VStack(spacing: 10) {
             Text("Hello world, our 1st tile!")

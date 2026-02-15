@@ -13,8 +13,8 @@ Next.js web application for previewing, inspecting, and personalizing A2UI desig
  │  ┌────────────────┐  ┌─────────────────┐  ┌──────────────────┐  │
  │  │   Home Page    │  │   Design Detail  │  │    AI Chat      │  │
  │  │                │  │                  │  │                  │  │
- │  │  Tile catalog  │  │  Live preview    │  │  Natural lang.  │  │
- │  │  grid with     │  │  Component tree  │  │  tile selection  │  │
+ │  │  Widget catalog  │  │  Live preview    │  │  Natural lang.  │  │
+ │  │  grid with     │  │  Component tree  │  │  widget selection  │  │
  │  │  click-through │  │  Data model edit │  │  & personalize  │  │
  │  │                │  │  Token inspector │  │                  │  │
  │  │                │  │  Push to devices │  │  Auto-push to   │  │
@@ -83,17 +83,17 @@ Editing the data model automatically pushes changes to connected devices via Web
 
 ### AI Chat (`/chat`)
 
-Chat interface powered by Claude for natural language tile selection and personalization:
+Chat interface powered by Claude for natural language widget selection and personalization:
 
 ```
- User: "Show me a weather tile for San Francisco"
+ User: "Show me a weather widget for San Francisco"
   │
   ▼
  ┌──────────────────────────────────────────┐
  │  /api/ai/chat                            │
- │  1. Sends tile catalog to Claude         │
- │  2. Claude selects tile + data model     │
- │  3. Returns tileAction response          │
+ │  1. Sends widget catalog to Claude         │
+ │  2. Claude selects widget + data model     │
+ │  3. Returns widgetAction response          │
  └──────────────┬───────────────────────────┘
                 │
   ┌─────────────▼──────────────┐
@@ -114,7 +114,7 @@ Chat interface powered by Claude for natural language tile selection and persona
 | `/api/devices` | GET | List connected WebSocket devices |
 | `/api/devices/push` | POST | Push raw A2UI messages to all devices |
 | `/api/devices/push-design` | POST | Push a full design (with data model merge) to devices |
-| `/api/ai/chat` | POST | AI-powered chat for tile selection |
+| `/api/ai/chat` | POST | AI-powered chat for widget selection |
 | `/api/ai/personalize` | POST | AI-powered data model personalization |
 
 ### Push Design Endpoint
@@ -128,7 +128,7 @@ Chat interface powered by Claude for natural language tile selection and persona
 ```bash
 curl -X POST http://localhost:3001/api/devices/push-design \
   -H "Content-Type: application/json" \
-  -d '{"designId": "tile_hello", "dataModel": {"mdsbutton": {"label": "Click me"}}}'
+  -d '{"designId": "widget_hello", "dataModel": {"mdsbutton": {"label": "Click me"}}}'
 ```
 
 ---

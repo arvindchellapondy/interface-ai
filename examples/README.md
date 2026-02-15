@@ -6,11 +6,11 @@ Sample A2UI design files used by the dashboard and pushed to mobile devices.
 
 ## Overview
 
-Each `.a2ui.json` file contains a complete A2UI design as an array of three messages. The dashboard reads these files from this directory and displays them in the tile catalog.
+Each `.a2ui.json` file contains a complete A2UI design as an array of three messages. The dashboard reads these files from this directory and displays them in the widget catalog.
 
 ## Designs
 
-### `tile_hello.a2ui.json`
+### `widget_hello.a2ui.json`
 
 A simple greeting card with a title and button.
 
@@ -38,7 +38,7 @@ A simple greeting card with a title and button.
 
 ---
 
-### `tile_weather.a2ui.json`
+### `widget_weather.a2ui.json`
 
 A weather card with icon, location, and temperature display.
 
@@ -63,13 +63,13 @@ A weather card with icon, location, and temperature display.
 
 ---
 
-### `tile_weather_clear_sky.a2ui.json`
+### `widget_weather_clear_sky.a2ui.json`
 
-Variant of the weather tile with clear sky styling.
+Variant of the weather widget with clear sky styling.
 
-### `tile_weather_simple.a2ui.json`
+### `widget_weather_simple.a2ui.json`
 
-Simplified weather tile variant.
+Simplified weather widget variant.
 
 ---
 
@@ -81,7 +81,7 @@ Every `.a2ui.json` file follows this structure:
 [
   {
     "createSurface": {
-      "surfaceId": "tile_name",
+      "surfaceId": "widget_name",
       "catalogId": "standard_catalog_v0.9",
       "sendDataModel": true,
       "designTokens": {
@@ -91,7 +91,7 @@ Every `.a2ui.json` file follows this structure:
   },
   {
     "updateComponents": {
-      "surfaceId": "tile_name",
+      "surfaceId": "widget_name",
       "components": [
         {
           "id": "component_id",
@@ -110,7 +110,7 @@ Every `.a2ui.json` file follows this structure:
   },
   {
     "updateDataModel": {
-      "surfaceId": "tile_name",
+      "surfaceId": "widget_name",
       "path": "/",
       "value": {
         "component_id": { "text": "Default text value" }

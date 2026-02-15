@@ -1,7 +1,7 @@
 [
   {
     "createSurface": {
-      "surfaceId": "tile_hello",
+      "surfaceId": "widget_hello",
       "catalogId": "standard_catalog_v0.9",
       "sendDataModel": true,
       "designTokens": {
@@ -34,7 +34,7 @@
   },
   {
     "updateComponents": {
-      "surfaceId": "tile_hello",
+      "surfaceId": "widget_hello",
       "components": [
         {
           "id": "hello_world_our_1st_tile",
@@ -121,7 +121,7 @@
   },
   {
     "updateDataModel": {
-      "surfaceId": "tile_hello",
+      "surfaceId": "widget_hello",
       "path": "/",
       "value": {
         "hello_world_our_1st_tile": {

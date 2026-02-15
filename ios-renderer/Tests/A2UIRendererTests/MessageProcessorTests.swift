@@ -1,12 +1,12 @@
 import Testing
 @testable import A2UIRenderer
 
-@Test func testParsesTileHelloMessages() throws {
+@Test func testParsesWidgetHelloMessages() throws {
     let json = """
     [
       {
         "createSurface": {
-          "surfaceId": "tile_hello",
+          "surfaceId": "widget_hello",
           "designTokens": {
             "Accents.Red": { "value": "#ff4245", "collection": "Colors" }
           }
@@ -14,7 +14,7 @@ import Testing
       },
       {
         "updateComponents": {
-          "surfaceId": "tile_hello",
+          "surfaceId": "widget_hello",
           "components": [
             { "id": "text1", "component": "Text", "text": "${/text1/content}" },
             { "id": "root", "component": "Card", "children": { "explicitList": ["text1"] } }
@@ -23,7 +23,7 @@ import Testing
       },
       {
         "updateDataModel": {
-          "surfaceId": "tile_hello",
+          "surfaceId": "widget_hello",
           "path": "/",
           "value": { "text1": { "content": "Hello!" } }
         }
@@ -35,7 +35,7 @@ import Testing
     let surface = try processor.processJSON(json)
 
     #expect(surface != nil)
-    #expect(surface?.surfaceId == "tile_hello")
+    #expect(surface?.surfaceId == "widget_hello")
     #expect(surface?.components.count == 2)
     #expect(surface?.designTokens["Accents.Red"]?.value == "#ff4245")
     #expect(surface?.dataModel["text1"]?.objectValue?["content"]?.stringValue == "Hello!")

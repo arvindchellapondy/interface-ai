@@ -28,16 +28,16 @@ export async function personalizeDataModel(
     messages: [
       {
         role: "user",
-        content: `You are an AI agent that personalizes UI content for a mobile app tile.
+        content: `You are an AI agent that personalizes UI content for a mobile app widget.
 
-The tile design is "${designName}". It uses A2UI (Application-to-UI) protocol where the UI structure is fixed, but the data model content can be personalized.
+The widget design is "${designName}". It uses A2UI (Application-to-UI) protocol where the UI structure is fixed, but the data model content can be personalized.
 
 Here are the data model paths and their current values:
 ${schemaDescription}
 
 User context: ${userContext}
 
-Your job: Generate personalized replacement values for each data path to make the tile relevant and engaging for this user.
+Your job: Generate personalized replacement values for each data path to make the widget relevant and engaging for this user.
 
 IMPORTANT: Only modify text content values. Do not change the UI structure.
 

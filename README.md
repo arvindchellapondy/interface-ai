@@ -6,7 +6,7 @@ An AI-powered pipeline that takes UI designs from Figma to native iOS and Androi
 
 ## Highlights
 
-- **AI Chat** — Ask Claude to select and personalize tiles in natural language, auto-pushed to connected devices
+- **AI Chat** — Ask Claude to select and personalize widgets in natural language, auto-pushed to connected devices
 - **AI Personalization** — Provide user context and Claude rewrites data-bound fields with personalized content
 - **Real-Time Push** — Dashboard and AI edits broadcast instantly to iOS/Android via WebSocket
 - **Figma-to-Native** — Extract designs from Figma, preview on web, render natively, or generate SwiftUI/Kotlin/React Native code
@@ -120,7 +120,7 @@ open ios-renderer/Examples/A2UIDemoApp/InterfaceAI.xcodeproj
 
 ### 5. Push a design to mobile
 
-Open the dashboard, select a design, and click **Push to Devices** — or use the AI chat to select and personalize tiles automatically.
+Open the dashboard, select a design, and click **Push to Devices** — or use the AI chat to select and personalize widgets automatically.
 
 ### Available npm Scripts
 
@@ -184,8 +184,8 @@ interface/
 │   └── src/cli.ts             #   Parse A2UI → generate native code
 │
 └── examples/                  # Sample A2UI design files
-    ├── tile_hello.a2ui.json
-    ├── tile_weather.a2ui.json
+    ├── widget_hello.a2ui.json
+    ├── widget_weather.a2ui.json
     └── ...
 ```
 
@@ -219,7 +219,7 @@ Values are resolved from the data model, enabling runtime personalization.
 
 ### Real-Time Push
 
-The dashboard connects to mobile devices via WebSocket (`ws://localhost:3001/ws`). When you edit a data model or the AI selects a tile, the full design is pushed to all connected devices instantly.
+The dashboard connects to mobile devices via WebSocket (`ws://localhost:3001/ws`). When you edit a data model or the AI selects a widget, the full design is pushed to all connected devices instantly.
 
 ```
  Dashboard                    WebSocket Server              iOS / Android
@@ -233,11 +233,11 @@ The dashboard connects to mobile devices via WebSocket (`ws://localhost:3001/ws`
 
 The dashboard includes an AI chat interface powered by Claude. You can ask it to:
 
-- **Select tiles**: *"Show me a weather tile for NYC"*
+- **Select widgets**: *"Show me a weather widget for NYC"*
 - **Personalize content**: *"Change the greeting to say Good Morning"*
-- **Auto-push**: Selected tiles are automatically pushed to connected devices
+- **Auto-push**: Selected widgets are automatically pushed to connected devices
 
-The AI sees the full tile catalog and intelligently maps your request to the right design with appropriate data model values.
+The AI sees the full widget catalog and intelligently maps your request to the right design with appropriate data model values.
 
 ---
 
