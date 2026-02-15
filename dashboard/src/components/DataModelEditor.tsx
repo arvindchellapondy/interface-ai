@@ -15,10 +15,10 @@ function renderValue(
   if (typeof value === "object" && value !== null && !Array.isArray(value)) {
     const obj = value as Record<string, unknown>;
     return (
-      <div style={{ marginLeft: 16 }}>
+      <div style={{ marginLeft: 20 }}>
         {Object.entries(obj).map(([key, val]) => (
-          <div key={key} className="mb-1">
-            <span className="text-slate-500 font-mono text-xs">{key}: </span>
+          <div key={key} className="mb-1.5">
+            <span className="text-slate-500 font-mono text-sm">{key}: </span>
             {renderValue(`${path}/${key}`, val, onChange)}
           </div>
         ))}
@@ -31,7 +31,7 @@ function renderValue(
       type="text"
       value={String(value ?? "")}
       onChange={(e) => onChange(path, e.target.value)}
-      className="border border-slate-200 rounded px-2 py-0.5 text-xs font-mono w-48
+      className="border border-slate-200 rounded-md px-3 py-1 text-sm font-mono w-56
                  focus:border-indigo-400 focus:ring-1 focus:ring-indigo-100
                  outline-none transition-all duration-150"
     />
@@ -54,8 +54,8 @@ export default function DataModelEditor({ dataModel, onChange }: DataModelEditor
     <div className="panel">
       <div className="section-label">Data Model</div>
       {Object.entries(dataModel).map(([key, val]) => (
-        <div key={key} className="mb-2">
-          <div className="font-mono text-[13px] font-semibold text-slate-700">{key}</div>
+        <div key={key} className="mb-3">
+          <div className="font-mono text-sm font-semibold text-slate-700">{key}</div>
           {renderValue(key, val, handleChange)}
         </div>
       ))}

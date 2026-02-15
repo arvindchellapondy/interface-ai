@@ -40,8 +40,8 @@ export default function DesignDetailPage() {
     }).catch(() => {});
   }, []);
 
-  if (loading) return <div className="py-12 text-center text-slate-400">Loading...</div>;
-  if (!doc) return <div className="py-12 text-center text-slate-400">Design not found</div>;
+  if (loading) return <div className="py-14 text-center text-slate-400 text-base">Loading...</div>;
+  if (!doc) return <div className="py-14 text-center text-slate-400 text-base">Design not found</div>;
 
   const handleDataModelChange = (newModel: Record<string, unknown>) => {
     setDoc({ ...doc, dataModel: newModel });
@@ -60,35 +60,35 @@ export default function DesignDetailPage() {
 
   return (
     <div>
-      <div className="mb-6">
+      <div className="mb-8">
         <a
           href="/"
-          className="text-slate-400 hover:text-indigo-600 text-sm transition-colors duration-150 inline-flex items-center gap-1"
+          className="text-slate-400 hover:text-indigo-600 text-base transition-colors duration-150 inline-flex items-center gap-1.5"
         >
           <span>&larr;</span> Back to designs
         </a>
-        <h1 className="font-heading text-xl font-bold text-slate-900 mt-2">
+        <h1 className="font-heading text-2xl font-bold text-slate-900 mt-2">
           {doc.surface.surfaceId}
         </h1>
-        <div className="text-slate-400 text-sm mt-1">
+        <div className="text-slate-400 text-base mt-1.5">
           {doc.components.length} components · {Object.keys(doc.designTokens).length} tokens
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-start">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
         {/* Left: Preview */}
         <div>
-          <div className="panel p-8 flex justify-center items-center min-h-[200px]">
+          <div className="panel p-10 flex justify-center items-center min-h-[220px]">
             <A2UIPreviewRenderer doc={doc} />
           </div>
 
-          <div className="mt-4">
+          <div className="mt-5">
             <DataModelEditor dataModel={doc.dataModel} onChange={handleDataModelChange} />
           </div>
         </div>
 
         {/* Right: Inspector */}
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-5">
           <TreeView doc={doc} />
           <TokenInspector tokens={doc.designTokens} />
           <ConnectedDevices designId={id} messages={rawMessages} />
@@ -108,7 +108,7 @@ export default function DesignDetailPage() {
           {/* Raw JSON */}
           <div className="panel">
             <div className="section-label">Raw A2UI JSON</div>
-            <pre className="text-[11px] font-mono overflow-auto max-h-72 whitespace-pre-wrap text-slate-600 bg-slate-50 rounded-lg p-3 m-0">
+            <pre className="text-xs font-mono overflow-auto max-h-80 whitespace-pre-wrap text-slate-600 bg-slate-50 rounded-lg p-4 m-0">
               {JSON.stringify(doc.rawMessages, null, 2)}
             </pre>
           </div>

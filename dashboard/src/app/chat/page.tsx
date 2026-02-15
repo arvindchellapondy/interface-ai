@@ -144,18 +144,18 @@ export default function ChatPage() {
   };
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-[1fr_400px] gap-6 h-[calc(100vh-100px)]">
+    <div className="grid grid-cols-1 lg:grid-cols-[1fr_440px] gap-8 h-[calc(100vh-120px)]">
       {/* Left: Chat */}
       <div className="flex flex-col min-h-0">
-        <h1 className="font-heading text-xl font-bold text-slate-900 mb-4">AI Tile Assistant</h1>
+        <h1 className="font-heading text-2xl font-bold text-slate-900 mb-5">AI Tile Assistant</h1>
 
         {/* Messages */}
-        <div className="flex-1 overflow-y-auto bg-white rounded-xl shadow-card p-4 flex flex-col gap-3">
+        <div className="flex-1 overflow-y-auto bg-white rounded-xl shadow-card p-5 flex flex-col gap-4">
           {messages.length === 0 && (
-            <div className="text-slate-400 text-center py-12">
-              <div className="text-3xl mb-3 opacity-50">?</div>
-              <div className="text-sm">Ask me to show a tile or personalize content</div>
-              <div className="text-xs text-slate-300 mt-2">
+            <div className="text-slate-400 text-center py-14">
+              <div className="text-4xl mb-4 opacity-50">?</div>
+              <div className="text-base">Ask me to show a tile or personalize content</div>
+              <div className="text-sm text-slate-300 mt-2">
                 Try: &quot;Show me a weather tile for NYC&quot; or &quot;Show a greeting for the morning&quot;
               </div>
             </div>
@@ -166,7 +166,7 @@ export default function ChatPage() {
               className={`max-w-[80%] ${msg.role === "user" ? "self-end" : "self-start animate-fade-in"}`}
             >
               <div
-                className={`px-4 py-2.5 text-sm leading-relaxed whitespace-pre-wrap ${
+                className={`px-5 py-3 text-base leading-relaxed whitespace-pre-wrap ${
                   msg.role === "user"
                     ? "bg-indigo-600 text-white rounded-2xl rounded-br-sm"
                     : "bg-slate-100 text-slate-800 rounded-2xl rounded-bl-sm"
@@ -175,14 +175,14 @@ export default function ChatPage() {
                 {msg.content}
               </div>
               {msg.tileAction && (
-                <div className="mt-1.5 px-3 py-1.5 bg-emerald-50 rounded-lg text-[11px] text-emerald-700 border border-emerald-100">
+                <div className="mt-2 px-4 py-2 bg-emerald-50 rounded-lg text-xs text-emerald-700 border border-emerald-100">
                   Selected: <strong>{msg.tileAction.tileId}</strong> &mdash; {msg.tileAction.reasoning}
                 </div>
               )}
             </div>
           ))}
           {loading && (
-            <div className="self-start text-slate-400 text-[13px] px-4 py-2">
+            <div className="self-start text-slate-400 text-sm px-5 py-2.5">
               Thinking...
             </div>
           )}
@@ -190,7 +190,7 @@ export default function ChatPage() {
         </div>
 
         {/* Input */}
-        <div className="flex gap-2 mt-3">
+        <div className="flex gap-3 mt-4">
           <input
             type="text"
             value={input}
@@ -198,14 +198,14 @@ export default function ChatPage() {
             onKeyDown={(e) => e.key === "Enter" && sendMessage()}
             placeholder="Ask about tiles..."
             disabled={loading}
-            className="flex-1 px-5 py-3 rounded-full border border-slate-200 text-sm outline-none
+            className="flex-1 px-6 py-3.5 rounded-full border border-slate-200 text-base outline-none
                        focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100
                        transition-all duration-150 disabled:bg-slate-50 placeholder:text-slate-300"
           />
           <button
             onClick={sendMessage}
             disabled={loading || !input.trim()}
-            className="px-6 py-3 rounded-full bg-indigo-600 text-white text-sm font-semibold
+            className="px-8 py-3.5 rounded-full bg-indigo-600 text-white text-base font-semibold
                        hover:bg-indigo-700 active:bg-indigo-800 transition-colors duration-150
                        disabled:bg-slate-300 disabled:cursor-not-allowed shadow-sm hover:shadow"
           >
@@ -215,49 +215,49 @@ export default function ChatPage() {
       </div>
 
       {/* Right: Preview Panel */}
-      <div className="flex flex-col gap-4">
+      <div className="flex flex-col gap-5">
         {/* Tile Preview */}
-        <div className="panel flex flex-col items-center min-h-[200px]">
+        <div className="panel flex flex-col items-center min-h-[220px]">
           <div className="section-label self-start">Tile Preview</div>
           {selectedDoc ? (
             <>
               <A2UIPreviewRenderer doc={selectedDoc} />
-              <div className="text-[11px] text-slate-400 mt-3">{selectedDesignId}</div>
+              <div className="text-xs text-slate-400 mt-3">{selectedDesignId}</div>
             </>
           ) : (
-            <div className="text-slate-300 py-10 text-center">
-              <div className="text-2xl mb-2 opacity-50">No tile selected</div>
-              <div className="text-xs">Chat with the AI to select a tile</div>
+            <div className="text-slate-300 py-12 text-center">
+              <div className="text-3xl mb-2 opacity-50">No tile selected</div>
+              <div className="text-sm">Chat with the AI to select a tile</div>
             </div>
           )}
         </div>
 
         {/* Connected Devices */}
         <div className="panel">
-          <div className="flex items-center gap-2 text-xs">
-            <div className={`w-2 h-2 rounded-full ${deviceCount > 0 ? "bg-emerald-500" : "bg-slate-300"}`} />
+          <div className="flex items-center gap-2.5 text-sm">
+            <div className={`w-2.5 h-2.5 rounded-full ${deviceCount > 0 ? "bg-emerald-500" : "bg-slate-300"}`} />
             <span className="font-semibold text-slate-500">
               {deviceCount} device{deviceCount !== 1 ? "s" : ""} connected
             </span>
           </div>
           {deviceCount > 0 && (
-            <div className="text-[11px] text-slate-400 mt-1">
+            <div className="text-xs text-slate-400 mt-1.5">
               Tiles auto-push to devices when AI selects them
             </div>
           )}
           {pushStatus && (
-            <div className="text-[11px] text-emerald-600 mt-1 font-semibold">{pushStatus}</div>
+            <div className="text-xs text-emerald-600 mt-1.5 font-semibold">{pushStatus}</div>
           )}
         </div>
 
         {/* Available Tiles */}
         <div className="panel">
           <div className="section-label">Tile Catalog ({designs.length})</div>
-          <div className="flex flex-col gap-1.5">
+          <div className="flex flex-col gap-2">
             {designs.map((d) => (
               <div
                 key={d.id}
-                className={`px-3 py-2 rounded-lg text-xs transition-colors duration-150 ${
+                className={`px-4 py-2.5 rounded-lg text-sm transition-colors duration-150 ${
                   selectedDesignId === d.id
                     ? "bg-indigo-50 border border-indigo-200 text-indigo-800"
                     : "bg-slate-50 border border-slate-100 hover:bg-slate-100"

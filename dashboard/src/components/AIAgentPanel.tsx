@@ -73,13 +73,13 @@ export default function AIAgentPanel({ designId, messages, onApplyUpdate }: AIAg
     <div className="panel">
       <div className="section-label">AI Agent — Personalize Content</div>
 
-      <div className="mb-3">
-        <label className="text-[11px] text-slate-400 block mb-1">User Context</label>
+      <div className="mb-4">
+        <label className="text-xs text-slate-400 block mb-1.5">User Context</label>
         <textarea
           value={userContext}
           onChange={(e) => setUserContext(e.target.value)}
           rows={3}
-          className="w-full text-xs font-mono p-2.5 rounded-lg border border-slate-200
+          className="w-full text-sm font-mono p-3 rounded-lg border border-slate-200
                      resize-y focus:border-violet-400 focus:ring-1 focus:ring-violet-100
                      outline-none transition-all duration-150"
         />
@@ -88,32 +88,32 @@ export default function AIAgentPanel({ designId, messages, onApplyUpdate }: AIAg
       <button
         onClick={runAgent}
         disabled={loading || !userContext.trim()}
-        className="btn-sm btn-violet mb-3 px-4 py-2"
+        className="btn-sm btn-violet mb-4"
       >
         {loading ? "Generating..." : "Personalize with AI"}
       </button>
 
-      {error && <div className="text-xs text-rose-500 mb-2">{error}</div>}
+      {error && <div className="text-sm text-rose-500 mb-3">{error}</div>}
 
       {result && (
-        <div className="mt-2 animate-fade-in">
-          <div className="text-[11px] text-slate-500 mb-2">
+        <div className="mt-3 animate-fade-in">
+          <div className="text-xs text-slate-500 mb-3">
             <strong className="text-slate-600">Reasoning:</strong> {result.result.reasoning}
           </div>
 
-          <div className="bg-slate-50 border border-slate-100 rounded-lg p-3 mb-3">
-            <div className="text-[11px] font-semibold text-slate-400 mb-1.5 uppercase tracking-wider">
+          <div className="bg-slate-50 border border-slate-100 rounded-lg p-4 mb-4">
+            <div className="text-xs font-semibold text-slate-400 mb-2 uppercase tracking-wider">
               Proposed Updates
             </div>
             {result.result.updates.map((u, i) => (
-              <div key={i} className="text-xs font-mono mb-0.5">
+              <div key={i} className="text-sm font-mono mb-1">
                 <span className="text-slate-400">{u.path}</span>
                 <span className="text-slate-700 ml-2">{"\u2192"} &quot;{u.value}&quot;</span>
               </div>
             ))}
           </div>
 
-          <div className="flex gap-2">
+          <div className="flex gap-3">
             <button onClick={applyToPreview} className="btn-sm btn-sky">
               Apply to Preview
             </button>

@@ -14,15 +14,15 @@ export default function TokenInspector({ tokens }: TokenInspectorProps) {
   return (
     <div className="panel">
       <div className="section-label">Design Tokens ({entries.length})</div>
-      <div className="grid grid-cols-[1fr_auto_auto] gap-x-3 gap-y-1 text-xs font-mono">
+      <div className="grid grid-cols-[1fr_auto_auto] gap-x-4 gap-y-1.5 text-sm font-mono">
         {entries.map(([name, token]) => (
           <React.Fragment key={name}>
             <span className="text-slate-700">{name}</span>
             <span className="text-slate-400">{token.collection}</span>
-            <span className="flex items-center gap-1">
+            <span className="flex items-center gap-1.5">
               {token.value.startsWith("#") && (
                 <span
-                  className="w-3 h-3 rounded-sm border border-slate-200 inline-block"
+                  className="w-3.5 h-3.5 rounded-sm border border-slate-200 inline-block"
                   style={{ backgroundColor: token.value }}
                 />
               )}

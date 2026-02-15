@@ -80,7 +80,7 @@ export default function ConnectedDevices({ designId, messages }: ConnectedDevice
 
   return (
     <div className="panel">
-      <div className="flex justify-between items-center mb-3">
+      <div className="flex justify-between items-center mb-4">
         <div className="section-label mb-0">Connected Devices ({devices.length})</div>
         {devices.length > 0 && (
           <button
@@ -94,19 +94,19 @@ export default function ConnectedDevices({ designId, messages }: ConnectedDevice
       </div>
 
       {devices.length === 0 ? (
-        <div className="text-xs text-slate-400 py-2">
+        <div className="text-sm text-slate-400 py-3">
           No devices connected. Run the iOS or Android demo app and connect to{" "}
-          <code className="text-[11px] bg-slate-100 px-1 py-0.5 rounded font-mono">
+          <code className="text-xs bg-slate-100 px-1.5 py-0.5 rounded font-mono">
             ws://localhost:3001/ws
           </code>
         </div>
       ) : (
-        <div className="flex flex-col gap-1.5">
+        <div className="flex flex-col gap-2">
           {devices.map((device) => (
             <div
               key={device.id}
-              className="flex justify-between items-center px-3 py-2 bg-slate-50
-                         rounded-lg border border-slate-100 text-xs hover:bg-slate-100
+              className="flex justify-between items-center px-4 py-2.5 bg-slate-50
+                         rounded-lg border border-slate-100 text-sm hover:bg-slate-100
                          transition-colors duration-100"
             >
               <div>
@@ -126,7 +126,7 @@ export default function ConnectedDevices({ designId, messages }: ConnectedDevice
       )}
 
       {status && (
-        <div className={`mt-2 text-[11px] font-medium ${
+        <div className={`mt-2.5 text-xs font-medium ${
           status.startsWith("Error") ? "text-rose-500" : "text-emerald-600"
         }`}>
           {status}

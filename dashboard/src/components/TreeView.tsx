@@ -26,27 +26,27 @@ function TreeNode({
   const resolvedLabel = component.label ? resolveDataBinding(component.label, dataModel) : null;
 
   return (
-    <div style={{ marginLeft: depth * 16 }}>
+    <div style={{ marginLeft: depth * 20 }}>
       <div
-        className={`flex items-center gap-1.5 py-0.5 font-mono text-[13px] ${
-          hasChildren ? "cursor-pointer hover:bg-slate-100 rounded px-1 -mx-1" : ""
+        className={`flex items-center gap-2 py-1 font-mono text-sm ${
+          hasChildren ? "cursor-pointer hover:bg-slate-100 rounded px-1.5 -mx-1.5" : ""
         }`}
         onClick={() => hasChildren && setExpanded(!expanded)}
       >
-        <span className="w-3.5 text-center text-slate-400 text-xs">
+        <span className="w-4 text-center text-slate-400 text-sm">
           {hasChildren ? (expanded ? "▼" : "▶") : "·"}
         </span>
-        <span className="bg-indigo-50 text-indigo-600 px-1.5 py-px rounded text-[11px] font-semibold">
+        <span className="bg-indigo-50 text-indigo-600 px-2 py-0.5 rounded text-xs font-semibold">
           {component.component}
         </span>
         <span className="text-slate-400">#{component.id}</span>
         {resolvedText && (
-          <span className="text-slate-700 text-xs">
+          <span className="text-slate-700 text-sm">
             &quot;{resolvedText.length > 30 ? resolvedText.slice(0, 30) + "..." : resolvedText}&quot;
           </span>
         )}
         {resolvedLabel && (
-          <span className="text-slate-700 text-xs">
+          <span className="text-slate-700 text-sm">
             label=&quot;{resolvedLabel}&quot;
           </span>
         )}
