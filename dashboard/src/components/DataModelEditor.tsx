@@ -17,8 +17,8 @@ function renderValue(
     return (
       <div style={{ marginLeft: 16 }}>
         {Object.entries(obj).map(([key, val]) => (
-          <div key={key} style={{ marginBottom: 4 }}>
-            <span style={{ color: "#666", fontFamily: "monospace", fontSize: 12 }}>{key}: </span>
+          <div key={key} className="mb-1">
+            <span className="text-slate-500 font-mono text-xs">{key}: </span>
             {renderValue(`${path}/${key}`, val, onChange)}
           </div>
         ))}
@@ -31,14 +31,9 @@ function renderValue(
       type="text"
       value={String(value ?? "")}
       onChange={(e) => onChange(path, e.target.value)}
-      style={{
-        border: "1px solid #ddd",
-        borderRadius: 4,
-        padding: "2px 6px",
-        fontSize: 12,
-        fontFamily: "monospace",
-        width: 200,
-      }}
+      className="border border-slate-200 rounded px-2 py-0.5 text-xs font-mono w-48
+                 focus:border-indigo-400 focus:ring-1 focus:ring-indigo-100
+                 outline-none transition-all duration-150"
     />
   );
 }
@@ -56,13 +51,11 @@ export default function DataModelEditor({ dataModel, onChange }: DataModelEditor
   };
 
   return (
-    <div style={{ padding: 12, background: "#fafafa", borderRadius: 8, border: "1px solid #e0e0e0" }}>
-      <div style={{ fontSize: 12, fontWeight: 600, color: "#666", marginBottom: 8 }}>
-        DATA MODEL
-      </div>
+    <div className="panel">
+      <div className="section-label">Data Model</div>
       {Object.entries(dataModel).map(([key, val]) => (
-        <div key={key} style={{ marginBottom: 8 }}>
-          <div style={{ fontFamily: "monospace", fontSize: 13, fontWeight: 600 }}>{key}</div>
+        <div key={key} className="mb-2">
+          <div className="font-mono text-[13px] font-semibold text-slate-700">{key}</div>
           {renderValue(key, val, handleChange)}
         </div>
       ))}

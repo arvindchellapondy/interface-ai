@@ -74,23 +74,20 @@ export function extractDataSchema(
     const m = msg as Record<string, unknown>;
     if (m.updateDataModel) {
       const udm = m.updateDataModel as Record<string, unknown>;
-      if (udm.dataModel && typeof udm.dataModel === "object") {
-        Object.assign(dataModel, udm.dataModel as Record<string, unknown>);
+      if (udm.value && typeof udm.value === "object") {
+        Object.assign(dataModel, udm.value as Record<string, unknown>);
       }
     }
   }
 
-  // Find data bindings in components
+  // Find data bindings in components — bindings are directly on the component (text, label, etc.)
   for (const msg of messages) {
     const m = msg as Record<string, unknown>;
     if (m.updateComponents) {
       const uc = m.updateComponents as Record<string, unknown>;
       const components = (uc.components || []) as Array<Record<string, unknown>>;
       for (const comp of components) {
-        const props = comp.properties as Record<string, unknown> | undefined;
-        if (!props) continue;
-
-        for (const [propName, propValue] of Object.entries(props)) {
+        for (const [propName, propValue] of Object.entries(comp)) {
           if (typeof propValue === "string" && propValue.startsWith("${") && propValue.endsWith("}")) {
             const path = propValue.slice(2, -1);
             const currentValue = resolvePathValue(dataModel, path);

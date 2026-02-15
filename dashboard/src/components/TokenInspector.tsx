@@ -12,29 +12,21 @@ export default function TokenInspector({ tokens }: TokenInspectorProps) {
   if (entries.length === 0) return null;
 
   return (
-    <div style={{ padding: 12, background: "#fafafa", borderRadius: 8, border: "1px solid #e0e0e0" }}>
-      <div style={{ fontSize: 12, fontWeight: 600, color: "#666", marginBottom: 8 }}>
-        DESIGN TOKENS ({entries.length})
-      </div>
-      <div style={{ display: "grid", gridTemplateColumns: "1fr auto auto", gap: "4px 12px", fontSize: 12, fontFamily: "monospace" }}>
+    <div className="panel">
+      <div className="section-label">Design Tokens ({entries.length})</div>
+      <div className="grid grid-cols-[1fr_auto_auto] gap-x-3 gap-y-1 text-xs font-mono">
         {entries.map(([name, token]) => (
           <React.Fragment key={name}>
-            <span style={{ color: "#333" }}>{name}</span>
-            <span style={{ color: "#666" }}>{token.collection}</span>
-            <span style={{ display: "flex", alignItems: "center", gap: 4 }}>
+            <span className="text-slate-700">{name}</span>
+            <span className="text-slate-400">{token.collection}</span>
+            <span className="flex items-center gap-1">
               {token.value.startsWith("#") && (
                 <span
-                  style={{
-                    width: 12,
-                    height: 12,
-                    borderRadius: 2,
-                    backgroundColor: token.value,
-                    border: "1px solid #ccc",
-                    display: "inline-block",
-                  }}
+                  className="w-3 h-3 rounded-sm border border-slate-200 inline-block"
+                  style={{ backgroundColor: token.value }}
                 />
               )}
-              {token.value}
+              <span className="text-slate-500">{token.value}</span>
             </span>
           </React.Fragment>
         ))}

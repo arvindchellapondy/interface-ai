@@ -1,4 +1,4 @@
-name: A2UIDemoApp
+name: InterfaceAI
 options:
   bundleIdPrefix: com.interfaceai
   deploymentTarget:
@@ -10,7 +10,7 @@ packages:
     path: ../..
 
 targets:
-  A2UIDemoApp:
+  InterfaceAI:
     type: application
     platform: iOS
     sources:
@@ -26,6 +26,6 @@ targets:
         GENERATE_INFOPLIST_FILE: true
         SWIFT_VERSION: "5.0"
         CODE_SIGN_STYLE: Automatic
-        PRODUCT_BUNDLE_IDENTIFIER: com.interfaceai.A2UIDemoApp
+        PRODUCT_BUNDLE_IDENTIFIER: com.interfaceai.InterfaceAI
     dependencies:
       - package: A2UIRenderer

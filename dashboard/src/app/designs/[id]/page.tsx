@@ -40,14 +40,12 @@ export default function DesignDetailPage() {
     }).catch(() => {});
   }, []);
 
-  if (loading) return <div style={{ padding: 40, textAlign: "center" }}>Loading...</div>;
-  if (!doc) return <div style={{ padding: 40, textAlign: "center" }}>Design not found</div>;
+  if (loading) return <div className="py-12 text-center text-slate-400">Loading...</div>;
+  if (!doc) return <div className="py-12 text-center text-slate-400">Design not found</div>;
 
   const handleDataModelChange = (newModel: Record<string, unknown>) => {
-    // Update local preview
     setDoc({ ...doc, dataModel: newModel });
 
-    // Send only an incremental updateDataModel to connected devices (lightweight, no SVG)
     const updateMsg = {
       updateDataModel: {
         surfaceId: doc.surface.surfaceId,
@@ -56,58 +54,49 @@ export default function DesignDetailPage() {
       },
     };
 
-    // Debounce auto-push to connected devices (300ms)
     if (pushTimerRef.current) clearTimeout(pushTimerRef.current);
     pushTimerRef.current = setTimeout(() => pushToDevices([updateMsg]), 300);
   };
 
   return (
     <div>
-      <div style={{ marginBottom: 24 }}>
-        <a href="/" style={{ color: "#666", textDecoration: "none", fontSize: 13 }}>
-          ← Back to designs
+      <div className="mb-6">
+        <a
+          href="/"
+          className="text-slate-400 hover:text-indigo-600 text-sm transition-colors duration-150 inline-flex items-center gap-1"
+        >
+          <span>&larr;</span> Back to designs
         </a>
-        <h1 style={{ margin: "8px 0 0", fontSize: 22 }}>{doc.surface.surfaceId}</h1>
-        <div style={{ color: "#888", fontSize: 13, marginTop: 4 }}>
+        <h1 className="font-heading text-xl font-bold text-slate-900 mt-2">
+          {doc.surface.surfaceId}
+        </h1>
+        <div className="text-slate-400 text-sm mt-1">
           {doc.components.length} components · {Object.keys(doc.designTokens).length} tokens
         </div>
       </div>
 
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 24, alignItems: "start" }}>
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-start">
         {/* Left: Preview */}
         <div>
-          <div
-            style={{
-              background: "#fff",
-              borderRadius: 12,
-              padding: 32,
-              border: "1px solid #e0e0e0",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              minHeight: 200,
-            }}
-          >
+          <div className="panel p-8 flex justify-center items-center min-h-[200px]">
             <A2UIPreviewRenderer doc={doc} />
           </div>
 
-          <div style={{ marginTop: 16 }}>
+          <div className="mt-4">
             <DataModelEditor dataModel={doc.dataModel} onChange={handleDataModelChange} />
           </div>
         </div>
 
         {/* Right: Inspector */}
-        <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+        <div className="flex flex-col gap-4">
           <TreeView doc={doc} />
           <TokenInspector tokens={doc.designTokens} />
-
           <ConnectedDevices designId={id} messages={rawMessages} />
 
           <AIAgentPanel
             designId={id}
             messages={rawMessages}
             onApplyUpdate={(updateMsg) => {
-              // Apply AI-generated updateDataModel to the preview
               const updated = parseA2UIMessages([
                 ...rawMessages,
                 updateMsg,
@@ -117,20 +106,9 @@ export default function DesignDetailPage() {
           />
 
           {/* Raw JSON */}
-          <div style={{ padding: 12, background: "#fafafa", borderRadius: 8, border: "1px solid #e0e0e0" }}>
-            <div style={{ fontSize: 12, fontWeight: 600, color: "#666", marginBottom: 8 }}>
-              RAW A2UI JSON
-            </div>
-            <pre
-              style={{
-                fontSize: 11,
-                fontFamily: "monospace",
-                overflow: "auto",
-                maxHeight: 300,
-                margin: 0,
-                whiteSpace: "pre-wrap",
-              }}
-            >
+          <div className="panel">
+            <div className="section-label">Raw A2UI JSON</div>
+            <pre className="text-[11px] font-mono overflow-auto max-h-72 whitespace-pre-wrap text-slate-600 bg-slate-50 rounded-lg p-3 m-0">
               {JSON.stringify(doc.rawMessages, null, 2)}
             </pre>
           </div>

@@ -28,40 +28,25 @@ function TreeNode({
   return (
     <div style={{ marginLeft: depth * 16 }}>
       <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          gap: 6,
-          padding: "3px 0",
-          cursor: hasChildren ? "pointer" : "default",
-          fontFamily: "monospace",
-          fontSize: 13,
-        }}
+        className={`flex items-center gap-1.5 py-0.5 font-mono text-[13px] ${
+          hasChildren ? "cursor-pointer hover:bg-slate-100 rounded px-1 -mx-1" : ""
+        }`}
         onClick={() => hasChildren && setExpanded(!expanded)}
       >
-        <span style={{ width: 14, textAlign: "center", color: "#666" }}>
+        <span className="w-3.5 text-center text-slate-400 text-xs">
           {hasChildren ? (expanded ? "▼" : "▶") : "·"}
         </span>
-        <span
-          style={{
-            background: "#e8f0fe",
-            color: "#1a73e8",
-            padding: "1px 6px",
-            borderRadius: 3,
-            fontSize: 11,
-            fontWeight: 600,
-          }}
-        >
+        <span className="bg-indigo-50 text-indigo-600 px-1.5 py-px rounded text-[11px] font-semibold">
           {component.component}
         </span>
-        <span style={{ color: "#888" }}>#{component.id}</span>
+        <span className="text-slate-400">#{component.id}</span>
         {resolvedText && (
-          <span style={{ color: "#333", fontSize: 12 }}>
+          <span className="text-slate-700 text-xs">
             &quot;{resolvedText.length > 30 ? resolvedText.slice(0, 30) + "..." : resolvedText}&quot;
           </span>
         )}
         {resolvedLabel && (
-          <span style={{ color: "#333", fontSize: 12 }}>
+          <span className="text-slate-700 text-xs">
             label=&quot;{resolvedLabel}&quot;
           </span>
         )}
@@ -91,13 +76,11 @@ export default function TreeView({ doc }: TreeViewProps) {
   }
 
   const root = componentMap.get("root");
-  if (!root) return <div>No root component</div>;
+  if (!root) return <div className="text-slate-400">No root component</div>;
 
   return (
-    <div style={{ padding: 12, background: "#fafafa", borderRadius: 8, border: "1px solid #e0e0e0" }}>
-      <div style={{ fontSize: 12, fontWeight: 600, color: "#666", marginBottom: 8 }}>
-        COMPONENT TREE
-      </div>
+    <div className="panel">
+      <div className="section-label">Component Tree</div>
       <TreeNode component={root} componentMap={componentMap} dataModel={doc.dataModel} depth={0} />
     </div>
   );

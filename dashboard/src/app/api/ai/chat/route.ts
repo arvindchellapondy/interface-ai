@@ -47,6 +47,7 @@ Use this exact format:
 Rules:
 - Always include the JSON block when selecting/personalizing a tile
 - The dataModel MUST use nested objects (e.g. {"aubrey_tx": {"text": "value"}}) not flat paths
+- You MUST include ALL data bindings for the selected tile in the dataModel — do not skip any
 - Personalize text values to be contextual and engaging for the user's request
 - Respond conversationally before the JSON block
 - If the user just wants to chat without showing a tile, respond normally without JSON`;

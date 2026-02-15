@@ -30,7 +30,7 @@ struct ContentView: View {
                     }
                 }
             }
-            .navigationTitle("A2UI Demo")
+            .navigationTitle("Interface AI")
             .navigationBarTitleDisplayMode(.inline)
         }
         .task {

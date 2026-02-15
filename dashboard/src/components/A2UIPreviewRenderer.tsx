@@ -161,7 +161,6 @@ function ContainerComponent({ component, componentMap, tokens, dataModel }: Comp
   const isRow = component.component === "Row";
   const childIds = component.children?.explicitList || [];
 
-  const isCard = component.component === "Card";
   const mainAlign = r("mainAxisAlignment") ? String(r("mainAxisAlignment")) : undefined;
   const crossAlign = r("crossAxisAlignment") ? String(r("crossAxisAlignment")) : undefined;
 
@@ -205,7 +204,6 @@ function IconComponent({ component, tokens }: ComponentProps) {
     );
   }
 
-  // Fallback: show a placeholder box
   return (
     <div
       style={{
@@ -217,7 +215,7 @@ function IconComponent({ component, tokens }: ComponentProps) {
         borderRadius: style.borderRadius || 4,
       }}
     >
-      <span style={{ fontSize: 10, color: "#999" }}>{String(component.iconName || "icon")}</span>
+      <span className="text-[10px] text-slate-400">{String(component.iconName || "icon")}</span>
     </div>
   );
 }
@@ -237,7 +235,6 @@ function RenderComponent(props: ComponentProps) {
     case "Column":
       return <ContainerComponent {...props} />;
     default:
-      // Fallback: render as container if has children
       if (component.children?.explicitList?.length) {
         return <ContainerComponent {...props} />;
       }
@@ -253,11 +250,11 @@ export default function A2UIPreviewRenderer({ doc }: RendererProps) {
 
   const root = componentMap.get("root");
   if (!root) {
-    return <div style={{ color: "#999", padding: 16 }}>No root component found</div>;
+    return <div className="text-slate-400 p-4">No root component found</div>;
   }
 
   return (
-    <div style={{ display: "inline-block" }}>
+    <div className="inline-block">
       <RenderComponent
         component={root}
         componentMap={componentMap}

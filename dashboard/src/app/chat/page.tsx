@@ -59,9 +59,6 @@ export default function ChatPage() {
 
   const pushDesignToDevices = useCallback(
     (designId: string, dataModel: Record<string, unknown>) => {
-      // Server-side push: reads design from disk and sends full messages
-      // (createSurface + updateComponents + personalized updateDataModel)
-      // This avoids client-side SVG serialization issues
       fetch("/api/devices/push-design", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -86,9 +83,7 @@ export default function ChatPage() {
       const design = designs.find((d) => d.id === tileAction.tileId);
       if (!design) return;
 
-      // Parse the design and apply personalized data model
       const doc = parseA2UIMessages(design.messages as A2UIMessage[]);
-      // Convert AI's flat path format to nested data model
       const nestedOverlay = pathsToNestedDataModel(tileAction.dataModel);
       const mergedDataModel = mergeDataModel(doc.dataModel, nestedOverlay);
       const updatedDoc = { ...doc, dataModel: mergedDataModel };
@@ -96,7 +91,6 @@ export default function ChatPage() {
       setSelectedDoc(updatedDoc);
       setSelectedDesignId(tileAction.tileId);
 
-      // Push full design with personalized data to all connected devices
       pushDesignToDevices(tileAction.tileId, mergedDataModel);
     },
     [designs, pushDesignToDevices]
@@ -127,7 +121,6 @@ export default function ChatPage() {
           { role: "assistant", content: `Error: ${data.error}` },
         ]);
       } else {
-        // Strip the JSON block from displayed message
         const displayText = data.message.replace(/```json\s*\n?[\s\S]*?\n?\s*```/g, "").trim();
         const assistantMessage: ChatMessage = {
           role: "assistant",
@@ -136,7 +129,6 @@ export default function ChatPage() {
         };
         setMessages([...updatedMessages, assistantMessage]);
 
-        // Apply tile action if present
         if (data.tileAction) {
           applyTileAction(data.tileAction);
         }
@@ -152,30 +144,18 @@ export default function ChatPage() {
   };
 
   return (
-    <div style={{ display: "grid", gridTemplateColumns: "1fr 400px", gap: 24, height: "calc(100vh - 100px)" }}>
+    <div className="grid grid-cols-1 lg:grid-cols-[1fr_400px] gap-6 h-[calc(100vh-100px)]">
       {/* Left: Chat */}
-      <div style={{ display: "flex", flexDirection: "column", minHeight: 0 }}>
-        <h1 style={{ margin: "0 0 16px", fontSize: 22 }}>AI Tile Assistant</h1>
+      <div className="flex flex-col min-h-0">
+        <h1 className="font-heading text-xl font-bold text-slate-900 mb-4">AI Tile Assistant</h1>
 
         {/* Messages */}
-        <div
-          style={{
-            flex: 1,
-            overflowY: "auto",
-            background: "#fff",
-            borderRadius: 12,
-            border: "1px solid #e0e0e0",
-            padding: 16,
-            display: "flex",
-            flexDirection: "column",
-            gap: 12,
-          }}
-        >
+        <div className="flex-1 overflow-y-auto bg-white rounded-xl shadow-card p-4 flex flex-col gap-3">
           {messages.length === 0 && (
-            <div style={{ color: "#999", textAlign: "center", padding: 40 }}>
-              <div style={{ fontSize: 32, marginBottom: 12 }}>?</div>
-              <div style={{ fontSize: 14 }}>Ask me to show a tile or personalize content</div>
-              <div style={{ fontSize: 12, color: "#bbb", marginTop: 8 }}>
+            <div className="text-slate-400 text-center py-12">
+              <div className="text-3xl mb-3 opacity-50">?</div>
+              <div className="text-sm">Ask me to show a tile or personalize content</div>
+              <div className="text-xs text-slate-300 mt-2">
                 Try: &quot;Show me a weather tile for NYC&quot; or &quot;Show a greeting for the morning&quot;
               </div>
             </div>
@@ -183,44 +163,26 @@ export default function ChatPage() {
           {messages.map((msg, i) => (
             <div
               key={i}
-              style={{
-                alignSelf: msg.role === "user" ? "flex-end" : "flex-start",
-                maxWidth: "80%",
-              }}
+              className={`max-w-[80%] ${msg.role === "user" ? "self-end" : "self-start animate-fade-in"}`}
             >
               <div
-                style={{
-                  background: msg.role === "user" ? "#007aff" : "#f0f0f0",
-                  color: msg.role === "user" ? "#fff" : "#333",
-                  padding: "10px 14px",
-                  borderRadius: 16,
-                  borderBottomRightRadius: msg.role === "user" ? 4 : 16,
-                  borderBottomLeftRadius: msg.role === "assistant" ? 4 : 16,
-                  fontSize: 14,
-                  lineHeight: 1.5,
-                  whiteSpace: "pre-wrap",
-                }}
+                className={`px-4 py-2.5 text-sm leading-relaxed whitespace-pre-wrap ${
+                  msg.role === "user"
+                    ? "bg-indigo-600 text-white rounded-2xl rounded-br-sm"
+                    : "bg-slate-100 text-slate-800 rounded-2xl rounded-bl-sm"
+                }`}
               >
                 {msg.content}
               </div>
               {msg.tileAction && (
-                <div
-                  style={{
-                    marginTop: 6,
-                    padding: "6px 10px",
-                    background: "#e8f5e9",
-                    borderRadius: 8,
-                    fontSize: 11,
-                    color: "#2e7d32",
-                  }}
-                >
-                  Selected: <strong>{msg.tileAction.tileId}</strong> — {msg.tileAction.reasoning}
+                <div className="mt-1.5 px-3 py-1.5 bg-emerald-50 rounded-lg text-[11px] text-emerald-700 border border-emerald-100">
+                  Selected: <strong>{msg.tileAction.tileId}</strong> &mdash; {msg.tileAction.reasoning}
                 </div>
               )}
             </div>
           ))}
           {loading && (
-            <div style={{ alignSelf: "flex-start", color: "#999", fontSize: 13, padding: "8px 14px" }}>
+            <div className="self-start text-slate-400 text-[13px] px-4 py-2">
               Thinking...
             </div>
           )}
@@ -228,7 +190,7 @@ export default function ChatPage() {
         </div>
 
         {/* Input */}
-        <div style={{ display: "flex", gap: 8, marginTop: 12 }}>
+        <div className="flex gap-2 mt-3">
           <input
             type="text"
             value={input}
@@ -236,28 +198,16 @@ export default function ChatPage() {
             onKeyDown={(e) => e.key === "Enter" && sendMessage()}
             placeholder="Ask about tiles..."
             disabled={loading}
-            style={{
-              flex: 1,
-              padding: "12px 16px",
-              borderRadius: 24,
-              border: "1px solid #ddd",
-              fontSize: 14,
-              outline: "none",
-            }}
+            className="flex-1 px-5 py-3 rounded-full border border-slate-200 text-sm outline-none
+                       focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100
+                       transition-all duration-150 disabled:bg-slate-50 placeholder:text-slate-300"
           />
           <button
             onClick={sendMessage}
             disabled={loading || !input.trim()}
-            style={{
-              padding: "12px 24px",
-              borderRadius: 24,
-              border: "none",
-              background: loading || !input.trim() ? "#ccc" : "#007aff",
-              color: "#fff",
-              fontSize: 14,
-              fontWeight: 600,
-              cursor: loading || !input.trim() ? "not-allowed" : "pointer",
-            }}
+            className="px-6 py-3 rounded-full bg-indigo-600 text-white text-sm font-semibold
+                       hover:bg-indigo-700 active:bg-indigo-800 transition-colors duration-150
+                       disabled:bg-slate-300 disabled:cursor-not-allowed shadow-sm hover:shadow"
           >
             Send
           </button>
@@ -265,98 +215,56 @@ export default function ChatPage() {
       </div>
 
       {/* Right: Preview Panel */}
-      <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+      <div className="flex flex-col gap-4">
         {/* Tile Preview */}
-        <div
-          style={{
-            background: "#fff",
-            borderRadius: 12,
-            border: "1px solid #e0e0e0",
-            padding: 24,
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            minHeight: 200,
-          }}
-        >
-          <div style={{ fontSize: 12, fontWeight: 600, color: "#666", marginBottom: 12, alignSelf: "flex-start" }}>
-            TILE PREVIEW
-          </div>
+        <div className="panel flex flex-col items-center min-h-[200px]">
+          <div className="section-label self-start">Tile Preview</div>
           {selectedDoc ? (
             <>
               <A2UIPreviewRenderer doc={selectedDoc} />
-              <div style={{ fontSize: 11, color: "#999", marginTop: 12 }}>
-                {selectedDesignId}
-              </div>
+              <div className="text-[11px] text-slate-400 mt-3">{selectedDesignId}</div>
             </>
           ) : (
-            <div style={{ color: "#ccc", padding: 40, textAlign: "center" }}>
-              <div style={{ fontSize: 24, marginBottom: 8 }}>No tile selected</div>
-              <div style={{ fontSize: 12 }}>Chat with the AI to select a tile</div>
+            <div className="text-slate-300 py-10 text-center">
+              <div className="text-2xl mb-2 opacity-50">No tile selected</div>
+              <div className="text-xs">Chat with the AI to select a tile</div>
             </div>
           )}
         </div>
 
         {/* Connected Devices */}
-        <div
-          style={{
-            background: "#fff",
-            borderRadius: 12,
-            border: "1px solid #e0e0e0",
-            padding: 16,
-          }}
-        >
-          <div style={{ display: "flex", alignItems: "center", gap: 8, fontSize: 12 }}>
-            <div
-              style={{
-                width: 8,
-                height: 8,
-                borderRadius: "50%",
-                background: deviceCount > 0 ? "#4CAF50" : "#ccc",
-              }}
-            />
-            <span style={{ fontWeight: 600, color: "#666" }}>
+        <div className="panel">
+          <div className="flex items-center gap-2 text-xs">
+            <div className={`w-2 h-2 rounded-full ${deviceCount > 0 ? "bg-emerald-500" : "bg-slate-300"}`} />
+            <span className="font-semibold text-slate-500">
               {deviceCount} device{deviceCount !== 1 ? "s" : ""} connected
             </span>
           </div>
           {deviceCount > 0 && (
-            <div style={{ fontSize: 11, color: "#999", marginTop: 4 }}>
+            <div className="text-[11px] text-slate-400 mt-1">
               Tiles auto-push to devices when AI selects them
             </div>
           )}
           {pushStatus && (
-            <div style={{ fontSize: 11, color: "#4CAF50", marginTop: 4, fontWeight: 600 }}>
-              {pushStatus}
-            </div>
+            <div className="text-[11px] text-emerald-600 mt-1 font-semibold">{pushStatus}</div>
           )}
         </div>
 
         {/* Available Tiles */}
-        <div
-          style={{
-            background: "#fff",
-            borderRadius: 12,
-            border: "1px solid #e0e0e0",
-            padding: 16,
-          }}
-        >
-          <div style={{ fontSize: 12, fontWeight: 600, color: "#666", marginBottom: 8 }}>
-            TILE CATALOG ({designs.length})
-          </div>
-          <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+        <div className="panel">
+          <div className="section-label">Tile Catalog ({designs.length})</div>
+          <div className="flex flex-col gap-1.5">
             {designs.map((d) => (
               <div
                 key={d.id}
-                style={{
-                  padding: "6px 10px",
-                  background: selectedDesignId === d.id ? "#e3f2fd" : "#fafafa",
-                  borderRadius: 6,
-                  fontSize: 12,
-                  border: selectedDesignId === d.id ? "1px solid #90caf9" : "1px solid #eee",
-                }}
+                className={`px-3 py-2 rounded-lg text-xs transition-colors duration-150 ${
+                  selectedDesignId === d.id
+                    ? "bg-indigo-50 border border-indigo-200 text-indigo-800"
+                    : "bg-slate-50 border border-slate-100 hover:bg-slate-100"
+                }`}
               >
-                <span style={{ fontWeight: 600 }}>{d.name}</span>
-                <span style={{ color: "#999", marginLeft: 8 }}>{d.id}</span>
+                <span className="font-semibold">{d.name}</span>
+                <span className="text-slate-400 ml-2">{d.id}</span>
               </div>
             ))}
           </div>
@@ -368,14 +276,13 @@ export default function ChatPage() {
 
 /**
  * Convert AI's flat path format to nested data model.
- * e.g. {"/aubrey_tx/text": "NYC"} → {"aubrey_tx": {"text": "NYC"}}
+ * e.g. {"/aubrey_tx/text": "NYC"} -> {"aubrey_tx": {"text": "NYC"}}
  * Also handles already-nested format: {"aubrey_tx": {"text": "NYC"}} passes through.
  */
 function pathsToNestedDataModel(input: Record<string, unknown>): Record<string, unknown> {
   const result: Record<string, unknown> = {};
   for (const [key, val] of Object.entries(input)) {
     if (key.startsWith("/")) {
-      // Flat path format: "/aubrey_tx/text" → nested
       const parts = key.split("/").filter(Boolean);
       let current: Record<string, unknown> = result;
       for (let i = 0; i < parts.length - 1; i++) {
@@ -384,7 +291,6 @@ function pathsToNestedDataModel(input: Record<string, unknown>): Record<string, 
       }
       current[parts[parts.length - 1]] = val;
     } else {
-      // Already nested format
       result[key] = val;
     }
   }

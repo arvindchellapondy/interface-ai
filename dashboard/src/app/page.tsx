@@ -10,55 +10,40 @@ export default function DashboardPage() {
 
   return (
     <div>
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 24 }}>
-        <h1 style={{ margin: 0, fontSize: 24 }}>Designs</h1>
-        <span style={{ color: "#888", fontSize: 14 }}>{designs.length} design(s)</span>
+      <div className="flex justify-between items-center mb-8">
+        <h1 className="font-heading text-2xl font-bold text-slate-900">Designs</h1>
+        <span className="text-sm text-slate-400">{designs.length} design(s)</span>
       </div>
 
       {designs.length === 0 ? (
-        <div
-          style={{
-            background: "#fff",
-            borderRadius: 12,
-            padding: 40,
-            textAlign: "center",
-            border: "1px solid #e0e0e0",
-          }}
-        >
-          <p style={{ color: "#888", fontSize: 16 }}>No designs yet.</p>
-          <p style={{ color: "#aaa", fontSize: 14 }}>
+        <div className="bg-white rounded-2xl p-12 text-center shadow-card">
+          <p className="text-slate-400 text-base">No designs yet.</p>
+          <p className="text-slate-400/70 text-sm mt-2">
             Export A2UI JSON from the Figma plugin and save it to the examples/ folder,
             or POST to /api/designs.
           </p>
         </div>
       ) : (
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280, 1fr))", gap: 16 }}>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {designs.map((design) => {
             const doc = parseA2UIMessages(design.messages as A2UIMessage[]);
             return (
               <Link
                 key={design.id}
                 href={`/designs/${design.id}`}
-                style={{ textDecoration: "none", color: "inherit" }}
+                className="no-underline text-inherit"
               >
-                <div
-                  style={{
-                    background: "#fff",
-                    borderRadius: 12,
-                    padding: 20,
-                    border: "1px solid #e0e0e0",
-                    cursor: "pointer",
-                    transition: "box-shadow 0.2s",
-                  }}
-                >
-                  <div style={{ marginBottom: 16, display: "flex", justifyContent: "center" }}>
+                <div className="bg-white rounded-xl p-5 shadow-card hover:shadow-card-hover transition-all duration-200 hover:-translate-y-0.5 group cursor-pointer">
+                  <div className="mb-4 flex justify-center">
                     <A2UIPreviewRenderer doc={doc} />
                   </div>
-                  <div style={{ fontWeight: 600, fontSize: 14 }}>{design.name}</div>
-                  <div style={{ color: "#888", fontSize: 12, marginTop: 4 }}>
+                  <div className="font-semibold text-sm text-slate-800 group-hover:text-indigo-700 transition-colors duration-150">
+                    {design.name}
+                  </div>
+                  <div className="text-slate-400 text-xs mt-1">
                     {doc.components.length} components · {Object.keys(doc.designTokens).length} tokens
                   </div>
-                  <div style={{ color: "#aaa", fontSize: 11, marginTop: 4 }}>
+                  <div className="text-slate-300 text-[11px] mt-1">
                     {new Date(design.updatedAt).toLocaleDateString()}
                   </div>
                 </div>

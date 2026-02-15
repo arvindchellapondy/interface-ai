@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import "./globals.css";
 
 export const metadata: Metadata = {
   title: "Interface AI Dashboard",
@@ -16,33 +17,27 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           rel="stylesheet"
         />
       </head>
-      <body
-        style={{
-          margin: 0,
-          fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
-          background: "#f5f5f5",
-          color: "#333",
-        }}
-      >
-        <nav
-          style={{
-            background: "#fff",
-            borderBottom: "1px solid #e0e0e0",
-            padding: "12px 24px",
-            display: "flex",
-            alignItems: "center",
-            gap: 16,
-          }}
-        >
-          <span style={{ fontWeight: 700, fontSize: 16 }}>Interface AI</span>
-          <a href="/" style={{ color: "#666", textDecoration: "none", fontSize: 14 }}>
-            Dashboard
-          </a>
-          <a href="/chat" style={{ color: "#666", textDecoration: "none", fontSize: 14 }}>
-            AI Chat
-          </a>
+      <body className="bg-slate-50 text-slate-800 font-sans">
+        <nav className="bg-slate-900 px-6 py-3 flex items-center gap-6 shadow-lg">
+          <span className="font-heading font-bold text-white text-base tracking-tight">
+            Interface AI
+          </span>
+          <div className="flex items-center gap-1">
+            <a
+              href="/"
+              className="text-slate-300 hover:text-white text-sm px-3 py-1.5 rounded-md hover:bg-slate-800 transition-colors duration-150"
+            >
+              Dashboard
+            </a>
+            <a
+              href="/chat"
+              className="text-slate-300 hover:text-white text-sm px-3 py-1.5 rounded-md hover:bg-slate-800 transition-colors duration-150"
+            >
+              AI Chat
+            </a>
+          </div>
         </nav>
-        <main style={{ padding: 24, maxWidth: 1200, margin: "0 auto" }}>{children}</main>
+        <main className="px-6 py-8 max-w-7xl mx-auto">{children}</main>
       </body>
     </html>
   );

@@ -79,25 +79,14 @@ export default function ConnectedDevices({ designId, messages }: ConnectedDevice
   };
 
   return (
-    <div style={{ padding: 12, background: "#fafafa", borderRadius: 8, border: "1px solid #e0e0e0" }}>
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
-        <div style={{ fontSize: 12, fontWeight: 600, color: "#666" }}>
-          CONNECTED DEVICES ({devices.length})
-        </div>
+    <div className="panel">
+      <div className="flex justify-between items-center mb-3">
+        <div className="section-label mb-0">Connected Devices ({devices.length})</div>
         {devices.length > 0 && (
           <button
             onClick={pushToAll}
             disabled={pushing !== null}
-            style={{
-              fontSize: 11,
-              padding: "4px 10px",
-              borderRadius: 4,
-              border: "1px solid #4CAF50",
-              background: "#4CAF50",
-              color: "#fff",
-              cursor: pushing ? "not-allowed" : "pointer",
-              opacity: pushing ? 0.6 : 1,
-            }}
+            className="btn-sm btn-success"
           >
             {pushing === "all" ? "Pushing..." : "Push to All"}
           </button>
@@ -105,45 +94,29 @@ export default function ConnectedDevices({ designId, messages }: ConnectedDevice
       </div>
 
       {devices.length === 0 ? (
-        <div style={{ fontSize: 12, color: "#999", padding: "8px 0" }}>
+        <div className="text-xs text-slate-400 py-2">
           No devices connected. Run the iOS or Android demo app and connect to{" "}
-          <code style={{ fontSize: 11, background: "#eee", padding: "1px 4px", borderRadius: 2 }}>
+          <code className="text-[11px] bg-slate-100 px-1 py-0.5 rounded font-mono">
             ws://localhost:3001/ws
           </code>
         </div>
       ) : (
-        <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+        <div className="flex flex-col gap-1.5">
           {devices.map((device) => (
             <div
               key={device.id}
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-                padding: "6px 8px",
-                background: "#fff",
-                borderRadius: 4,
-                border: "1px solid #e0e0e0",
-                fontSize: 12,
-              }}
+              className="flex justify-between items-center px-3 py-2 bg-slate-50
+                         rounded-lg border border-slate-100 text-xs hover:bg-slate-100
+                         transition-colors duration-100"
             >
               <div>
-                <span style={{ fontWeight: 600 }}>{device.id}</span>
-                <span style={{ color: "#888", marginLeft: 8 }}>{platformIcon(device.platform)}</span>
+                <span className="font-semibold text-slate-700">{device.id}</span>
+                <span className="text-slate-400 ml-2">{platformIcon(device.platform)}</span>
               </div>
               <button
                 onClick={() => pushToDevice(device.id)}
                 disabled={pushing !== null}
-                style={{
-                  fontSize: 11,
-                  padding: "3px 8px",
-                  borderRadius: 4,
-                  border: "1px solid #2196F3",
-                  background: "#2196F3",
-                  color: "#fff",
-                  cursor: pushing ? "not-allowed" : "pointer",
-                  opacity: pushing ? 0.6 : 1,
-                }}
+                className="btn-sm btn-sky"
               >
                 {pushing === device.id ? "Pushing..." : "Push"}
               </button>
@@ -153,13 +126,9 @@ export default function ConnectedDevices({ designId, messages }: ConnectedDevice
       )}
 
       {status && (
-        <div
-          style={{
-            marginTop: 8,
-            fontSize: 11,
-            color: status.startsWith("Error") ? "#f44336" : "#4CAF50",
-          }}
-        >
+        <div className={`mt-2 text-[11px] font-medium ${
+          status.startsWith("Error") ? "text-rose-500" : "text-emerald-600"
+        }`}>
           {status}
         </div>
       )}
