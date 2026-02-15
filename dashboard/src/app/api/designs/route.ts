@@ -1,9 +1,19 @@
 import { NextRequest, NextResponse } from "next/server";
 import { listDesigns, saveDesign } from "@/lib/design-store";
 
+const corsHeaders = {
+  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+  "Access-Control-Allow-Headers": "Content-Type",
+};
+
+export async function OPTIONS() {
+  return new NextResponse(null, { status: 204, headers: corsHeaders });
+}
+
 export async function GET() {
   const designs = listDesigns();
-  return NextResponse.json(designs);
+  return NextResponse.json(designs, { headers: corsHeaders });
 }
 
 export async function POST(req: NextRequest) {
@@ -11,9 +21,9 @@ export async function POST(req: NextRequest) {
   const { id, messages } = body;
 
   if (!id || !messages) {
-    return NextResponse.json({ error: "Missing id or messages" }, { status: 400 });
+    return NextResponse.json({ error: "Missing id or messages" }, { status: 400, headers: corsHeaders });
   }
 
   const design = saveDesign(id, messages);
-  return NextResponse.json(design, { status: 201 });
+  return NextResponse.json(design, { status: 201, headers: corsHeaders });
 }

@@ -1,6 +1,6 @@
 /// <reference types="@figma/plugin-typings" />
 
-import { extractNode } from "./extractor";
+import { extractNode, findIconNodes, exportSvg } from "./extractor";
 import { toA2UI } from "./converter";
 
 figma.showUI(__html__, { width: 400, height: 500 });
@@ -16,6 +16,16 @@ figma.ui.onmessage = async (msg: { type: string }) => {
 
     const node = selection[0];
     const extracted = extractNode(node);
+
+    // Export SVG for all icon/vector nodes
+    const iconNodes = findIconNodes(extracted);
+    for (const iconExtracted of iconNodes) {
+      const svg = await exportSvg(iconExtracted.id);
+      if (svg) {
+        iconExtracted.svgContent = svg;
+      }
+    }
+
     const a2ui = toA2UI(extracted);
 
     figma.ui.postMessage({ type: "a2ui-result", data: a2ui });

@@ -1,4 +1,7 @@
 import Foundation
+#if canImport(UIKit)
+import UIKit
+#endif
 
 /// WebSocket client that connects to a dashboard and receives A2UI messages.
 @Observable

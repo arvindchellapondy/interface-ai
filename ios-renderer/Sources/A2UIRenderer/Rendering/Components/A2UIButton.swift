@@ -9,11 +9,11 @@ public struct A2UIButtonView: View {
 
     public var body: some View {
         let label = dataResolver.resolve(component.label)
-        let style = component.style
         let lStyle = component.labelStyle
 
         let labelFontSize = tokenResolver.resolveStyleCGFloat(lStyle, key: "fontSize")
         let labelFontWeight = tokenResolver.resolveStyleString(lStyle, key: "fontWeight")
+        let labelFontFamily = tokenResolver.resolveStyleString(lStyle, key: "fontFamily")
         let labelColor = tokenResolver.resolveColor(lStyle, key: "color")
 
         Button(action: {
@@ -22,10 +22,16 @@ public struct A2UIButtonView: View {
             }
         }) {
             Text(label)
-                .if(labelFontSize != nil) { $0.font(.system(size: labelFontSize!)) }
+                .if(labelFontFamily != nil && labelFontSize != nil) {
+                    $0.font(.custom(labelFontFamily!, size: labelFontSize!))
+                }
+                .if(labelFontFamily == nil && labelFontSize != nil) {
+                    $0.font(.system(size: labelFontSize!))
+                }
                 .if(labelFontWeight != nil) { $0.fontWeight(mapFontWeight(labelFontWeight!)) }
                 .if(labelColor != nil) { $0.foregroundColor(labelColor!) }
         }
-        .applyA2UIStyle(style, tokenResolver: tokenResolver)
+        .buttonStyle(.plain)
+        .applyA2UIStyle(component.style, tokenResolver: tokenResolver)
     }
 }

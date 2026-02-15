@@ -5,8 +5,8 @@
       "catalogId": "standard_catalog_v0.9",
       "sendDataModel": true,
       "designTokens": {
-        "Accents.Red": {
-          "value": "#ff4245",
+        "Accents.Indigo": {
+          "value": "#6d7cff",
           "collection": "Colors"
         },
         "Interactive border radius.--radius-i-xs": {
@@ -47,7 +47,10 @@
             "fontSize": 12,
             "fontFamily": "DM Sans",
             "fontWeight": "Bold",
-            "textAlign": "center"
+            "lineHeight": 16,
+            "textAlign": "center",
+            "layoutSizingHorizontal": "hug",
+            "layoutSizingVertical": "hug"
           }
         },
         {
@@ -62,13 +65,17 @@
           "style": {
             "width": 84,
             "height": 24,
-            "backgroundColor": "{Accents.Red}",
+            "backgroundColor": "{Accents.Indigo}",
             "cornerRadius": "{Interactive border radius.--radius-i-xs}",
             "paddingTop": "{Paddings & Gaps.p-1}",
             "paddingRight": "{Paddings & Gaps.p-2}",
             "paddingBottom": "{Paddings & Gaps.p-1}",
             "paddingLeft": "{Paddings & Gaps.p-2}",
-            "gap": "{gap.0}"
+            "gap": "{gap.0}",
+            "mainAxisAlignment": "center",
+            "crossAxisAlignment": "center",
+            "layoutSizingHorizontal": "hug",
+            "layoutSizingVertical": "hug"
           },
           "labelStyle": {
             "width": 68,
@@ -77,7 +84,10 @@
             "fontSize": 12,
             "fontFamily": "DM Sans",
             "fontWeight": "Bold",
-            "textAlign": "center"
+            "lineHeight": 16,
+            "textAlign": "center",
+            "layoutSizingHorizontal": "hug",
+            "layoutSizingVertical": "hug"
           }
         },
         {
@@ -99,7 +109,11 @@
             "paddingRight": 16,
             "paddingBottom": 16,
             "paddingLeft": 16,
-            "gap": 10
+            "gap": 10,
+            "mainAxisAlignment": "min",
+            "crossAxisAlignment": "min",
+            "layoutSizingHorizontal": "hug",
+            "layoutSizingVertical": "hug"
           }
         }
       ]

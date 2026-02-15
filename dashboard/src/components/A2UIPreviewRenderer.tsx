@@ -41,8 +41,26 @@ function resolveStyles(
   const pl = r("paddingLeft");
   const gap = r("gap");
 
-  if (width !== undefined) css.width = Number(width);
-  if (height !== undefined) css.height = Number(height);
+  const layoutSizingH = r("layoutSizingHorizontal");
+  const layoutSizingV = r("layoutSizingVertical");
+
+  if (layoutSizingH === "fill") {
+    css.width = "100%";
+    css.flexGrow = 1;
+  } else if (layoutSizingH === "hug") {
+    css.width = "auto";
+  } else if (width !== undefined) {
+    css.width = Number(width);
+  }
+
+  if (layoutSizingV === "fill") {
+    css.height = "100%";
+    css.flexGrow = 1;
+  } else if (layoutSizingV === "hug") {
+    css.height = "auto";
+  } else if (height !== undefined) {
+    css.height = Number(height);
+  }
   if (bg) css.backgroundColor = String(bg);
   if (radius !== undefined) css.borderRadius = Number(radius);
   if (opacity !== undefined && opacity !== 1) css.opacity = Number(opacity);
@@ -57,6 +75,14 @@ function resolveStyles(
   if (pl !== undefined) css.paddingLeft = Number(pl);
   if (gap !== undefined) css.gap = Number(gap);
 
+  // Shadow support
+  const shadows = style.shadows as Array<{ x: number; y: number; blur: number; color: string }> | undefined;
+  if (shadows && shadows.length > 0) {
+    css.boxShadow = shadows
+      .map((s) => `${s.x}px ${s.y}px ${s.blur}px ${s.color}`)
+      .join(", ");
+  }
+
   return css;
 }
 
@@ -69,9 +95,11 @@ function TextComponent({ component, tokens, dataModel }: ComponentProps) {
     ...resolveStyles(style, tokens),
     color: r("color") ? String(r("color")) : undefined,
     fontSize: r("fontSize") ? Number(r("fontSize")) : undefined,
-    fontFamily: r("fontFamily") ? String(r("fontFamily")) : undefined,
+    fontFamily: r("fontFamily") ? `"${String(r("fontFamily"))}", sans-serif` : undefined,
     fontWeight: r("fontWeight") ? (String(r("fontWeight")) as React.CSSProperties["fontWeight"]) : undefined,
     textAlign: r("textAlign") ? (String(r("textAlign")) as React.CSSProperties["textAlign"]) : undefined,
+    lineHeight: r("lineHeight") ? `${Number(r("lineHeight"))}px` : undefined,
+    letterSpacing: r("letterSpacing") ? Number(r("letterSpacing")) : undefined,
   };
 
   return <span style={css}>{text}</span>;
@@ -86,9 +114,11 @@ function ButtonComponent({ component, tokens, dataModel }: ComponentProps) {
   const labelCss: React.CSSProperties = {
     color: lr("color") ? String(lr("color")) : undefined,
     fontSize: lr("fontSize") ? Number(lr("fontSize")) : undefined,
-    fontFamily: lr("fontFamily") ? String(lr("fontFamily")) : undefined,
+    fontFamily: lr("fontFamily") ? `"${String(lr("fontFamily"))}", sans-serif` : undefined,
     fontWeight: lr("fontWeight") ? (String(lr("fontWeight")) as React.CSSProperties["fontWeight"]) : undefined,
     textAlign: lr("textAlign") ? (String(lr("textAlign")) as React.CSSProperties["textAlign"]) : undefined,
+    lineHeight: lr("lineHeight") ? `${Number(lr("lineHeight"))}px` : undefined,
+    letterSpacing: lr("letterSpacing") ? Number(lr("letterSpacing")) : undefined,
     border: "none",
     background: "none",
     cursor: "pointer",
@@ -97,7 +127,7 @@ function ButtonComponent({ component, tokens, dataModel }: ComponentProps) {
 
   return (
     <button
-      style={{ ...containerStyle, cursor: "pointer", border: "none", display: "flex", alignItems: "center", justifyContent: "center" }}
+      style={{ ...containerStyle, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center" }}
       onClick={() => console.log("Action:", component.action?.event.name)}
     >
       <span style={labelCss}>{label}</span>
@@ -105,16 +135,42 @@ function ButtonComponent({ component, tokens, dataModel }: ComponentProps) {
   );
 }
 
+function mapMainAxisAlign(value: string | undefined): React.CSSProperties["justifyContent"] {
+  switch (value) {
+    case "center": return "center";
+    case "max": return "flex-end";
+    case "space_between": return "space-between";
+    default: return "flex-start";
+  }
+}
+
+function mapCrossAxisAlign(value: string | undefined): React.CSSProperties["alignItems"] {
+  switch (value) {
+    case "center": return "center";
+    case "max": return "flex-end";
+    case "baseline": return "baseline";
+    case "min": return "flex-start";
+    default: return "stretch";
+  }
+}
+
 function ContainerComponent({ component, componentMap, tokens, dataModel }: ComponentProps) {
+  const cStyle = component.style || {};
+  const r = (key: string) => resolveStyleValue(cStyle, key, tokens);
   const style = resolveStyles(component.style, tokens);
   const isRow = component.component === "Row";
   const childIds = component.children?.explicitList || [];
+
+  const isCard = component.component === "Card";
+  const mainAlign = r("mainAxisAlignment") ? String(r("mainAxisAlignment")) : undefined;
+  const crossAlign = r("crossAxisAlignment") ? String(r("crossAxisAlignment")) : undefined;
 
   const containerStyle: React.CSSProperties = {
     ...style,
     display: "flex",
     flexDirection: isRow ? "row" : "column",
-    alignItems: isRow ? "center" : "stretch",
+    justifyContent: mapMainAxisAlign(mainAlign),
+    alignItems: mapCrossAxisAlign(crossAlign),
   };
 
   return (
@@ -136,6 +192,36 @@ function ContainerComponent({ component, componentMap, tokens, dataModel }: Comp
   );
 }
 
+function IconComponent({ component, tokens }: ComponentProps) {
+  const style = resolveStyles(component.style, tokens);
+  const svgData = component.svgData as string | undefined;
+
+  if (svgData) {
+    return (
+      <div
+        style={{ ...style, display: "flex", alignItems: "center", justifyContent: "center" }}
+        dangerouslySetInnerHTML={{ __html: svgData }}
+      />
+    );
+  }
+
+  // Fallback: show a placeholder box
+  return (
+    <div
+      style={{
+        ...style,
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        backgroundColor: style.backgroundColor || "#f0f0f0",
+        borderRadius: style.borderRadius || 4,
+      }}
+    >
+      <span style={{ fontSize: 10, color: "#999" }}>{String(component.iconName || "icon")}</span>
+    </div>
+  );
+}
+
 function RenderComponent(props: ComponentProps) {
   const { component } = props;
 
@@ -144,6 +230,8 @@ function RenderComponent(props: ComponentProps) {
       return <TextComponent {...props} />;
     case "Button":
       return <ButtonComponent {...props} />;
+    case "Icon":
+      return <IconComponent {...props} />;
     case "Card":
     case "Row":
     case "Column":

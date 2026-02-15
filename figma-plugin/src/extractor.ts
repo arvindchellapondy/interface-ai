@@ -16,17 +16,27 @@ export interface ExtractedNode {
   height: number;
   fills?: readonly Paint[];
   strokes?: readonly Paint[];
+  strokeWeight?: number;
   cornerRadius?: number;
   padding?: { top: number; right: number; bottom: number; left: number };
   layoutMode?: "HORIZONTAL" | "VERTICAL" | "NONE" | "GRID";
+  primaryAxisAlignItems?: string;
+  counterAxisAlignItems?: string;
+  layoutSizingHorizontal?: string;
+  layoutSizingVertical?: string;
   itemSpacing?: number;
   characters?: string;
   fontSize?: number;
   fontName?: FontName;
   fontWeight?: number;
+  lineHeight?: number;
+  letterSpacing?: number;
   textAlignHorizontal?: string;
   textAlignVertical?: string;
   opacity?: number;
+  svgContent?: string;
+  isIcon?: boolean;
+  effects?: Array<{ type: string; color?: { r: number; g: number; b: number; a: number }; offset?: { x: number; y: number }; radius?: number; visible?: boolean }>;
   children: ExtractedNode[];
   // Token bindings resolved from Figma variables
   boundVariables?: {
@@ -201,10 +211,25 @@ function extractPadding(
   return undefined;
 }
 
+var VECTOR_TYPES = ["VECTOR", "BOOLEAN_OPERATION", "STAR", "LINE", "ELLIPSE", "POLYGON"];
+
+function isIconContainer(node: SceneNode): boolean {
+  if (VECTOR_TYPES.indexOf(node.type) >= 0) return true;
+  if ("children" in node) {
+    var kids = (node as FrameNode).children;
+    if (kids.length > 0 && kids.every(function(c) { return VECTOR_TYPES.indexOf(c.type) >= 0; })) {
+      return true;
+    }
+  }
+  return false;
+}
+
 export function extractNode(node: SceneNode): ExtractedNode {
   var children: ExtractedNode[] = [];
+  var isIcon = isIconContainer(node);
 
-  if ("children" in node) {
+  // Don't recurse into icon containers — they'll be exported as SVG
+  if (!isIcon && "children" in node) {
     var parentNode = node as FrameNode;
     for (var i = 0; i < parentNode.children.length; i++) {
       children.push(extractNode(parentNode.children[i]));
@@ -221,11 +246,28 @@ export function extractNode(node: SceneNode): ExtractedNode {
     height: node.height,
     fills: extractFills(node),
     strokes: extractStrokes(node),
+    strokeWeight: "strokeWeight" in node && typeof (node as any).strokeWeight === "number" ? (node as any).strokeWeight : undefined,
     cornerRadius: extractCornerRadius(node),
     padding: extractPadding(node),
     layoutMode:
       "layoutMode" in node
         ? (node as FrameNode).layoutMode
+        : undefined,
+    primaryAxisAlignItems:
+      "primaryAxisAlignItems" in node
+        ? (node as FrameNode).primaryAxisAlignItems
+        : undefined,
+    counterAxisAlignItems:
+      "counterAxisAlignItems" in node
+        ? (node as FrameNode).counterAxisAlignItems
+        : undefined,
+    layoutSizingHorizontal:
+      "layoutSizingHorizontal" in node
+        ? (node as any).layoutSizingHorizontal
+        : undefined,
+    layoutSizingVertical:
+      "layoutSizingVertical" in node
+        ? (node as any).layoutSizingVertical
         : undefined,
     itemSpacing:
       "itemSpacing" in node
@@ -235,9 +277,53 @@ export function extractNode(node: SceneNode): ExtractedNode {
     characters: node.type === "TEXT" ? (node as TextNode).characters : undefined,
     fontSize: node.type === "TEXT" && typeof (node as TextNode).fontSize === "number" ? (node as TextNode).fontSize as number : undefined,
     fontName: node.type === "TEXT" && typeof (node as TextNode).fontName === "object" && "family" in ((node as TextNode).fontName as object) ? (node as TextNode).fontName as FontName : undefined,
+    lineHeight: node.type === "TEXT" && typeof (node as TextNode).lineHeight === "object" && (node as TextNode).lineHeight !== figma.mixed
+      ? ((node as TextNode).lineHeight as { value: number; unit: string }).unit === "PIXELS"
+        ? ((node as TextNode).lineHeight as { value: number }).value
+        : undefined
+      : undefined,
+    letterSpacing: node.type === "TEXT" && typeof (node as TextNode).letterSpacing === "object" && (node as TextNode).letterSpacing !== figma.mixed
+      ? ((node as TextNode).letterSpacing as { value: number; unit: string }).unit === "PIXELS"
+        ? ((node as TextNode).letterSpacing as { value: number }).value
+        : undefined
+      : undefined,
     textAlignHorizontal: node.type === "TEXT" ? (node as TextNode).textAlignHorizontal : undefined,
     textAlignVertical: node.type === "TEXT" ? (node as TextNode).textAlignVertical : undefined,
     boundVariables: extractVariableBindings(node),
+    isIcon: isIcon || undefined,
+    effects: "effects" in node && Array.isArray((node as any).effects)
+      ? ((node as any).effects as Effect[]).filter(function(e) { return e.visible !== false; }).map(function(e: any) {
+          return {
+            type: e.type,
+            color: e.color ? { r: e.color.r, g: e.color.g, b: e.color.b, a: e.color.a } : undefined,
+            offset: e.offset ? { x: e.offset.x, y: e.offset.y } : undefined,
+            radius: e.radius,
+            visible: e.visible,
+          };
+        })
+      : undefined,
     children: children,
   };
+}
+
+// Walk the extracted tree and find all nodes that need SVG export
+export function findIconNodes(extracted: ExtractedNode): ExtractedNode[] {
+  var icons: ExtractedNode[] = [];
+  if (extracted.isIcon) icons.push(extracted);
+  for (var i = 0; i < extracted.children.length; i++) {
+    icons = icons.concat(findIconNodes(extracted.children[i]));
+  }
+  return icons;
+}
+
+// Export SVG from a Figma node by its ID
+export async function exportSvg(nodeId: string): Promise<string | undefined> {
+  var node = figma.getNodeById(nodeId);
+  if (!node || !("exportAsync" in node)) return undefined;
+  try {
+    var svgBytes = await (node as SceneNode).exportAsync({ format: "SVG" });
+    return String.fromCharCode.apply(null, Array.from(svgBytes));
+  } catch (e) {
+    return undefined;
+  }
 }

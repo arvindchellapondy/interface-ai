@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef, useCallback } from "react";
 import { A2UIDocument, A2UIMessage, parseA2UIMessages } from "@/lib/a2ui-types";
 import A2UIPreviewRenderer from "@/components/A2UIPreviewRenderer";
 import TreeView from "@/components/TreeView";
@@ -16,6 +16,7 @@ export default function DesignDetailPage() {
   const [doc, setDoc] = useState<A2UIDocument | null>(null);
   const [rawMessages, setRawMessages] = useState<unknown[]>([]);
   const [loading, setLoading] = useState(true);
+  const pushTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
     fetch("/api/designs")
@@ -31,11 +32,35 @@ export default function DesignDetailPage() {
       .catch(() => setLoading(false));
   }, [id]);
 
+  const pushToDevices = useCallback((messages: unknown[]) => {
+    fetch("/api/devices/push", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ messages }),
+    }).catch(() => {});
+  }, []);
+
   if (loading) return <div style={{ padding: 40, textAlign: "center" }}>Loading...</div>;
   if (!doc) return <div style={{ padding: 40, textAlign: "center" }}>Design not found</div>;
 
   const handleDataModelChange = (newModel: Record<string, unknown>) => {
+    // Update local preview
     setDoc({ ...doc, dataModel: newModel });
+
+    // Update rawMessages so manual push also sends latest data
+    const updatedMessages = rawMessages.map((msg: unknown) => {
+      const m = msg as Record<string, unknown>;
+      if (m.updateDataModel) {
+        const udm = m.updateDataModel as Record<string, unknown>;
+        return { updateDataModel: { ...udm, path: "/", value: newModel } };
+      }
+      return msg;
+    });
+    setRawMessages(updatedMessages);
+
+    // Debounce auto-push full messages to connected devices (300ms)
+    if (pushTimerRef.current) clearTimeout(pushTimerRef.current);
+    pushTimerRef.current = setTimeout(() => pushToDevices(updatedMessages), 300);
   };
 
   return (

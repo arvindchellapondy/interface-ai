@@ -61,6 +61,12 @@ public struct ComponentNodeView: View {
                 onAction: onAction
             )
 
+        case "Icon":
+            A2UIIconView(
+                component: component,
+                tokenResolver: tokenResolver
+            )
+
         case "Image":
             A2UIImageView(
                 component: component,

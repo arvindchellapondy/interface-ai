@@ -9,16 +9,24 @@ export interface ConnectedDevice {
   ws: WebSocket;
 }
 
-const devices = new Map<string, ConnectedDevice>();
+// Use globalThis so state is shared between the custom server process
+// and Next.js API routes (which get a separate module scope).
+const g = globalThis as unknown as {
+  __wsDevices?: Map<string, ConnectedDevice>;
+  __wss?: WebSocketServer;
+};
 
-let wss: WebSocketServer | null = null;
+function getDevices(): Map<string, ConnectedDevice> {
+  if (!g.__wsDevices) g.__wsDevices = new Map();
+  return g.__wsDevices;
+}
 
 export function getConnectedDevices(): Omit<ConnectedDevice, "ws">[] {
-  return Array.from(devices.values()).map(({ ws, ...rest }) => rest);
+  return Array.from(getDevices().values()).map(({ ws, ...rest }) => rest);
 }
 
 export function pushToDevice(deviceId: string, messages: unknown[]): boolean {
-  const device = devices.get(deviceId);
+  const device = getDevices().get(deviceId);
   if (!device || device.ws.readyState !== WebSocket.OPEN) return false;
 
   device.ws.send(
@@ -30,7 +38,7 @@ export function pushToDevice(deviceId: string, messages: unknown[]): boolean {
 export function pushToAllDevices(messages: unknown[]): number {
   let count = 0;
   const payload = JSON.stringify({ type: "a2ui_messages", messages });
-  for (const device of devices.values()) {
+  for (const device of getDevices().values()) {
     if (device.ws.readyState === WebSocket.OPEN) {
       device.ws.send(payload);
       count++;
@@ -40,9 +48,11 @@ export function pushToAllDevices(messages: unknown[]): number {
 }
 
 export function initWebSocketServer(server: Server): WebSocketServer {
-  if (wss) return wss;
+  if (g.__wss) return g.__wss;
 
-  wss = new WebSocketServer({ server, path: "/ws" });
+  const wss = new WebSocketServer({ server, path: "/ws" });
+  g.__wss = wss;
+  const devices = getDevices();
 
   wss.on("connection", (ws: WebSocket, req: IncomingMessage) => {
     let deviceId = `device-${Date.now()}`;

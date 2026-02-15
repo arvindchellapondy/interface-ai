@@ -13,6 +13,9 @@ export interface A2UIComponentDef {
   // Button
   label?: string;
   action?: { event: { name: string; context?: Record<string, unknown> } };
+  // Icon
+  iconName?: string;
+  svgData?: string;
   // Style properties (custom extensions for design-to-code)
   style?: Record<string, unknown>;
   // Any other component-specific props
@@ -185,6 +188,8 @@ function buildStyle(node: ExtractedNode, isText: boolean, ctx?: FlattenContext):
     if (node.fontName) {
       style.fontWeight = node.fontName.style;
     }
+    if (node.lineHeight) style.lineHeight = node.lineHeight;
+    if (node.letterSpacing) style.letterSpacing = node.letterSpacing;
     if (node.textAlignHorizontal) style.textAlign = node.textAlignHorizontal.toLowerCase();
   } else {
     if (bv && bv.fills && bv.fills.length > 0) {
@@ -208,12 +213,12 @@ function buildStyle(node: ExtractedNode, isText: boolean, ctx?: FlattenContext):
 
   if (bv && bv.strokes && bv.strokes.length > 0) {
     style.borderColor = useToken(ctx, bv.strokes[0]);
-    style.borderWidth = 1;
+    style.borderWidth = node.strokeWeight || 1;
   } else if (node.strokes && node.strokes.length > 0) {
     var stroke = node.strokes[0];
     if (stroke.type === "SOLID") {
       style.borderColor = rgbaToHex(stroke.color.r, stroke.color.g, stroke.color.b);
-      style.borderWidth = 1;
+      style.borderWidth = node.strokeWeight || 1;
     }
   }
 
@@ -228,6 +233,38 @@ function buildStyle(node: ExtractedNode, isText: boolean, ctx?: FlattenContext):
     style.gap = useToken(ctx, bv.itemSpacing);
   } else if (node.itemSpacing) {
     style.gap = node.itemSpacing;
+  }
+
+  // Autolayout alignment — always emit so renderers know the intended layout
+  if (node.primaryAxisAlignItems) {
+    style.mainAxisAlignment = node.primaryAxisAlignItems.toLowerCase();
+  }
+  if (node.counterAxisAlignItems) {
+    style.crossAxisAlignment = node.counterAxisAlignItems.toLowerCase();
+  }
+  // Layout sizing (hug/fill)
+  if (node.layoutSizingHorizontal && node.layoutSizingHorizontal !== "FIXED") {
+    style.layoutSizingHorizontal = node.layoutSizingHorizontal.toLowerCase();
+  }
+  if (node.layoutSizingVertical && node.layoutSizingVertical !== "FIXED") {
+    style.layoutSizingVertical = node.layoutSizingVertical.toLowerCase();
+  }
+
+  // Shadow effects
+  if (node.effects && node.effects.length > 0) {
+    var shadows: Array<{ x: number; y: number; blur: number; color: string }> = [];
+    for (var ei = 0; ei < node.effects.length; ei++) {
+      var effect = node.effects[ei];
+      if (effect.type === "DROP_SHADOW" && effect.color && effect.offset) {
+        shadows.push({
+          x: effect.offset.x,
+          y: effect.offset.y,
+          blur: effect.radius || 0,
+          color: rgbaToHex(effect.color.r, effect.color.g, effect.color.b, effect.color.a),
+        });
+      }
+    }
+    if (shadows.length > 0) style.shadows = shadows;
   }
 
   return style;
@@ -249,6 +286,21 @@ function flattenNode(
   }
 
   var style = buildStyle(node, isText, ctx);
+
+  // Icon / Vector nodes — emit as Icon component with inline SVG
+  if (node.isIcon) {
+    var iconComp: A2UIComponentDef = {
+      id: id,
+      component: "Icon",
+      iconName: sanitizeId(node.name),
+    };
+    if (node.svgContent) {
+      iconComp.svgData = node.svgContent;
+    }
+    if (Object.keys(style).length > 0) iconComp.style = style;
+    ctx.components.push(iconComp);
+    return id;
+  }
 
   if (isText && node.characters) {
     // Store text content in data model

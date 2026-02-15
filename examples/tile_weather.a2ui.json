@@ -1,0 +1,117 @@
+[
+  {
+    "createSurface": {
+      "surfaceId": "tile_weather",
+      "catalogId": "standard_catalog_v0.9",
+      "sendDataModel": true,
+      "designTokens": {
+        "Main.trunks": {
+          "value": "#595d62",
+          "collection": "Colors"
+        },
+        "Supportive.dodoria": {
+          "value": "#d33030",
+          "collection": "Colors"
+        }
+      }
+    }
+  },
+  {
+    "updateComponents": {
+      "surfaceId": "tile_weather",
+      "components": [
+        {
+          "id": "generic",
+          "component": "Icon",
+          "iconName": "generic",
+          "svgData": "<svg width=\"32\" height=\"32\" viewBox=\"0 0 32 32\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n<path d=\"M17.3857 13.4522L19.6818 6.38729C19.9456 5.57543 18.9246 4.97011 18.3389 5.59114L7.27212 17.3258C6.79083 17.8361 7.15264 18.6746 7.85412 18.6746H14.6957L12.3978 25.496C12.123 26.3116 13.1534 26.9264 13.7407 26.2974L23.7434 15.5836C24.2208 15.0722 23.8582 14.2376 23.1586 14.2376H17.9563C17.5487 14.2376 17.2597 13.8399 17.3857 13.4522Z\" stroke=\"black\" stroke-miterlimit=\"10\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\n</svg>\n",
+          "style": {
+            "width": 32,
+            "height": 32,
+            "paddingTop": 0,
+            "paddingRight": 0,
+            "paddingBottom": 0,
+            "paddingLeft": 0,
+            "mainAxisAlignment": "min",
+            "crossAxisAlignment": "min"
+          }
+        },
+        {
+          "id": "aubrey_tx",
+          "component": "Text",
+          "text": "${/aubrey_tx/text}",
+          "style": {
+            "width": 64,
+            "height": 16,
+            "color": "{Main.trunks}",
+            "fontSize": 12,
+            "fontFamily": "DM Sans",
+            "fontWeight": "Bold",
+            "lineHeight": 16,
+            "textAlign": "center",
+            "layoutSizingHorizontal": "hug",
+            "layoutSizingVertical": "hug"
+          }
+        },
+        {
+          "id": "65_f_rain_for_the_next_hour",
+          "component": "Text",
+          "text": "${/65_f_rain_for_the_next_hour/text}",
+          "style": {
+            "width": 231,
+            "height": 28,
+            "color": "{Supportive.dodoria}",
+            "fontSize": 18,
+            "fontFamily": "DM Sans",
+            "fontWeight": "Medium",
+            "lineHeight": 28,
+            "textAlign": "center",
+            "layoutSizingHorizontal": "hug",
+            "layoutSizingVertical": "hug"
+          }
+        },
+        {
+          "id": "root",
+          "component": "Card",
+          "children": {
+            "explicitList": [
+              "generic",
+              "aubrey_tx",
+              "65_f_rain_for_the_next_hour"
+            ]
+          },
+          "style": {
+            "width": 263,
+            "height": 128,
+            "cornerRadius": 16,
+            "borderColor": "#c8c8c8",
+            "borderWidth": 1,
+            "paddingTop": 16,
+            "paddingRight": 16,
+            "paddingBottom": 16,
+            "paddingLeft": 16,
+            "gap": 10,
+            "mainAxisAlignment": "min",
+            "crossAxisAlignment": "min",
+            "layoutSizingHorizontal": "hug",
+            "layoutSizingVertical": "hug"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "updateDataModel": {
+      "surfaceId": "tile_weather",
+      "path": "/",
+      "value": {
+        "aubrey_tx": {
+          "text": "Aubrey, TX"
+        },
+        "65_f_rain_for_the_next_hour": {
+          "text": "65° F, rain for the next hour."
+        }
+      }
+    }
+  }
+]
