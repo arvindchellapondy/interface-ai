@@ -1,6 +1,18 @@
+<p align="center">
+  <img src="logo.png" alt="Interface.ai" width="120" />
+</p>
+
 # Interface.ai
 
 **Design-to-native pipeline**: Extract UI components from Figma, represent them in a universal format (A2UI), preview and personalize in a web dashboard, and render natively on iOS and Android — all in real time.
+
+## Highlights
+
+- **AI Chat** — Ask Claude to select and personalize tiles in natural language, auto-pushed to connected devices
+- **AI Personalization** — Provide user context and Claude rewrites data-bound fields with personalized content
+- **Real-Time Push** — Dashboard and AI edits broadcast instantly to iOS/Android via WebSocket
+- **Figma-to-Native** — Extract designs from Figma, preview on web, render natively, or generate SwiftUI/Kotlin/React Native code
+- **Universal A2UI Protocol** — One JSON format drives web preview, native rendering, and code generation across all platforms
 
 ---
 

@@ -4,6 +4,9 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "Interface AI Dashboard",
   description: "A2UI design management and preview",
+  icons: {
+    icon: "/favicon.svg",
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -19,9 +22,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body className="bg-slate-50 text-slate-800 font-sans">
         <nav className="bg-slate-900 px-6 py-3 flex items-center gap-6 shadow-lg">
-          <span className="font-heading font-bold text-white text-base tracking-tight">
-            Interface AI
-          </span>
+          <a href="/" className="flex items-center gap-2">
+            <img src="/favicon.svg" alt="Interface AI" className="w-7 h-7 rounded" />
+            <span className="font-heading font-bold text-white text-base tracking-tight">
+              Interface AI
+            </span>
+          </a>
           <div className="flex items-center gap-1">
             <a
               href="/"
