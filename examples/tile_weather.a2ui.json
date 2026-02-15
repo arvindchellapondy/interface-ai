@@ -5,12 +5,12 @@
       "catalogId": "standard_catalog_v0.9",
       "sendDataModel": true,
       "designTokens": {
-        "Main.trunks": {
-          "value": "#595d62",
-          "collection": "Colors"
+        "Colors.Blue": {
+          "value": "#007aff",
+          "collection": "System Colors"
         },
-        "Supportive.dodoria": {
-          "value": "#d33030",
+        "Main.beerus": {
+          "value": "#e2e2e2",
           "collection": "Colors"
         }
       }
@@ -21,13 +21,14 @@
       "surfaceId": "tile_weather",
       "components": [
         {
-          "id": "generic",
+          "id": "sun",
           "component": "Icon",
-          "iconName": "generic",
-          "svgData": "<svg width=\"32\" height=\"32\" viewBox=\"0 0 32 32\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n<path d=\"M17.3857 13.4522L19.6818 6.38729C19.9456 5.57543 18.9246 4.97011 18.3389 5.59114L7.27212 17.3258C6.79083 17.8361 7.15264 18.6746 7.85412 18.6746H14.6957L12.3978 25.496C12.123 26.3116 13.1534 26.9264 13.7407 26.2974L23.7434 15.5836C24.2208 15.0722 23.8582 14.2376 23.1586 14.2376H17.9563C17.5487 14.2376 17.2597 13.8399 17.3857 13.4522Z\" stroke=\"black\" stroke-miterlimit=\"10\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\n</svg>\n",
+          "iconName": "sun",
+          "svgData": "<svg width=\"32\" height=\"32\" viewBox=\"0 0 32 32\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n<g clip-path=\"url(#clip0_32632_1213)\">\n<path d=\"M16 1.33333V4M16 28V30.6667M5.62666 5.62667L7.51999 7.52M24.48 24.48L26.3733 26.3733M1.33333 16H3.99999M28 16H30.6667M5.62666 26.3733L7.51999 24.48M24.48 7.52L26.3733 5.62667M22.6667 16C22.6667 19.6819 19.6819 22.6667 16 22.6667C12.3181 22.6667 9.33333 19.6819 9.33333 16C9.33333 12.3181 12.3181 9.33333 16 9.33333C19.6819 9.33333 22.6667 12.3181 22.6667 16Z\" stroke=\"#FFD600\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\n</g>\n<defs>\n<clipPath id=\"clip0_32632_1213\">\n<rect width=\"32\" height=\"32\" fill=\"white\"/>\n</clipPath>\n</defs>\n</svg>\n",
           "style": {
             "width": 32,
             "height": 32,
+            "backgroundColor": "#ffffff",
             "paddingTop": 0,
             "paddingRight": 0,
             "paddingBottom": 0,
@@ -43,7 +44,7 @@
           "style": {
             "width": 64,
             "height": 16,
-            "color": "{Main.trunks}",
+            "color": "{Main.beerus}",
             "fontSize": 12,
             "fontFamily": "DM Sans",
             "fontWeight": "Bold",
@@ -54,13 +55,13 @@
           }
         },
         {
-          "id": "65_f_rain_for_the_next_hour",
+          "id": "75_f_clear_sky",
           "component": "Text",
-          "text": "${/65_f_rain_for_the_next_hour/text}",
+          "text": "${/75_f_clear_sky/text}",
           "style": {
-            "width": 231,
+            "width": 124,
             "height": 28,
-            "color": "{Supportive.dodoria}",
+            "color": "{Main.beerus}",
             "fontSize": 18,
             "fontFamily": "DM Sans",
             "fontWeight": "Medium",
@@ -75,16 +76,17 @@
           "component": "Card",
           "children": {
             "explicitList": [
-              "generic",
+              "sun",
               "aubrey_tx",
-              "65_f_rain_for_the_next_hour"
+              "75_f_clear_sky"
             ]
           },
           "style": {
-            "width": 263,
+            "width": 156,
             "height": 128,
+            "backgroundColor": "{Colors.Blue}",
             "cornerRadius": 16,
-            "borderColor": "#c8c8c8",
+            "borderColor": "{Colors.Blue}",
             "borderWidth": 1,
             "paddingTop": 16,
             "paddingRight": 16,
@@ -94,7 +96,15 @@
             "mainAxisAlignment": "min",
             "crossAxisAlignment": "min",
             "layoutSizingHorizontal": "hug",
-            "layoutSizingVertical": "hug"
+            "layoutSizingVertical": "hug",
+            "shadows": [
+              {
+                "x": 0,
+                "y": 4,
+                "blur": 4,
+                "color": "#00000040"
+              }
+            ]
           }
         }
       ]
@@ -108,8 +118,8 @@
         "aubrey_tx": {
           "text": "Aubrey, TX"
         },
-        "65_f_rain_for_the_next_hour": {
-          "text": "65° F, rain for the next hour."
+        "75_f_clear_sky": {
+          "text": "75° F, clear sky"
         }
       }
     }
