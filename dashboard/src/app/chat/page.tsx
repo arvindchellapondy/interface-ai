@@ -58,27 +58,22 @@ export default function ChatPage() {
   }, [messages]);
 
   const pushToDevices = useCallback(
-    (designMessages: unknown[], dataModel: Record<string, unknown>, surfaceId: string) => {
-      // Send full design + updated data model
-      const messagesWithUpdatedData = designMessages.map((msg: unknown) => {
-        const m = msg as Record<string, unknown>;
-        if (m.updateDataModel) {
-          return { updateDataModel: { surfaceId, path: "/", value: dataModel } };
-        }
-        return msg;
-      });
-
+    (dataModel: Record<string, unknown>, surfaceId: string) => {
+      // Send only updateDataModel (surface must already exist from initial push)
+      const updateMsg = { updateDataModel: { surfaceId, path: "/", value: dataModel } };
       fetch("/api/devices/push", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ messages: messagesWithUpdatedData }),
+        body: JSON.stringify({ messages: [updateMsg] }),
       })
         .then((res) => res.json())
         .then((data) => {
-          setPushStatus(`Pushed to ${data.pushed} device(s)`);
-          setTimeout(() => setPushStatus(null), 3000);
+          if (data.pushed > 0) {
+            setPushStatus(`Pushed to ${data.pushed} device(s)`);
+            setTimeout(() => setPushStatus(null), 3000);
+          }
         })
-        .catch(() => setPushStatus("Push failed"));
+        .catch(() => {});
     },
     []
   );
@@ -92,18 +87,18 @@ export default function ChatPage() {
 
       // Parse the design and apply personalized data model
       const doc = parseA2UIMessages(design.messages as A2UIMessage[]);
-      const mergedDataModel = mergeDataModel(doc.dataModel, tileAction.dataModel);
+      // Convert AI's flat path format to nested data model
+      const nestedOverlay = pathsToNestedDataModel(tileAction.dataModel);
+      const mergedDataModel = mergeDataModel(doc.dataModel, nestedOverlay);
       const updatedDoc = { ...doc, dataModel: mergedDataModel };
 
       setSelectedDoc(updatedDoc);
       setSelectedDesignId(tileAction.tileId);
 
-      // Auto-push to connected devices
-      if (deviceCount > 0) {
-        pushToDevices(design.messages, mergedDataModel, doc.surface.surfaceId);
-      }
+      // Always attempt push (server returns pushed:0 if no devices)
+      pushToDevices(mergedDataModel, doc.surface.surfaceId);
     },
-    [designs, deviceCount, pushToDevices]
+    [designs, pushToDevices]
   );
 
   const sendMessage = async () => {
@@ -368,6 +363,31 @@ export default function ChatPage() {
       </div>
     </div>
   );
+}
+
+/**
+ * Convert AI's flat path format to nested data model.
+ * e.g. {"/aubrey_tx/text": "NYC"} → {"aubrey_tx": {"text": "NYC"}}
+ * Also handles already-nested format: {"aubrey_tx": {"text": "NYC"}} passes through.
+ */
+function pathsToNestedDataModel(input: Record<string, unknown>): Record<string, unknown> {
+  const result: Record<string, unknown> = {};
+  for (const [key, val] of Object.entries(input)) {
+    if (key.startsWith("/")) {
+      // Flat path format: "/aubrey_tx/text" → nested
+      const parts = key.split("/").filter(Boolean);
+      let current: Record<string, unknown> = result;
+      for (let i = 0; i < parts.length - 1; i++) {
+        if (!(parts[i] in current)) current[parts[i]] = {};
+        current = current[parts[i]] as Record<string, unknown>;
+      }
+      current[parts[parts.length - 1]] = val;
+    } else {
+      // Already nested format
+      result[key] = val;
+    }
+  }
+  return result;
 }
 
 /** Deep merge AI's data model over the design's default data model */

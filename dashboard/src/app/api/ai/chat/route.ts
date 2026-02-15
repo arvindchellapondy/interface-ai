@@ -32,16 +32,22 @@ You have access to a catalog of tile designs. Each tile is a pre-designed UI com
 AVAILABLE TILE DESIGNS:
 ${catalog.map((t) => `- "${t.id}" (${t.name}): Components: ${t.components.join(", ")}. Data bindings: ${t.dataBindings.map((b) => `${b.path} = "${b.currentValue}"`).join(", ")}`).join("\n")}
 
-When the user asks you to show a tile or asks about content/weather/greetings/etc., respond with a JSON block that selects and personalizes a tile. Use this format:
+When the user asks you to show a tile or asks about content/weather/greetings/etc., respond with a JSON block that selects and personalizes a tile.
+
+CRITICAL: The dataModel must use NESTED object format matching the tile's data binding structure.
+For example, if a tile has binding "\${/aubrey_tx/text}", the dataModel must be: {"aubrey_tx": {"text": "new value"}}
+Do NOT use flat path keys like "/aubrey_tx/text".
+
+Use this exact format:
 
 \`\`\`json
-{"action": "show_tile", "tileId": "the_tile_id", "dataModel": { "binding_key": { "field": "personalized value" } }, "reasoning": "why you chose this"}
+{"action": "show_tile", "tileId": "the_tile_id", "dataModel": {"binding_key": {"field": "personalized value"}}, "reasoning": "why you chose this"}
 \`\`\`
 
 Rules:
 - Always include the JSON block when selecting/personalizing a tile
-- The dataModel must match the tile's existing data binding structure
-- You can personalize text values to be contextual and engaging
+- The dataModel MUST use nested objects (e.g. {"aubrey_tx": {"text": "value"}}) not flat paths
+- Personalize text values to be contextual and engaging for the user's request
 - Respond conversationally before the JSON block
 - If the user just wants to chat without showing a tile, respond normally without JSON`;
 
