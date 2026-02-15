@@ -9,10 +9,15 @@
     "mobile-codegen"
   ],
   "scripts": {
+    "setup": "npm install && cd dashboard && npm install && cd ../cli && npm install && echo '' && echo '✅ All dependencies installed.' && echo 'Next: copy dashboard/.env.example to dashboard/.env and add your ANTHROPIC_API_KEY'",
+    "dev": "cd dashboard && npx tsx server.ts",
+    "dev:dashboard": "cd dashboard && npx tsx server.ts",
     "build": "npm run build --workspaces",
     "build:plugin": "npm run build -w figma-plugin",
     "build:parser": "npm run build -w a2ui-parser",
-    "build:codegen": "npm run build -w mobile-codegen"
+    "build:codegen": "npm run build -w mobile-codegen",
+    "build:dashboard": "cd dashboard && npm run build",
+    "ios:setup": "cd ios-renderer/Examples/A2UIDemoApp && xcodegen generate && echo '✅ Xcode project generated: InterfaceAI.xcodeproj'"
   },
   "devDependencies": {
     "typescript": "^5.4.0",

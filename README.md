@@ -70,39 +70,57 @@
 
 ### Prerequisites
 
-- Node.js 18+
-- Xcode 15+ (for iOS)
-- Android Studio (for Android)
+| Requirement | Purpose | Install |
+|------------|---------|---------|
+| Node.js 18+ | Dashboard, CLI, codegen | [nodejs.org](https://nodejs.org) |
+| Xcode 15+ | iOS renderer (optional) | Mac App Store |
+| XcodeGen | iOS project generation (optional) | `brew install xcodegen` |
+| Android Studio | Android renderer (optional) | [developer.android.com](https://developer.android.com/studio) |
 
-### 1. Install dependencies
+### One-Command Setup
 
 ```bash
-git clone <repo-url> && cd interface
-npm install
-cd dashboard && npm install
+git clone https://github.com/arvindchellapondy/interface-ai.git
+cd interface-ai
+./setup.sh
 ```
 
-### 2. Start the dashboard
+This installs all dependencies (root workspaces, dashboard, CLI), creates the `.env` file, and generates the iOS Xcode project if XcodeGen is available.
+
+### Or Step by Step
 
 ```bash
-cd dashboard
-npx tsx server.ts
+# 1. Install all dependencies
+npm run setup
+
+# 2. Configure AI (optional — needed for AI chat features)
+cp dashboard/.env.example dashboard/.env
+# Edit dashboard/.env and add your ANTHROPIC_API_KEY
+
+# 3. Start the dashboard
+npm run dev
 # Dashboard:  http://localhost:3001
 # WebSocket:  ws://localhost:3001/ws
-```
 
-### 3. Run the iOS app
-
-```bash
-cd ios-renderer/Examples/A2UIDemoApp
-xcodegen generate
-open InterfaceAI.xcodeproj
+# 4. Run iOS app (optional — requires Xcode + XcodeGen)
+npm run ios:setup
+open ios-renderer/Examples/A2UIDemoApp/InterfaceAI.xcodeproj
 # Build and run on simulator (Cmd+R)
 ```
 
-### 4. Push a design to mobile
+### 5. Push a design to mobile
 
 Open the dashboard, select a design, and click **Push to Devices** — or use the AI chat to select and personalize tiles automatically.
+
+### Available npm Scripts
+
+| Command | Description |
+|---------|-------------|
+| `npm run setup` | Install all dependencies (root + dashboard + CLI) |
+| `npm run dev` | Start dashboard with WebSocket server on port 3001 |
+| `npm run build` | Build all workspace packages |
+| `npm run build:dashboard` | Build the Next.js dashboard for production |
+| `npm run ios:setup` | Generate iOS Xcode project from project.yml |
 
 ---
 
