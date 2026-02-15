@@ -5,7 +5,6 @@ struct ContentView: View {
     @State private var processor = MessageProcessor()
     @State private var wsClient: A2UIWebSocketClient?
     @State private var serverURL = "ws://localhost:3001/ws"
-    @State private var isEditing = false
 
     var body: some View {
         NavigationStack {
@@ -30,8 +29,12 @@ struct ContentView: View {
                     }
                 }
             }
-            .navigationTitle("Interface AI")
             .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .principal) {
+                    InterfaceLogo()
+                }
+            }
         }
         .task {
             connect()
@@ -41,48 +44,42 @@ struct ContentView: View {
     // MARK: - Connection Bar
 
     private var connectionBar: some View {
-        HStack(spacing: 8) {
-            Circle()
-                .fill(wsClient?.isConnected == true ? .green : .red)
-                .frame(width: 8, height: 8)
+        VStack(spacing: 8) {
+            HStack(spacing: 8) {
+                Circle()
+                    .fill(wsClient?.isConnected == true ? .green : .red)
+                    .frame(width: 8, height: 8)
 
-            if isEditing {
                 TextField("Server URL", text: $serverURL)
                     .textFieldStyle(.roundedBorder)
                     .font(.caption)
                     .autocorrectionDisabled()
                     .textInputAutocapitalization(.never)
-                    .onSubmit {
-                        isEditing = false
-                        reconnect()
-                    }
-            } else {
-                Text(serverURL)
-                    .font(.caption)
-                    .foregroundColor(.secondary)
-                    .onTapGesture { isEditing = true }
+                    .onSubmit { reconnect() }
             }
 
-            Spacer()
+            HStack {
+                Spacer()
 
-            if !processor.surfaces.isEmpty {
-                Button("Clear") {
-                    processor.surfaces.removeAll()
+                if !processor.surfaces.isEmpty {
+                    Button("Clear") {
+                        processor.surfaces.removeAll()
+                    }
+                    .font(.caption)
+                    .buttonStyle(.bordered)
+                    .tint(.red)
+                }
+
+                Button(wsClient?.isConnected == true ? "Disconnect" : "Connect") {
+                    if wsClient?.isConnected == true {
+                        wsClient?.disconnect()
+                    } else {
+                        connect()
+                    }
                 }
                 .font(.caption)
                 .buttonStyle(.bordered)
-                .tint(.red)
             }
-
-            Button(wsClient?.isConnected == true ? "Disconnect" : "Connect") {
-                if wsClient?.isConnected == true {
-                    wsClient?.disconnect()
-                } else {
-                    connect()
-                }
-            }
-            .font(.caption)
-            .buttonStyle(.bordered)
         }
         .padding(.horizontal)
         .padding(.top, 4)
@@ -121,7 +118,7 @@ struct ContentView: View {
     // MARK: - Surface Card
 
     private func surfaceCard(surface: Surface, surfaceId: String) -> some View {
-        VStack(alignment: .leading, spacing: 12) {
+        VStack(alignment: .leading, spacing: 20) {
             Text(surfaceId)
                 .font(.caption)
                 .foregroundColor(.secondary)
@@ -135,6 +132,7 @@ struct ContentView: View {
                 }
                 Spacer()
             }
+            .padding(.vertical, 8)
 
             // Metadata
             HStack(spacing: 16) {
@@ -145,7 +143,7 @@ struct ContentView: View {
             .font(.caption2)
             .foregroundColor(.secondary)
         }
-        .padding()
+        .padding(20)
         .background(Color(.systemBackground))
         .cornerRadius(12)
         .shadow(color: .black.opacity(0.08), radius: 4, y: 2)
@@ -163,6 +161,18 @@ struct ContentView: View {
     private func reconnect() {
         wsClient?.disconnect()
         connect()
+    }
+}
+
+// MARK: - Logo
+
+private struct InterfaceLogo: View {
+    var body: some View {
+        Image("NavLogo")
+            .renderingMode(.original)
+            .resizable()
+            .scaledToFit()
+            .frame(height: 28)
     }
 }
 

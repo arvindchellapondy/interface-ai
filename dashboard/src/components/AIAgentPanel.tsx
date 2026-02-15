@@ -9,7 +9,7 @@ interface AIAgentPanelProps {
 }
 
 export default function AIAgentPanel({ designId, messages, onApplyUpdate }: AIAgentPanelProps) {
-  const [userContext, setUserContext] = useState("Returning user named Arvind, interested in technology and design tools");
+  const [userContext, setUserContext] = useState("");
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<{
     result: { updates: Array<{ path: string; value: string }>; reasoning: string };
@@ -78,10 +78,11 @@ export default function AIAgentPanel({ designId, messages, onApplyUpdate }: AIAg
         <textarea
           value={userContext}
           onChange={(e) => setUserContext(e.target.value)}
+          placeholder="e.g. New user in San Francisco, interested in morning weather updates"
           rows={3}
           className="w-full text-sm font-mono p-3 rounded-lg border border-slate-200
                      resize-y focus:border-violet-400 focus:ring-1 focus:ring-violet-100
-                     outline-none transition-all duration-150"
+                     outline-none transition-all duration-150 placeholder:text-slate-300"
         />
       </div>
 

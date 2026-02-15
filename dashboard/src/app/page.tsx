@@ -28,7 +28,7 @@ export default function DashboardPage() {
           </p>
         </div>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {designs.map((design) => {
             const doc = parseA2UIMessages(design.messages as A2UIMessage[]);
             return (
@@ -37,17 +37,17 @@ export default function DashboardPage() {
                 href={`/designs/${design.id}`}
                 className="no-underline text-inherit"
               >
-                <div className="bg-white rounded-xl p-6 shadow-card hover:shadow-card-hover transition-all duration-200 hover:-translate-y-0.5 group cursor-pointer">
-                  <div className="mb-5 flex justify-center">
+                <div className="bg-white rounded-xl p-8 shadow-card hover:shadow-card-hover transition-all duration-200 hover:-translate-y-0.5 group cursor-pointer">
+                  <div className="mb-6 flex justify-center overflow-hidden">
                     <A2UIPreviewRenderer doc={doc} />
                   </div>
                   <div className="font-semibold text-base text-slate-800 group-hover:text-indigo-700 transition-colors duration-150">
                     {design.name}
                   </div>
-                  <div className="text-slate-400 text-sm mt-1.5">
+                  <div className="text-slate-400 text-sm mt-2">
                     {doc.components.length} components · {Object.keys(doc.designTokens).length} tokens
                   </div>
-                  <div className="text-slate-300 text-xs mt-1.5">
+                  <div className="text-slate-300 text-xs mt-2">
                     {new Date(design.updatedAt).toLocaleDateString()}
                   </div>
                 </div>

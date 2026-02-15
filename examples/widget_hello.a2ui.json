@@ -5,8 +5,8 @@
       "catalogId": "standard_catalog_v0.9",
       "sendDataModel": true,
       "designTokens": {
-        "Accents.Indigo": {
-          "value": "#6d7cff",
+        "Accents.Blue": {
+          "value": "#0091ff",
           "collection": "Colors"
         },
         "Interactive border radius.--radius-i-xs": {
@@ -37,11 +37,11 @@
       "surfaceId": "widget_hello",
       "components": [
         {
-          "id": "hello_world_our_1st_tile",
+          "id": "hello_world_our_1st_widget",
           "component": "Text",
-          "text": "${/hello_world_our_1st_tile/text}",
+          "text": "${/hello_world_our_1st_widget/text}",
           "style": {
-            "width": 136,
+            "width": 158,
             "height": 16,
             "color": "#000000",
             "fontSize": 12,
@@ -65,7 +65,7 @@
           "style": {
             "width": 84,
             "height": 24,
-            "backgroundColor": "{Accents.Indigo}",
+            "backgroundColor": "{Accents.Blue}",
             "cornerRadius": "{Interactive border radius.--radius-i-xs}",
             "paddingTop": "{Paddings & Gaps.p-1}",
             "paddingRight": "{Paddings & Gaps.p-2}",
@@ -92,15 +92,15 @@
         },
         {
           "id": "root",
-          "component": "Card",
+          "component": "Column",
           "children": {
             "explicitList": [
-              "hello_world_our_1st_tile",
+              "hello_world_our_1st_widget",
               "mdsbutton"
             ]
           },
           "style": {
-            "width": 168,
+            "width": 190,
             "height": 82,
             "cornerRadius": 16,
             "borderColor": "#c8c8c8",
@@ -124,8 +124,8 @@
       "surfaceId": "widget_hello",
       "path": "/",
       "value": {
-        "hello_world_our_1st_tile": {
-          "text": "Hello world, our 1st tile!"
+        "hello_world_our_1st_widget": {
+          "text": "Hello world, our 1st widget!"
         },
         "mdsbutton": {
           "label": "Button text"

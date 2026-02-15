@@ -79,7 +79,9 @@ export default function DesignDetailPage() {
         {/* Left: Preview */}
         <div>
           <div className="panel p-10 flex justify-center items-center min-h-[220px]">
-            <A2UIPreviewRenderer doc={doc} />
+            <div style={{ zoom: 1.4 }}>
+              <A2UIPreviewRenderer doc={doc} />
+            </div>
           </div>
 
           <div className="mt-5">

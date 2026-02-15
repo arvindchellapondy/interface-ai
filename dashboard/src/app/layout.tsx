@@ -21,12 +21,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
       </head>
       <body className="bg-slate-50 text-slate-800 font-sans">
-        <nav className="bg-slate-900 px-8 py-4 flex items-center gap-8 shadow-lg">
-          <a href="/" className="flex items-center gap-2.5">
-            <img src="/favicon.svg" alt="Interface AI" className="w-8 h-8 rounded" />
-            <span className="font-heading font-bold text-white text-lg tracking-tight">
-              Interface AI
-            </span>
+        <nav className="bg-slate-900 px-10 py-5 flex items-center gap-10 shadow-lg">
+          <a href="/" className="flex items-center">
+            <img src="/interface_full_logo.svg" alt="Interface AI" className="h-8 brightness-0 invert" />
           </a>
           <div className="flex items-center gap-1">
             <a
@@ -43,7 +40,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             </a>
           </div>
         </nav>
-        <main className="px-8 py-10 max-w-7xl mx-auto">{children}</main>
+        <main className="px-10 py-12 max-w-7xl mx-auto">{children}</main>
       </body>
     </html>
   );

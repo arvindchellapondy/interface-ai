@@ -9,6 +9,8 @@ import {
   resolveStyleValue,
 } from "@/lib/a2ui-types";
 
+const PREVIEW_SCALE = 1.25;
+
 interface RendererProps {
   doc: A2UIDocument;
 }
@@ -44,13 +46,15 @@ function resolveStyles(
   const layoutSizingH = r("layoutSizingHorizontal");
   const layoutSizingV = r("layoutSizingVertical");
 
+  const s = PREVIEW_SCALE;
+
   if (layoutSizingH === "fill") {
     css.width = "100%";
     css.flexGrow = 1;
   } else if (layoutSizingH === "hug") {
     css.width = "auto";
   } else if (width !== undefined) {
-    css.width = Number(width);
+    css.width = Number(width) * s;
   }
 
   if (layoutSizingV === "fill") {
@@ -59,27 +63,27 @@ function resolveStyles(
   } else if (layoutSizingV === "hug") {
     css.height = "auto";
   } else if (height !== undefined) {
-    css.height = Number(height);
+    css.height = Number(height) * s;
   }
   if (bg) css.backgroundColor = String(bg);
-  if (radius !== undefined) css.borderRadius = Number(radius);
+  if (radius !== undefined) css.borderRadius = Number(radius) * s;
   if (opacity !== undefined && opacity !== 1) css.opacity = Number(opacity);
   if (borderColor && borderWidth) {
     css.borderColor = String(borderColor);
-    css.borderWidth = Number(borderWidth);
+    css.borderWidth = Number(borderWidth) * s;
     css.borderStyle = "solid";
   }
-  if (pt !== undefined) css.paddingTop = Number(pt);
-  if (pr !== undefined) css.paddingRight = Number(pr);
-  if (pb !== undefined) css.paddingBottom = Number(pb);
-  if (pl !== undefined) css.paddingLeft = Number(pl);
-  if (gap !== undefined) css.gap = Number(gap);
+  if (pt !== undefined) css.paddingTop = Number(pt) * s;
+  if (pr !== undefined) css.paddingRight = Number(pr) * s;
+  if (pb !== undefined) css.paddingBottom = Number(pb) * s;
+  if (pl !== undefined) css.paddingLeft = Number(pl) * s;
+  if (gap !== undefined) css.gap = Number(gap) * s;
 
   // Shadow support
   const shadows = style.shadows as Array<{ x: number; y: number; blur: number; color: string }> | undefined;
   if (shadows && shadows.length > 0) {
     css.boxShadow = shadows
-      .map((s) => `${s.x}px ${s.y}px ${s.blur}px ${s.color}`)
+      .map((sh) => `${sh.x * s}px ${sh.y * s}px ${sh.blur * s}px ${sh.color}`)
       .join(", ");
   }
 
@@ -90,16 +94,17 @@ function TextComponent({ component, tokens, dataModel }: ComponentProps) {
   const text = resolveDataBinding(component.text, dataModel);
   const style = component.style || {};
   const r = (key: string) => resolveStyleValue(style, key, tokens);
+  const s = PREVIEW_SCALE;
 
   const css: React.CSSProperties = {
     ...resolveStyles(style, tokens),
     color: r("color") ? String(r("color")) : undefined,
-    fontSize: r("fontSize") ? Number(r("fontSize")) : undefined,
+    fontSize: r("fontSize") ? Number(r("fontSize")) * s : undefined,
     fontFamily: r("fontFamily") ? `"${String(r("fontFamily"))}", sans-serif` : undefined,
     fontWeight: r("fontWeight") ? (String(r("fontWeight")) as React.CSSProperties["fontWeight"]) : undefined,
     textAlign: r("textAlign") ? (String(r("textAlign")) as React.CSSProperties["textAlign"]) : undefined,
-    lineHeight: r("lineHeight") ? `${Number(r("lineHeight"))}px` : undefined,
-    letterSpacing: r("letterSpacing") ? Number(r("letterSpacing")) : undefined,
+    lineHeight: r("lineHeight") ? `${Number(r("lineHeight")) * s}px` : undefined,
+    letterSpacing: r("letterSpacing") ? Number(r("letterSpacing")) * s : undefined,
   };
 
   return <span style={css}>{text}</span>;
@@ -110,15 +115,16 @@ function ButtonComponent({ component, tokens, dataModel }: ComponentProps) {
   const containerStyle = resolveStyles(component.style, tokens);
   const lStyle = component.labelStyle || {};
   const lr = (key: string) => resolveStyleValue(lStyle, key, tokens);
+  const s = PREVIEW_SCALE;
 
   const labelCss: React.CSSProperties = {
     color: lr("color") ? String(lr("color")) : undefined,
-    fontSize: lr("fontSize") ? Number(lr("fontSize")) : undefined,
+    fontSize: lr("fontSize") ? Number(lr("fontSize")) * s : undefined,
     fontFamily: lr("fontFamily") ? `"${String(lr("fontFamily"))}", sans-serif` : undefined,
     fontWeight: lr("fontWeight") ? (String(lr("fontWeight")) as React.CSSProperties["fontWeight"]) : undefined,
     textAlign: lr("textAlign") ? (String(lr("textAlign")) as React.CSSProperties["textAlign"]) : undefined,
-    lineHeight: lr("lineHeight") ? `${Number(lr("lineHeight"))}px` : undefined,
-    letterSpacing: lr("letterSpacing") ? Number(lr("letterSpacing")) : undefined,
+    lineHeight: lr("lineHeight") ? `${Number(lr("lineHeight")) * s}px` : undefined,
+    letterSpacing: lr("letterSpacing") ? Number(lr("letterSpacing")) * s : undefined,
     border: "none",
     background: "none",
     cursor: "pointer",
