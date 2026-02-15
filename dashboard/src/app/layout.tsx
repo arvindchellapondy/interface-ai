@@ -38,6 +38,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <a href="/" style={{ color: "#666", textDecoration: "none", fontSize: 14 }}>
             Dashboard
           </a>
+          <a href="/chat" style={{ color: "#666", textDecoration: "none", fontSize: 14 }}>
+            AI Chat
+          </a>
         </nav>
         <main style={{ padding: 24, maxWidth: 1200, margin: "0 auto" }}>{children}</main>
       </body>

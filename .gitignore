@@ -12,3 +12,6 @@ local.properties
 *.xcodeproj/
 *.xcworkspace/
 .next/
+.env
+.env.local
+.env*.local
