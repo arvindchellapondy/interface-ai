@@ -1,10 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getDesign } from "@/lib/design-store";
+import { getDesign, listDesigns } from "@/lib/design-store";
 import { pushToAllDevices } from "@/lib/ws-server";
 
 /**
  * Push a full design to all connected devices with an optional data model override.
- * This avoids client-side JSON serialization issues with SVG data.
+ * Automatically clears previous surfaces so only the pushed widget renders.
  */
 export async function POST(req: NextRequest) {
   const body = await req.json();
@@ -19,12 +19,17 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Design not found" }, { status: 404 });
   }
 
+  // Delete all other surfaces first so the device only shows the new one
+  const allDesigns = listDesigns();
+  const deleteMessages = allDesigns
+    .filter((d) => d.id !== designId)
+    .map((d) => ({ deleteSurface: { surfaceId: d.id } }));
+
   // Build messages: use original design messages but merge dataModel override with defaults
-  const messages = design.messages.map((msg: unknown) => {
+  const designMessages = design.messages.map((msg: unknown) => {
     const m = msg as Record<string, unknown>;
     if (m.updateDataModel && dataModel) {
       const udm = m.updateDataModel as Record<string, unknown>;
-      // Merge: start with design defaults, overlay with provided dataModel
       const defaultValue = (udm.value && typeof udm.value === "object") ? udm.value as Record<string, unknown> : {};
       const merged = deepMerge(defaultValue, dataModel);
       return {
@@ -38,6 +43,7 @@ export async function POST(req: NextRequest) {
     return msg;
   });
 
+  const messages = [...deleteMessages, ...designMessages];
   const count = pushToAllDevices(messages);
   return NextResponse.json({ pushed: count });
 }

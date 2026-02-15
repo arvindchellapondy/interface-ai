@@ -39,6 +39,16 @@ export function getDesign(id: string): StoredDesign | null {
   return designs.find((d) => d.id === id) ?? null;
 }
 
+/** Clear all designs. */
+export function clearDesigns(): number {
+  if (!fs.existsSync(DESIGNS_DIR)) return 0;
+  const files = fs.readdirSync(DESIGNS_DIR).filter((f) => f.endsWith(".a2ui.json"));
+  for (const file of files) {
+    fs.unlinkSync(path.join(DESIGNS_DIR, file));
+  }
+  return files.length;
+}
+
 /** Save a design (creates/overwrites the file). */
 export function saveDesign(id: string, messages: A2UIMessage[]): StoredDesign {
   if (!fs.existsSync(DESIGNS_DIR)) {

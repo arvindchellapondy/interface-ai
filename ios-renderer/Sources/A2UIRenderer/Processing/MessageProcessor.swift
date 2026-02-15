@@ -3,7 +3,7 @@ import Foundation
 /// Processes A2UI messages into reactive Surface state.
 @Observable
 public final class MessageProcessor {
-    public private(set) var surfaces: [String: Surface] = [:]
+    public var surfaces: [String: Surface] = [:]
 
     public init() {}
 

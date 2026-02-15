@@ -1,9 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
-import { listDesigns, saveDesign } from "@/lib/design-store";
+import { listDesigns, saveDesign, clearDesigns } from "@/lib/design-store";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+  "Access-Control-Allow-Methods": "GET, POST, DELETE, OPTIONS",
   "Access-Control-Allow-Headers": "Content-Type",
 };
 
@@ -14,6 +14,11 @@ export async function OPTIONS() {
 export async function GET() {
   const designs = listDesigns();
   return NextResponse.json(designs, { headers: corsHeaders });
+}
+
+export async function DELETE() {
+  const count = clearDesigns();
+  return NextResponse.json({ cleared: count }, { headers: corsHeaders });
 }
 
 export async function POST(req: NextRequest) {

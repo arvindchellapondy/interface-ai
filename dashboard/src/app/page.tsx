@@ -2,6 +2,7 @@ import { listDesigns } from "@/lib/design-store";
 import { parseA2UIMessages, A2UIMessage } from "@/lib/a2ui-types";
 import Link from "next/link";
 import A2UIPreviewRenderer from "@/components/A2UIPreviewRenderer";
+import ClearDesignsButton from "@/components/ClearDesignsButton";
 
 export const dynamic = "force-dynamic";
 
@@ -12,7 +13,10 @@ export default function DashboardPage() {
     <div>
       <div className="flex justify-between items-center mb-10">
         <h1 className="font-heading text-3xl font-bold text-slate-900">Designs</h1>
-        <span className="text-base text-slate-400">{designs.length} design(s)</span>
+        <div className="flex items-center gap-4">
+          <span className="text-base text-slate-400">{designs.length} design(s)</span>
+          {designs.length > 0 && <ClearDesignsButton />}
+        </div>
       </div>
 
       {designs.length === 0 ? (

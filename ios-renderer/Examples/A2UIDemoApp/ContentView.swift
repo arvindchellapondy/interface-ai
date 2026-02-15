@@ -65,6 +65,15 @@ struct ContentView: View {
 
             Spacer()
 
+            if !processor.surfaces.isEmpty {
+                Button("Clear") {
+                    processor.surfaces.removeAll()
+                }
+                .font(.caption)
+                .buttonStyle(.bordered)
+                .tint(.red)
+            }
+
             Button(wsClient?.isConnected == true ? "Disconnect" : "Connect") {
                 if wsClient?.isConnected == true {
                     wsClient?.disconnect()
