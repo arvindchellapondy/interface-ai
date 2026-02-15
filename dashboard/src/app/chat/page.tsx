@@ -57,14 +57,15 @@ export default function ChatPage() {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
-  const pushToDevices = useCallback(
-    (dataModel: Record<string, unknown>, surfaceId: string) => {
-      // Send only updateDataModel (surface must already exist from initial push)
-      const updateMsg = { updateDataModel: { surfaceId, path: "/", value: dataModel } };
-      fetch("/api/devices/push", {
+  const pushDesignToDevices = useCallback(
+    (designId: string, dataModel: Record<string, unknown>) => {
+      // Server-side push: reads design from disk and sends full messages
+      // (createSurface + updateComponents + personalized updateDataModel)
+      // This avoids client-side SVG serialization issues
+      fetch("/api/devices/push-design", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ messages: [updateMsg] }),
+        body: JSON.stringify({ designId, dataModel }),
       })
         .then((res) => res.json())
         .then((data) => {
@@ -95,10 +96,10 @@ export default function ChatPage() {
       setSelectedDoc(updatedDoc);
       setSelectedDesignId(tileAction.tileId);
 
-      // Always attempt push (server returns pushed:0 if no devices)
-      pushToDevices(mergedDataModel, doc.surface.surfaceId);
+      // Push full design with personalized data to all connected devices
+      pushDesignToDevices(tileAction.tileId, mergedDataModel);
     },
-    [designs, pushToDevices]
+    [designs, pushDesignToDevices]
   );
 
   const sendMessage = async () => {
