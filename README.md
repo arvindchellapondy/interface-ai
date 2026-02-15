@@ -1,10 +1,8 @@
 <p align="center">
-  <img src="interface_full_logo.svg" alt="Interface.ai" width="120" />
+  <img src="interface_full_logo.svg" alt="Interface.ai" width="320" />
 </p>
 
-# Interface.ai
-
-**Design-to-native pipeline**: Extract UI components from Figma, represent them in a universal format (A2UI), preview and personalize in a web dashboard, and render natively on iOS and Android — all in real time.
+An AI-powered pipeline that takes UI designs from Figma to native iOS and Android apps. Extract components with a Figma plugin, preview and personalize with Claude in a live dashboard, and push updates to devices over WebSocket — instantly.
 
 ## Highlights
 
