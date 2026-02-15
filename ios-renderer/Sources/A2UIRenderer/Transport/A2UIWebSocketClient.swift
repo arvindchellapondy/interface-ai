@@ -81,18 +81,29 @@ public final class A2UIWebSocketClient {
     }
 
     private func handleMessage(_ text: String) {
-        // Expected format: {"type": "a2ui_messages", "messages": [...]}
-        guard let data = text.data(using: .utf8),
-              let wrapper = try? JSONDecoder().decode(WebSocketMessage.self, from: data) else {
-            // Try parsing as raw A2UI messages array
-            if let data = text.data(using: .utf8) {
-                _ = try? processor.processJSON(data)
-            }
-            return
-        }
+        guard let data = text.data(using: .utf8) else { return }
 
-        if wrapper.type == "a2ui_messages" {
-            processor.process(messages: wrapper.messages)
+        // Expected format: {"type": "a2ui_messages", "messages": [...]}
+        do {
+            let wrapper = try JSONDecoder().decode(WebSocketMessage.self, from: data)
+            if wrapper.type == "a2ui_messages" {
+                print("[A2UI WS] Received \(wrapper.messages.count) message(s)")
+                DispatchQueue.main.async { [weak self] in
+                    self?.processor.process(messages: wrapper.messages)
+                }
+            }
+        } catch {
+            // Try parsing as raw A2UI messages array
+            print("[A2UI WS] Wrapper decode failed: \(error), trying raw array...")
+            do {
+                let messages = try JSONDecoder().decode([A2UIMessage].self, from: data)
+                print("[A2UI WS] Raw array: \(messages.count) message(s)")
+                DispatchQueue.main.async { [weak self] in
+                    self?.processor.process(messages: messages)
+                }
+            } catch {
+                print("[A2UI WS] Raw array decode also failed: \(error)")
+            }
         }
     }
 

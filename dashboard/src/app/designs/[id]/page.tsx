@@ -47,20 +47,18 @@ export default function DesignDetailPage() {
     // Update local preview
     setDoc({ ...doc, dataModel: newModel });
 
-    // Update rawMessages so manual push also sends latest data
-    const updatedMessages = rawMessages.map((msg: unknown) => {
-      const m = msg as Record<string, unknown>;
-      if (m.updateDataModel) {
-        const udm = m.updateDataModel as Record<string, unknown>;
-        return { updateDataModel: { ...udm, path: "/", value: newModel } };
-      }
-      return msg;
-    });
-    setRawMessages(updatedMessages);
+    // Send only an incremental updateDataModel to connected devices (lightweight, no SVG)
+    const updateMsg = {
+      updateDataModel: {
+        surfaceId: doc.surface.surfaceId,
+        path: "/",
+        value: newModel,
+      },
+    };
 
-    // Debounce auto-push full messages to connected devices (300ms)
+    // Debounce auto-push to connected devices (300ms)
     if (pushTimerRef.current) clearTimeout(pushTimerRef.current);
-    pushTimerRef.current = setTimeout(() => pushToDevices(updatedMessages), 300);
+    pushTimerRef.current = setTimeout(() => pushToDevices([updateMsg]), 300);
   };
 
   return (
