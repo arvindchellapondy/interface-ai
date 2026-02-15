@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="logo.png" alt="Interface.ai" width="120" />
+  <img src="interface_logo.svg" alt="Interface.ai" width="120" />
 </p>
 
 # Interface.ai
