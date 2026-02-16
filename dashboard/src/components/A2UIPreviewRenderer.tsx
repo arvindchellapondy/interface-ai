@@ -197,7 +197,67 @@ function ContainerComponent({ component, componentMap, tokens, dataModel }: Comp
   );
 }
 
-function IconComponent({ component, tokens }: ComponentProps) {
+function isSwitchIcon(component: A2UIComponent): boolean {
+  if (component.component !== "Icon") return false;
+  const iconName = String(component.iconName || "").toLowerCase();
+  return iconName.includes("switch") || iconName.includes("toggle");
+}
+
+function SwitchComponent({ component, tokens }: ComponentProps) {
+  const style = resolveStyles(component.style, tokens);
+  const s = PREVIEW_SCALE;
+  const w = style.width ? Number(style.width) : 40 * s;
+  const h = style.height ? Number(style.height) : 24 * s;
+
+  return (
+    <label style={{ display: "inline-flex", alignItems: "center", cursor: "pointer", width: w, height: h }}>
+      <input
+        type="checkbox"
+        style={{ display: "none" }}
+        onChange={(e) => console.log("Switch toggled:", component.id, e.target.checked)}
+      />
+      <span
+        style={{
+          width: w,
+          height: h,
+          backgroundColor: "#e2e2e2",
+          borderRadius: h / 2,
+          position: "relative",
+          transition: "background-color 0.2s",
+          display: "inline-block",
+        }}
+        className="peer-checked:bg-blue-500"
+        onClick={(e) => {
+          const span = e.currentTarget;
+          const knob = span.firstChild as HTMLElement;
+          const isOn = knob.style.left !== "2px";
+          knob.style.left = isOn ? "2px" : `${w - h + 2}px`;
+          span.style.backgroundColor = isOn ? "#e2e2e2" : "#4CAF50";
+        }}
+      >
+        <span
+          style={{
+            position: "absolute",
+            top: 2,
+            left: 2,
+            width: h - 4,
+            height: h - 4,
+            backgroundColor: "white",
+            borderRadius: "50%",
+            boxShadow: "0 1px 3px rgba(0,0,0,0.3)",
+            transition: "left 0.2s",
+          }}
+        />
+      </span>
+    </label>
+  );
+}
+
+function IconComponent({ component, tokens, componentMap, dataModel }: ComponentProps) {
+  if (isSwitchIcon(component)) {
+    return <SwitchComponent component={component} tokens={tokens} componentMap={componentMap} dataModel={dataModel} />;
+  }
+
   const style = resolveStyles(component.style, tokens);
   const svgData = component.svgData as string | undefined;
 
@@ -314,6 +374,8 @@ function RenderComponent(props: ComponentProps) {
       return <ButtonComponent {...props} />;
     case "Icon":
       return <IconComponent {...props} />;
+    case "Switch":
+      return <SwitchComponent {...props} />;
     case "TextField":
       return <TextFieldComponent {...props} />;
     case "Card":

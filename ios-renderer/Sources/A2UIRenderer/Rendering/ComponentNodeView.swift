@@ -62,9 +62,24 @@ public struct ComponentNodeView: View {
             )
 
         case "Icon":
-            A2UIIconView(
+            if A2UISwitchView.isSwitchIcon(component) {
+                A2UISwitchView(
+                    component: component,
+                    tokenResolver: tokenResolver,
+                    onAction: onAction
+                )
+            } else {
+                A2UIIconView(
+                    component: component,
+                    tokenResolver: tokenResolver
+                )
+            }
+
+        case "Switch":
+            A2UISwitchView(
                 component: component,
-                tokenResolver: tokenResolver
+                tokenResolver: tokenResolver,
+                onAction: onAction
             )
 
         case "Image":
