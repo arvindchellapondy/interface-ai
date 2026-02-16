@@ -98,23 +98,34 @@ export function resolveToken(
   return token ? token.value : value;
 }
 
+function resolveTemplateTokens(text: string): string {
+  if (!text.includes("{{")) return text;
+  const now = new Date();
+  return text
+    .replace(/\{\{current_time\}\}/g, now.toLocaleTimeString([], { hour: "numeric", minute: "2-digit" }))
+    .replace(/\{\{current_time_24h\}\}/g, now.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit", hour12: false }))
+    .replace(/\{\{current_date\}\}/g, now.toLocaleDateString([], { month: "short", day: "numeric", year: "numeric" }))
+    .replace(/\{\{current_day\}\}/g, now.toLocaleDateString([], { weekday: "long" }));
+}
+
 export function resolveDataBinding(
   value: string | undefined,
   dataModel: Record<string, unknown>
 ): string {
   if (!value) return "";
   const match = value.match(/^\$\{\/(.+)\}$/);
-  if (!match) return value;
+  if (!match) return resolveTemplateTokens(value);
   const parts = match[1].split("/");
   let current: unknown = dataModel;
   for (const part of parts) {
     if (current && typeof current === "object" && part in (current as Record<string, unknown>)) {
       current = (current as Record<string, unknown>)[part];
     } else {
-      return value;
+      return resolveTemplateTokens(value);
     }
   }
-  return typeof current === "string" ? current : String(current);
+  const resolved = typeof current === "string" ? current : String(current);
+  return resolveTemplateTokens(resolved);
 }
 
 export function resolveStyleValue(

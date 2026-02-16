@@ -1,0 +1,452 @@
+[
+  {
+    "createSurface": {
+      "surfaceId": "widget_login_form",
+      "catalogId": "standard_catalog_v0.9",
+      "sendDataModel": true,
+      "designTokens": {
+        "interactive border radius.--radius-i-sm": {
+          "value": "8",
+          "collection": "Tokens"
+        },
+        "Main.gohan": {
+          "value": "#ffffff",
+          "collection": "Colors"
+        },
+        "Interactive border radius.--radius-i-sm": {
+          "value": "8",
+          "collection": "Colors"
+        },
+        "Main.beerus": {
+          "value": "#e2e2e2",
+          "collection": "Colors"
+        },
+        "py.2": {
+          "value": "8",
+          "collection": "Primitives"
+        },
+        "px.3": {
+          "value": "12",
+          "collection": "Primitives"
+        },
+        "Main.trunks": {
+          "value": "#595d62",
+          "collection": "Colors"
+        },
+        "Supportive.dodoria": {
+          "value": "#d33030",
+          "collection": "Colors"
+        },
+        "Interactive border radius.--radius-i-xs": {
+          "value": "4",
+          "collection": "Colors"
+        },
+        "Paddings & Gaps.p-1": {
+          "value": "4",
+          "collection": "Colors"
+        },
+        "Paddings & Gaps.p-2": {
+          "value": "8",
+          "collection": "Colors"
+        },
+        "gap.0": {
+          "value": "0",
+          "collection": "Primitives"
+        },
+        "Main.goten": {
+          "value": "#ffffff",
+          "collection": "Colors"
+        },
+        "Supportive.dodoria-60": {
+          "value": "#d330308f",
+          "collection": "Colors"
+        }
+      }
+    }
+  },
+  {
+    "updateComponents": {
+      "surfaceId": "widget_login_form",
+      "components": [
+        {
+          "id": "placeholder",
+          "component": "Text",
+          "text": "${/placeholder/text}",
+          "style": {
+            "width": 216,
+            "height": 24,
+            "color": "{Main.trunks}",
+            "fontSize": 14,
+            "fontFamily": "DM Sans",
+            "fontWeight": "Regular",
+            "lineHeight": 24,
+            "textAlign": "left",
+            "layoutSizingHorizontal": "fill",
+            "layoutSizingVertical": "hug"
+          }
+        },
+        {
+          "id": "input_container",
+          "component": "TextField",
+          "children": {
+            "explicitList": [
+              "placeholder"
+            ]
+          },
+          "style": {
+            "width": 240,
+            "height": 40,
+            "backgroundColor": "{Main.gohan}",
+            "cornerRadius": "{Interactive border radius.--radius-i-sm}",
+            "borderColor": "{Main.beerus}",
+            "borderWidth": 1,
+            "paddingTop": "{py.2}",
+            "paddingRight": "{px.3}",
+            "paddingBottom": "{py.2}",
+            "paddingLeft": "{px.3}",
+            "mainAxisAlignment": "min",
+            "crossAxisAlignment": "min",
+            "layoutSizingHorizontal": "fill",
+            "layoutSizingVertical": "hug"
+          }
+        },
+        {
+          "id": "insert_your_text",
+          "component": "Text",
+          "text": "${/insert_your_text/text}",
+          "style": {
+            "width": 216,
+            "height": 16,
+            "color": "#999ca0",
+            "fontSize": 12,
+            "fontFamily": "DM Sans",
+            "fontWeight": "Regular",
+            "lineHeight": 16,
+            "textAlign": "left",
+            "layoutSizingHorizontal": "fill",
+            "layoutSizingVertical": "hug"
+          }
+        },
+        {
+          "id": "supporting_text",
+          "component": "Row",
+          "children": {
+            "explicitList": [
+              "insert_your_text"
+            ]
+          },
+          "style": {
+            "width": 240,
+            "height": 16,
+            "paddingTop": 0,
+            "paddingRight": 12,
+            "paddingBottom": 0,
+            "paddingLeft": 12,
+            "mainAxisAlignment": "min",
+            "crossAxisAlignment": "min",
+            "layoutSizingVertical": "hug"
+          }
+        },
+        {
+          "id": "mds_public_tw_text_input",
+          "component": "TextField",
+          "children": {
+            "explicitList": [
+              "input_container",
+              "supporting_text"
+            ]
+          },
+          "style": {
+            "width": 240,
+            "height": 40,
+            "backgroundColor": "#ffffff",
+            "cornerRadius": "{interactive border radius.--radius-i-sm}",
+            "paddingTop": 0,
+            "paddingRight": 0,
+            "paddingBottom": 0,
+            "paddingLeft": 0,
+            "gap": 8,
+            "mainAxisAlignment": "min",
+            "crossAxisAlignment": "min",
+            "layoutSizingVertical": "hug"
+          }
+        },
+        {
+          "id": "placeholder_2",
+          "component": "Text",
+          "text": "${/placeholder_2/text}",
+          "style": {
+            "width": 216,
+            "height": 24,
+            "color": "{Main.trunks}",
+            "fontSize": 14,
+            "fontFamily": "DM Sans",
+            "fontWeight": "Regular",
+            "lineHeight": 24,
+            "textAlign": "left",
+            "layoutSizingHorizontal": "fill",
+            "layoutSizingVertical": "hug"
+          }
+        },
+        {
+          "id": "input_container_2",
+          "component": "TextField",
+          "children": {
+            "explicitList": [
+              "placeholder_2"
+            ]
+          },
+          "style": {
+            "width": 240,
+            "height": 40,
+            "backgroundColor": "{Main.gohan}",
+            "cornerRadius": "{Interactive border radius.--radius-i-sm}",
+            "borderColor": "{Main.beerus}",
+            "borderWidth": 1,
+            "paddingTop": "{py.2}",
+            "paddingRight": "{px.3}",
+            "paddingBottom": "{py.2}",
+            "paddingLeft": "{px.3}",
+            "mainAxisAlignment": "min",
+            "crossAxisAlignment": "min",
+            "layoutSizingHorizontal": "fill",
+            "layoutSizingVertical": "hug"
+          }
+        },
+        {
+          "id": "insert_your_text_2",
+          "component": "Text",
+          "text": "${/insert_your_text_2/text}",
+          "style": {
+            "width": 216,
+            "height": 16,
+            "color": "#999ca0",
+            "fontSize": 12,
+            "fontFamily": "DM Sans",
+            "fontWeight": "Regular",
+            "lineHeight": 16,
+            "textAlign": "left",
+            "layoutSizingHorizontal": "fill",
+            "layoutSizingVertical": "hug"
+          }
+        },
+        {
+          "id": "supporting_text_2",
+          "component": "Row",
+          "children": {
+            "explicitList": [
+              "insert_your_text_2"
+            ]
+          },
+          "style": {
+            "width": 240,
+            "height": 16,
+            "paddingTop": 0,
+            "paddingRight": 12,
+            "paddingBottom": 0,
+            "paddingLeft": 12,
+            "mainAxisAlignment": "min",
+            "crossAxisAlignment": "min",
+            "layoutSizingVertical": "hug"
+          }
+        },
+        {
+          "id": "mds_public_tw_text_input_2",
+          "component": "TextField",
+          "children": {
+            "explicitList": [
+              "input_container_2",
+              "supporting_text_2"
+            ]
+          },
+          "style": {
+            "width": 240,
+            "height": 40,
+            "backgroundColor": "#ffffff",
+            "cornerRadius": "{interactive border radius.--radius-i-sm}",
+            "paddingTop": 0,
+            "paddingRight": 0,
+            "paddingBottom": 0,
+            "paddingLeft": 0,
+            "gap": 8,
+            "mainAxisAlignment": "min",
+            "crossAxisAlignment": "min",
+            "layoutSizingVertical": "hug"
+          }
+        },
+        {
+          "id": "mds_public_tw_button",
+          "component": "Button",
+          "label": "${/mds_public_tw_button/label}",
+          "action": {
+            "event": {
+              "name": "mds_public_tw_button_click"
+            }
+          },
+          "style": {
+            "width": 48,
+            "height": 24,
+            "backgroundColor": "{Supportive.dodoria}",
+            "cornerRadius": "{Interactive border radius.--radius-i-xs}",
+            "paddingTop": "{Paddings & Gaps.p-1}",
+            "paddingRight": "{Paddings & Gaps.p-2}",
+            "paddingBottom": "{Paddings & Gaps.p-1}",
+            "paddingLeft": "{Paddings & Gaps.p-2}",
+            "gap": "{gap.0}",
+            "mainAxisAlignment": "center",
+            "crossAxisAlignment": "center",
+            "layoutSizingHorizontal": "hug",
+            "layoutSizingVertical": "hug"
+          },
+          "labelStyle": {
+            "width": 32,
+            "height": 16,
+            "color": "{Main.goten}",
+            "fontSize": 12,
+            "fontFamily": "DM Sans",
+            "fontWeight": "Bold",
+            "lineHeight": 16,
+            "textAlign": "center",
+            "layoutSizingHorizontal": "hug",
+            "layoutSizingVertical": "hug"
+          }
+        },
+        {
+          "id": "mds_public_tw_button_2",
+          "component": "Button",
+          "label": "${/mds_public_tw_button_2/label}",
+          "action": {
+            "event": {
+              "name": "mds_public_tw_button_2_click"
+            }
+          },
+          "style": {
+            "width": 60,
+            "height": 24,
+            "backgroundColor": "{Supportive.dodoria-60}",
+            "cornerRadius": "{Interactive border radius.--radius-i-xs}",
+            "paddingTop": "{Paddings & Gaps.p-1}",
+            "paddingRight": "{Paddings & Gaps.p-2}",
+            "paddingBottom": "{Paddings & Gaps.p-1}",
+            "paddingLeft": "{Paddings & Gaps.p-2}",
+            "gap": "{gap.0}",
+            "mainAxisAlignment": "center",
+            "crossAxisAlignment": "center",
+            "layoutSizingHorizontal": "hug",
+            "layoutSizingVertical": "hug"
+          },
+          "labelStyle": {
+            "width": 44,
+            "height": 16,
+            "color": "{Main.goten}",
+            "fontSize": 12,
+            "fontFamily": "DM Sans",
+            "fontWeight": "Bold",
+            "lineHeight": 16,
+            "textAlign": "center",
+            "layoutSizingHorizontal": "hug",
+            "layoutSizingVertical": "hug"
+          }
+        },
+        {
+          "id": "frame_1",
+          "component": "Row",
+          "children": {
+            "explicitList": [
+              "mds_public_tw_button",
+              "mds_public_tw_button_2"
+            ]
+          },
+          "style": {
+            "width": 132,
+            "height": 24,
+            "paddingTop": 0,
+            "paddingRight": 0,
+            "paddingBottom": 0,
+            "paddingLeft": 0,
+            "gap": 24,
+            "mainAxisAlignment": "min",
+            "crossAxisAlignment": "center",
+            "layoutSizingHorizontal": "hug",
+            "layoutSizingVertical": "hug"
+          }
+        },
+        {
+          "id": "frame_2",
+          "component": "Column",
+          "children": {
+            "explicitList": [
+              "mds_public_tw_text_input",
+              "mds_public_tw_text_input_2",
+              "frame_1"
+            ]
+          },
+          "style": {
+            "width": 240,
+            "height": 148,
+            "paddingTop": 0,
+            "paddingRight": 0,
+            "paddingBottom": 0,
+            "paddingLeft": 0,
+            "gap": 22,
+            "mainAxisAlignment": "min",
+            "crossAxisAlignment": "center",
+            "layoutSizingHorizontal": "hug",
+            "layoutSizingVertical": "hug"
+          }
+        },
+        {
+          "id": "root",
+          "component": "Column",
+          "children": {
+            "explicitList": [
+              "frame_2"
+            ]
+          },
+          "style": {
+            "width": 272,
+            "height": 180,
+            "cornerRadius": 16,
+            "borderColor": "#c8c8c8",
+            "borderWidth": 1,
+            "paddingTop": 16,
+            "paddingRight": 16,
+            "paddingBottom": 16,
+            "paddingLeft": 16,
+            "gap": 10,
+            "mainAxisAlignment": "min",
+            "crossAxisAlignment": "min",
+            "layoutSizingHorizontal": "hug",
+            "layoutSizingVertical": "hug"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "updateDataModel": {
+      "surfaceId": "widget_login_form",
+      "path": "/",
+      "value": {
+        "placeholder": {
+          "text": "Username"
+        },
+        "insert_your_text": {
+          "text": "Informative message holder"
+        },
+        "placeholder_2": {
+          "text": "Password"
+        },
+        "insert_your_text_2": {
+          "text": "Informative message holder"
+        },
+        "mds_public_tw_button": {
+          "label": "Login"
+        },
+        "mds_public_tw_button_2": {
+          "label": "Sign up"
+        }
+      }
+    }
+  }
+]

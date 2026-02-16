@@ -226,6 +226,84 @@ function IconComponent({ component, tokens }: ComponentProps) {
   );
 }
 
+function TextFieldComponent({ component, componentMap, tokens, dataModel }: ComponentProps) {
+  const childIds = component.children?.explicitList || [];
+  const s = PREVIEW_SCALE;
+
+  // Check if all children are Text components — this is the actual input field
+  const isInputField = childIds.length === 0 || childIds.every((id) => {
+    const child = componentMap.get(id);
+    return child?.component === "Text";
+  });
+
+  if (isInputField) {
+    // Extract placeholder from child Text component
+    let placeholder = "";
+    let placeholderStyle: React.CSSProperties = {};
+    for (const childId of childIds) {
+      const child = componentMap.get(childId);
+      if (child?.component === "Text") {
+        placeholder = resolveDataBinding(child.text, dataModel);
+        const cStyle = child.style || {};
+        const cr = (key: string) => resolveStyleValue(cStyle, key, tokens);
+        placeholderStyle = {
+          color: cr("color") ? String(cr("color")) : undefined,
+          fontSize: cr("fontSize") ? Number(cr("fontSize")) * s : undefined,
+          fontFamily: cr("fontFamily") ? `"${String(cr("fontFamily"))}", sans-serif` : undefined,
+          fontWeight: cr("fontWeight") ? (String(cr("fontWeight")) as React.CSSProperties["fontWeight"]) : undefined,
+        };
+        break;
+      }
+    }
+
+    const containerStyle = resolveStyles(component.style, tokens);
+
+    return (
+      <input
+        type="text"
+        placeholder={placeholder}
+        style={{
+          ...containerStyle,
+          ...placeholderStyle,
+          outline: "none",
+          boxSizing: "border-box",
+        }}
+      />
+    );
+  }
+
+  // Wrapper — render as column container
+  const cStyle = component.style || {};
+  const r = (key: string) => resolveStyleValue(cStyle, key, tokens);
+  const style = resolveStyles(component.style, tokens);
+  const mainAlign = r("mainAxisAlignment") ? String(r("mainAxisAlignment")) : undefined;
+  const crossAlign = r("crossAxisAlignment") ? String(r("crossAxisAlignment")) : undefined;
+
+  return (
+    <div style={{
+      ...style,
+      display: "flex",
+      flexDirection: "column",
+      justifyContent: mapMainAxisAlign(mainAlign),
+      alignItems: mapCrossAxisAlign(crossAlign),
+    }}>
+      {childIds.map((childId) => {
+        const child = componentMap.get(childId);
+        if (!child) return null;
+        return (
+          <RenderComponent
+            key={childId}
+            component={child}
+            componentMap={componentMap}
+            tokens={tokens}
+            dataModel={dataModel}
+          />
+        );
+      })}
+    </div>
+  );
+}
+
 function RenderComponent(props: ComponentProps) {
   const { component } = props;
 
@@ -236,6 +314,8 @@ function RenderComponent(props: ComponentProps) {
       return <ButtonComponent {...props} />;
     case "Icon":
       return <IconComponent {...props} />;
+    case "TextField":
+      return <TextFieldComponent {...props} />;
     case "Card":
     case "Row":
     case "Column":

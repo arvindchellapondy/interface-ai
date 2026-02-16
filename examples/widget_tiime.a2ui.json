@@ -1,0 +1,76 @@
+[
+  {
+    "createSurface": {
+      "surfaceId": "widget_tiime",
+      "catalogId": "standard_catalog_v0.9",
+      "sendDataModel": true,
+      "designTokens": {
+        "Main.zeno": {
+          "value": "#0000008f",
+          "collection": "Colors"
+        }
+      }
+    }
+  },
+  {
+    "updateComponents": {
+      "surfaceId": "widget_tiime",
+      "components": [
+        {
+          "id": "6_39_pm",
+          "component": "Text",
+          "text": "${/6_39_pm/text}",
+          "style": {
+            "width": 116,
+            "height": 40,
+            "color": "{Main.zeno}",
+            "fontSize": 32,
+            "fontFamily": "DM Sans",
+            "fontWeight": "Bold",
+            "lineHeight": 40,
+            "letterSpacing": -0.5,
+            "textAlign": "center",
+            "layoutSizingHorizontal": "hug",
+            "layoutSizingVertical": "hug"
+          }
+        },
+        {
+          "id": "root",
+          "component": "Column",
+          "children": {
+            "explicitList": [
+              "6_39_pm"
+            ]
+          },
+          "style": {
+            "width": 148,
+            "height": 72,
+            "cornerRadius": 16,
+            "borderColor": "#c8c8c8",
+            "borderWidth": 1,
+            "paddingTop": 16,
+            "paddingRight": 16,
+            "paddingBottom": 16,
+            "paddingLeft": 16,
+            "gap": 10,
+            "mainAxisAlignment": "min",
+            "crossAxisAlignment": "min",
+            "layoutSizingHorizontal": "hug",
+            "layoutSizingVertical": "hug"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "updateDataModel": {
+      "surfaceId": "widget_tiime",
+      "path": "/",
+      "value": {
+        "6_39_pm": {
+          "text": "6:39 PM"
+        }
+      }
+    }
+  }
+]

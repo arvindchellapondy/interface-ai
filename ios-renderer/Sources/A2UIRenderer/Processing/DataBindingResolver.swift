@@ -17,7 +17,9 @@ public struct DataBindingResolver {
         guard let value, !value.isEmpty else { return "" }
 
         // Check for data binding pattern: ${/path/to/value}
-        guard value.hasPrefix("${/"), value.hasSuffix("}") else { return value }
+        guard value.hasPrefix("${/"), value.hasSuffix("}") else {
+            return resolveTemplateTokens(value)
+        }
 
         let path = String(value.dropFirst(3).dropLast()) // strip "${/" and "}"
         let parts = path.split(separator: "/").map(String.init)
@@ -25,20 +27,54 @@ public struct DataBindingResolver {
         var current: JSONValue = .object(dataModel)
         for part in parts {
             guard let obj = current.objectValue, let next = obj[part] else {
-                return value // Return original if path doesn't resolve
+                return resolveTemplateTokens(value) // Return original if path doesn't resolve
             }
             current = next
         }
 
         switch current {
-        case .string(let s): return s
+        case .string(let s): return resolveTemplateTokens(s)
         case .number(let n):
             if n == n.rounded() && n < 1_000_000 {
                 return String(Int(n))
             }
             return String(n)
         case .bool(let b): return String(b)
-        default: return value
+        default: return resolveTemplateTokens(value)
         }
+    }
+
+    /// Replace template tokens like {{current_time}}, {{current_date}} with device values.
+    private func resolveTemplateTokens(_ text: String) -> String {
+        guard text.contains("{{") else { return text }
+
+        var result = text
+        let now = Date()
+
+        if result.contains("{{current_time}}") {
+            let formatter = DateFormatter()
+            formatter.dateFormat = "h:mm a"
+            result = result.replacingOccurrences(of: "{{current_time}}", with: formatter.string(from: now))
+        }
+
+        if result.contains("{{current_time_24h}}") {
+            let formatter = DateFormatter()
+            formatter.dateFormat = "HH:mm"
+            result = result.replacingOccurrences(of: "{{current_time_24h}}", with: formatter.string(from: now))
+        }
+
+        if result.contains("{{current_date}}") {
+            let formatter = DateFormatter()
+            formatter.dateStyle = .medium
+            result = result.replacingOccurrences(of: "{{current_date}}", with: formatter.string(from: now))
+        }
+
+        if result.contains("{{current_day}}") {
+            let formatter = DateFormatter()
+            formatter.dateFormat = "EEEE"
+            result = result.replacingOccurrences(of: "{{current_day}}", with: formatter.string(from: now))
+        }
+
+        return result
     }
 }

@@ -74,6 +74,15 @@ public struct ComponentNodeView: View {
                 dataResolver: dataResolver
             )
 
+        case "TextField":
+            A2UITextFieldView(
+                component: component,
+                surface: surface,
+                tokenResolver: tokenResolver,
+                dataResolver: dataResolver,
+                onAction: onAction
+            )
+
         default:
             // Fallback: render as a VStack container if it has children
             let childIds = surface.childIds(for: component)

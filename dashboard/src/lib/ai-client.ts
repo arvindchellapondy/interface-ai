@@ -39,7 +39,12 @@ User context: ${userContext}
 
 Your job: Generate personalized replacement values for each data path to make the widget relevant and engaging for this user.
 
-IMPORTANT: Only modify text content values. Do not change the UI structure.
+RULES:
+- Only modify text content values. Do not change the UI structure.
+- All values MUST be plain text strings. Never use code expressions like new Date() or function calls.
+- For time values, use the template token {{current_time}} which the renderer will replace with the device's actual current time.
+- For date values, use {{current_date}} for the date or {{current_day}} for the weekday name.
+- Every value must be a valid JSON string literal (e.g. "Hello" not Hello).
 
 Respond in this exact JSON format:
 {
@@ -49,13 +54,20 @@ Respond in this exact JSON format:
   "reasoning": "Brief explanation of personalization choices"
 }
 
-Respond with ONLY the JSON, no markdown fences.`,
+Respond with ONLY valid JSON, no markdown fences, no code expressions.`,
       },
     ],
   });
 
-  const text =
+  let text =
     message.content[0].type === "text" ? message.content[0].text : "";
+
+  // Strip markdown fences if present
+  text = text.replace(/^```(?:json)?\s*\n?/i, "").replace(/\n?```\s*$/i, "").trim();
+
+  // Replace common code expressions with template tokens
+  text = text.replace(/new Date\(\)[^"]*"/g, '{{current_time}}"');
+
   return JSON.parse(text) as PersonalizedResult;
 }
 
